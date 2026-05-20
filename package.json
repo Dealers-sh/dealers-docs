@@ -1,0 +1,27 @@
+{
+  "name": "dealers-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Documentation site for Dealers.sh / docs.dealers.sh",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "nextra": "4.6.1",
+    "nextra-theme-docs": "4.6.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3"
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}

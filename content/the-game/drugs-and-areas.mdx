@@ -1,0 +1,33 @@
+---
+title: Drugs & Areas
+description: Reference. What's available where. Rarities by drug.
+---
+
+# /the-game/drugs-and-areas
+
+The reference table.
+
+## Drugs
+
+Each drug has its own rarity and its own price band. Common drugs are widely available across areas. Rare drugs only appear in specific spots.
+
+> **TODO:** populate the full drug list with rarity tiers from `DEDrugRegistry`. Pull from on-chain rather than maintaining a copy here.
+
+Examples (non-exhaustive): Weed, Speed, Cocaine.
+
+## Areas
+
+Each area has:
+
+- A name (Manhattan and others).
+- A type: **streets**, **safe house**, **black market**, **jail**.
+- A drug list available for buying and selling.
+- A local price band that swings around a base value.
+
+> **TODO:** populate the full area list from `DEAreaRegistry`.
+
+## The pattern
+
+Where you'd expect a price drop, prices drop. Specific drugs cluster in specific neighborhoods. The arbitrage isn't hidden. You just have to remember it.
+
+This page will become the canonical lookup table once the registries are finalized for mainnet.

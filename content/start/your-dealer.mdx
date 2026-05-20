@@ -1,0 +1,37 @@
+---
+title: Your Dealer
+description: What the Dealers.sh NFT is and how its state changes as you play.
+---
+
+# /start/your-dealer
+
+Your dealer is an NFT. That sounds boring. Here's the twist.
+
+## The art is in the contract
+
+When the NFT loads, the bytecode renders an SVG character and embeds a playable game inside the `animation_url`. No IPFS. No off-chain renderer. No hosting bill we forget to pay. The character and the game are both on Abstract.
+
+We are quietly proud of this. See [/the-art/rendering](/the-art/rendering) for how it works.
+
+## Dynamic state, on chain
+
+The NFT is not a static picture. Every dealer has live state:
+
+| Stat | What it means |
+| --- | --- |
+| **REP** | Reputation. Your standing in the family. Earned through deals. |
+| **Heat** | Police attention, 0 to 5. Higher means jail risk. |
+| **Cash** | Working capital. Buys stash, boosts, travel, bail. |
+| **Stash** | Drugs you hold. Tracked by type and amount. |
+| **Attempts** | Actions left this period. Refills over time. |
+| **Infamy** | What other dealers see when they see your tag. |
+
+Every one of those numbers lives on chain. You move them. We don't.
+
+Your dealer levels up. Your JPEG doesn't.
+
+## Traits and rarity
+
+Each dealer has a randomized look at mint: hair, clothing, accessories, background, the lot. The trait distribution is documented in [/the-art/rarity](/the-art/rarity).
+
+Rarity affects your look. It does not gate gameplay. A common dealer with a high REP outranks a 1/1 with a clean record.

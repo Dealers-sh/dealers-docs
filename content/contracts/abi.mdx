@@ -1,0 +1,42 @@
+---
+title: ABI & Source
+description: Where to find Dealers.sh contract source and ABIs.
+---
+
+# /contracts/abi
+
+Source over hand-waving.
+
+## Source
+
+The contracts repo:
+
+> **TODO:** publish the contracts repo URL when it goes public for audit. Until then it lives in the private `dealers-exe-contracts/` directory.
+
+## ABIs
+
+Per-contract ABIs are available three ways:
+
+1. **From the explorer.** Each verified contract on Abstract exposes its ABI on the contract page. See [/contracts/addresses](/contracts/addresses).
+2. **From the repo.** Once public, `dealers-exe-contracts/abi/*.json` will contain machine-readable ABIs for every deployed contract.
+3. **From the SDK.** When a TypeScript SDK ships, it will re-export typed ABIs.
+
+## Conventions
+
+- Solidity 0.8.x.
+- Strict no-libraries on critical paths. We prefer fewer dependencies over fancy ones.
+- All errors are custom errors. No revert strings.
+- All events are documented inline.
+
+## Reading order, if you're new
+
+If you want to read the codebase end-to-end, start here:
+
+1. `DealersExeNFT`. The data layout.
+2. `DealersExeActions`. How user calls dispatch.
+3. `DealersExePVE`. The most-used path.
+4. `DealersExePVP`. The second-most-used.
+5. The registries (`DEDrugRegistry`, `DEAreaRegistry`). The data model.
+6. The renderers (`DealerRendererSVG`, `DealerRendererHTML`). How the art is built.
+
+Skip `DealersExeMulticall` until you actually need it. It's plumbing.

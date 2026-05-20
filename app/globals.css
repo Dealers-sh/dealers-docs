@@ -1,0 +1,210 @@
+/* ============================================================
+   Dealers.sh Docs.
+   Two-font system:
+     - Inter for body text (real reading font).
+     - Source Code Pro for headings, stamps, logo wordmark (the
+       "terminal brand" element).
+     - Fira Mono for inline code, code blocks, and tables (technical
+       content that should align by column).
+   Dark by default; gold accent (#FFE600) for special elements.
+   Font variables are injected by next/font in app/layout.jsx.
+   ============================================================ */
+
+:root {
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-source-code), 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-code: var(--font-fira-mono), 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root,
+:root[data-theme='light'],
+html.light {
+  --dealers-bg: #f5f5f0;
+  --dealers-fg: #0a0a0a;
+  --dealers-muted: #555;
+  --dealers-rule: #d4d4cf;
+  --dealers-gold: #b88a00;
+}
+
+:root[data-theme='dark'],
+html.dark {
+  --dealers-bg: #000000;
+  --dealers-fg: #f0f0e8;
+  --dealers-muted: #8a8a82;
+  --dealers-rule: #1c1c1c;
+  --dealers-gold: #ffe600;
+}
+
+html,
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  background: var(--dealers-bg);
+  color: var(--dealers-fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Article reading column. */
+article {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+article p,
+article li {
+  font-family: var(--font-body);
+}
+
+article p {
+  margin-block: 0.75em;
+}
+
+article ul,
+article ol {
+  padding-left: 1.4em;
+}
+
+article li + li {
+  margin-top: 0.2em;
+}
+
+/* Headings: terminal stamp treatment. */
+article h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+article h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--dealers-rule);
+  padding-bottom: 0.3rem;
+  margin-top: 2.2em;
+}
+
+article h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  margin-top: 1.6em;
+}
+
+article h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+article a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* Inline + block code. */
+article code {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+}
+
+article pre code {
+  font-size: 0.85em;
+  line-height: 1.55;
+}
+
+/* Tables: technical content, mono for column alignment. */
+article table {
+  font-family: var(--font-code);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+article table th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+article table code {
+  font-size: 0.92em;
+}
+
+/* Blockquote / callouts. */
+article blockquote {
+  font-family: var(--font-body);
+  font-style: normal;
+  border-left: 3px solid var(--dealers-gold);
+  padding: 0.5em 1em;
+  margin-block: 1.2em;
+  background: color-mix(in oklab, var(--dealers-gold) 6%, transparent);
+}
+
+/* The SVG docs logo in the navbar. */
+.docs-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dealers-fg);
+  text-decoration: none;
+}
+
+.docs-logo-svg {
+  height: 24px;
+  width: auto;
+  display: block;
+  color: var(--dealers-fg); /* drives the currentColor fills */
+}
+
+/* Footer. */
+.dealers-footer {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--dealers-fg);
+  line-height: 1.6;
+}
+
+.dealers-footer-muted {
+  color: var(--dealers-muted);
+  font-size: 0.85em;
+}
+
+.dealers-footer a {
+  color: var(--dealers-muted);
+  text-decoration: underline;
+}
+
+/* Stamp boxes for inline MDX use. */
+.dealers-stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--dealers-fg);
+  background: transparent;
+}
+
+.dealers-stamp.gold {
+  color: var(--dealers-gold);
+  border-color: var(--dealers-gold);
+}
+
+/* Sidebar typography. Keep it scannable, not stamp-loud. */
+.nextra-sidebar a {
+  font-family: var(--font-body);
+}

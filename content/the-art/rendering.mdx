@@ -1,0 +1,39 @@
+---
+title: Rendering
+description: How the Dealers.sh NFT renders its art and embeds the game.
+---
+
+# /the-art/rendering
+
+We are quietly proud of this. Here's how it works.
+
+## The pipeline
+
+1. The dealer's traits are stored on chain as packed bits.
+2. `DealerRendererSVG.sol` reads those bits and assembles an SVG character from on-chain trait fragments.
+3. `DealerRendererHTML.sol` wraps the SVG in a playable HTML game. The game itself is the [dealers-app](https://github.com/dealers-sh) build, gzipped and stored via `FileStore.sol`.
+4. When a marketplace reads `tokenURI`, it gets back metadata + a complete `animation_url` data URI.
+5. The viewer renders the SVG behind the UI. The UI is a self-contained React app. It talks to the rest of the contracts over `window.ethereum`.
+
+## What's actually on chain
+
+- The trait fragments (SVG paths).
+- The trait assignment for every token.
+- The game HTML/JS/CSS, gzipped.
+- The contract that stitches them together.
+
+What is **not** on chain: nothing important. No off-chain server holds anything you need to play.
+
+## Why this matters
+
+No servers means no servers to go down. No storage means no link to break. No hosting means no bill we forget to pay.
+
+If Abstract is up, your dealer is up. That's the deal.
+
+## Read it yourself
+
+- [`DealerRendererSVG`](/contracts/addresses)
+- [`DealerRendererHTML`](/contracts/addresses)
+- `FileStore` contract address on Abstract.
+
+The source is verified. Read the bytecode if you'd rather.

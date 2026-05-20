@@ -1,0 +1,49 @@
+---
+title: Overview
+description: The Dealers.sh contract graph on Abstract.
+---
+
+# /contracts/overview
+
+It's not a roadmap, it's a contract. Read it.
+
+## The graph
+
+Dealers.sh is a set of small contracts that compose. The split keeps each piece auditable.
+
+| Contract | What it does |
+| --- | --- |
+| `DealersExeNFT` | The ERC-721 itself. Holds ownership and per-token state. |
+| `DealersExeCore` | Shared game state and configuration. |
+| `DealersExeActions` | Routes player actions to the right module. |
+| `DealersExePVE` | Buy / sell / clear-heat / black market resolution. |
+| `DealersExePVP` | Same-area player-vs-player attacks. |
+| `DealersExeBoosts` | Time-limited multipliers. Grinder / Hustler / Kingpin. |
+| `DEDrugRegistry` | The drug catalogue: types, rarities, base values. |
+| `DEAreaRegistry` | The area catalogue: names, types, price bands. |
+| `DealersExeClaims` | Achievement verification and reward issuance. |
+| `DealersExeMulticall` | Batched reads/writes for the in-NFT UI. |
+| `DealersExePaymentHandler` | Cash flows: mint, bail, shop, travel. |
+| `DealersExeRandomness` | Resolution source for stochastic outcomes. |
+| `DealersExeChatFactory` | On-chain chat / pager log per token. |
+| `DealerRendererSVG` | Builds the character SVG from packed traits. |
+| `DealerRendererHTML` | Wraps the SVG and the embedded game into `animation_url`. |
+
+## How a deal flows
+
+A buy in plain English:
+
+1. Player taps BUY in the 🤝 tab. UI builds the call.
+2. `DealersExeActions` routes the call to `DealersExePVE`.
+3. PVE pulls drug data from `DEDrugRegistry` and area data from `DEAreaRegistry`.
+4. PVE asks `DealersExeRandomness` for a roll.
+5. PVE resolves the matchup, updates the dealer's state on `DealersExeCore`.
+6. `DealersExePaymentHandler` settles cash.
+7. The chat log appends via `DealersExeChatFactory`. The pager picks it up.
+8. The UI reads the new state and renders.
+
+Every step is a public, verified contract on Abstract. See [/contracts/addresses](/contracts/addresses).
+
+## Diagram
+
+> **TODO:** publish the contract-graph diagram (SVG) once the audit is signed off.

@@ -1,0 +1,26 @@
+---
+title: Leaderboard
+description: How the Dealers.sh leaderboard is computed.
+---
+
+# /progression/leaderboard
+
+Global standing.
+
+> **TODO:** finalize and publish leaderboard contract and refresh cadence.
+
+## What ranks the board
+
+Primary sort: REP. Tiebreak: Infamy. Second tiebreak: cash on hand.
+
+The board reads on-chain state. There's no separate ledger. If it doesn't match the contract, the contract wins.
+
+## Refresh cadence
+
+The leaderboard view refreshes on a schedule. State changes are immediate on chain; the displayed sort updates at the refresh boundary.
+
+## Why you'd care
+
+- Position on the board may gate certain seasonal achievements.
+- Heists and gang formation may use board position as a tiebreaker.
+- It looks good on a profile.
