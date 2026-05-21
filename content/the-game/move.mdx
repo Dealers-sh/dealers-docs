@@ -1,43 +1,28 @@
 ---
 title: Move
-description: The ✈️ tab. Travel between areas. Prices and drugs change by area.
+description: The ✈️ tab. Travel between areas. Every area has its own prices, its own drugs, and its own crowd.
 ---
 
 # /the-game/move
 
-The ✈️ tab. The whole reason buy low, sell high works.
+The ✈️ tab is what makes the rest of the game work. Every area in Dealers.sh has its own price list and its own selection of available drugs, which means the only way to profit from price differences is to travel between them. Without movement, there is no arbitrage, and without arbitrage there is no game.
 
-## Why move
+## Why you would move
 
-Every area is its own market. Prices for the same drug differ between areas. Some drugs don't exist in some areas. Travel is the arbitrage.
+There are several distinct reasons to relocate, and most experienced players cycle through all of them in a session. The most common reason is price arbitrage: you have bought stock in one area and want to sell it where the local price is higher. The second reason is heat management: a Safe House lets you sit out for a stretch and cool down without spending cash on the Clear Heat action. The third reason is PVP: a different area means a different list of potential targets, which is useful if your current area's pool of dealers has gone stale or hostile.
 
-There are also special area types:
+## Types of areas
 
-- **Streets.** Normal dealing. The default.
-- **Safe House.** No deals here. You're laying low. Useful for cooling heat without spending cash.
-- **Black Market.** A separate vendor with its own prices. Sometimes the right exit.
-- **Jail.** Not somewhere you wanted to go. See [/the-game/jail](/the-game/jail).
+Most areas you encounter are normal streets, which means full access to the deal tab, the PVP tab, and travel. A few special types of areas behave differently.
 
-## The flow
+A Safe House blocks deals and PVP, and it generally exists to let you lay low while heat dissipates. A Black Market replaces the standard deal menu with a different vendor's price list, which is useful for selling at a better price on certain drugs. A Jail location is reached only when your heat reaches 5, and the rules inside are documented separately on [/the-game/jail](/the-game/jail).
 
-1. **Browse.** Swipe through nearby areas. Each shows its name, status, what's available.
-2. **Confirm move.** Travel costs cash and an attempt. Confirmed on chain.
-3. **Land.** New prices. New drugs. New options on the 🤝 tab.
+## The move flow
 
-## When to move
+Travel is straightforward. Open the ✈️ tab, swipe through the list of nearby areas, and you will see each area's name, type, and current set of available drugs. When you find a destination you like, hit confirm. The move costs cash and consumes one attempt, and the transaction is mined on chain like any other action. As soon as you land, the price list and target pool update to match your new location.
 
-- Prices have flipped: you're sitting on stock that sells better elsewhere.
-- Heat is climbing: move to a Safe House, let the heat sit.
-- You ran out of attempts and don't want to buy a reset: a move can give you breathing room (depending on the period).
-- Your area's targets are too easy or too rich: hop one over for fresh PVP.
+## When the move tab handles jail
 
-## Special movement: jail
+When your heat hits 5, the game moves you to jail automatically, and the move tab takes on a different role. Instead of choosing a destination, you choose how to leave. Paying bail costs cash but is guaranteed to release you. Attempting a breakout costs no cash but is not guaranteed: it can fail and leave you locked in for another period.
 
-Heat at 5 doesn't move you where you wanted. It moves you to jail.
-
-Movement out of jail still happens on this tab, but the actions are different:
-
-- **Pay bail.** Costs cash. Guaranteed.
-- **Breakout.** Costs nothing if it works. Costs more time if it doesn't.
-
-Full mechanics: [/the-game/jail](/the-game/jail).
+For the full mechanics of both options, see [/the-game/jail](/the-game/jail).

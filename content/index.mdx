@@ -1,33 +1,30 @@
 ---
 title: Welcome
-description: A 100% on-chain mafia strategy game powered by dynamic NFTs. Read the contract.
+description: A 100% on-chain mafia strategy game powered by dynamic NFTs on Abstract.
 ---
 
 # Welcome to the family.
 
-Dealers.sh is a 100% on-chain mafia strategy game powered by dynamic NFTs.
-Buy low, sell high. Watch the heat. Make rep. Stay out of jail.
+Dealers.sh is a 100% on-chain mafia strategy game powered by dynamic NFTs on the Abstract blockchain. You play a small-time dealer trying to make a name. You buy drugs where they are cheap, sell them where they are not, manage your heat so the cops do not pick you up, and grow your reputation in the family.
 
-It's not a roadmap, it's a contract. Read it.
+This site is the manual for the game. The game itself does not stop and explain everything as you play, so when a button is unclear or a mechanic needs more detail, this is where the answer lives.
 
-## Three doors
+## Three places to start
 
-[`/start`](/start/connect) puts you in. Connect a wallet, learn what your dealer is, run your first deal in five minutes.
+If you are brand new to Dealers.sh, head to [/start](/start/connect). Three short pages walk you through connecting a wallet, understanding what your dealer actually is, and running your very first deal. The whole flow takes about five minutes.
 
-[`/the-game`](/the-game/overview) is every tab in the game, explained. PVE, PVP, Move, Heist, Stash, Shop, Pager, Jail. The mechanics, no fluff.
+If you already own a dealer and want a complete reference for the mechanics, [/the-game](/the-game/overview) breaks down every tab and every system in detail. PVE, PVP, Move, Heist, Stash, Shop, Pager, Jail, and how they all interact.
 
-[`/contracts`](/contracts/overview) is the architecture. Verified addresses on Abstract. The bytecode is the truth. If something we wrote here disagrees with the contract, the contract wins.
+If you want to verify what is actually deployed, [/contracts](/contracts/overview) documents the architecture, lists the verified contract addresses on Abstract, and tracks the audit status. When this site and the contract disagree, the contract is the source of truth.
 
-## The pitch, deadpan
+## What is on chain
 
-No servers. No storage. No hosting. Powered and rendered on Abstract.
+Dealers.sh runs entirely on the Abstract blockchain. There are no off-chain servers, no hosted databases, and no backend we are quietly paying for in the background. The character art for each dealer is rendered directly from contract bytecode, and the playable game UI is stored on chain as well, embedded inside each NFT's `animation_url`.
 
-The character art is rendered from the contract. The game runs inside the NFT's `animation_url`. Your dealer levels up. Your JPEG doesn't.
+That is the unusual part of the project, and we are proud of it. Your dealer's on-chain state changes as you play, while the underlying NFT remains fully readable by anyone with a block explorer.
 
-PVE for the rep. PVP for the infamy. Heists for the bag.
+## A quick framing for newcomers
 
-## What this site is
+The game has three main activity loops, and most players engage with all three at some point. PVE is the bread and butter: you trade with NPCs to earn reputation. PVP opens up at a certain reputation threshold and lets you steal from other real dealers in your area, which earns infamy in addition to reputation. Heists are larger coordinated jobs with the biggest payouts.
 
-This is the manual. The game itself does not stop and explain itself. If a button confused you, the answer is in here.
-
-If you want the marketing front page instead, go to [dealers.sh](https://dealers.sh).
+If any of those concepts are unfamiliar, do not worry. The [/start](/start/connect) section introduces each one in plain language and in the order you will actually encounter them.

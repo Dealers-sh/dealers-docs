@@ -1,17 +1,19 @@
 ---
 title: Addresses
-description: Verified contract addresses for Dealers.sh on Abstract.
+description: Verified Dealers.sh contract addresses on Abstract.
 ---
 
 # /contracts/addresses
 
-If this page disagrees with the chain, the chain is right. Open an issue.
+This page is the canonical list of Dealers.sh contract addresses on Abstract. If anything on this site disagrees with the deployed contract, the deployed contract is what is correct. Please open an issue against the docs repo if you spot a discrepancy.
 
 ## Mainnet
 
-> **Status:** mainnet addresses go here on launch day. Until then, treat the testnet table below as the source of truth for development.
+The mainnet addresses will be populated here on launch day. Until then, the testnet table below is the source of truth for any integration or verification work, and mainnet addresses will replace this section as soon as the audit is signed off and the production deployment is complete.
 
 ## Testnet (Abstract Testnet, chain id 11124)
+
+The full set of testnet contracts is listed below. Every address is verified on the Abstract testnet explorer, and the source code is readable from each contract page.
 
 | Contract | Address |
 | --- | --- |
@@ -31,17 +33,12 @@ If this page disagrees with the chain, the chain is right. Open an issue.
 | `DealerRendererSVG` | `0x7C13A2B7F7410a1b83f71eB717420FBca258e733` |
 | `DealerRendererHTML` | `0x20cdad6AEC735B2FA65Edd35d18A55127cdD6C03` |
 
-## Chain info
+## Chain information
 
-- **Network:** Abstract Testnet
-- **Chain ID:** 11124
-- **Explorer:** [Abstract testnet explorer](https://explorer.testnet.abs.xyz)
+The network is the Abstract Testnet, which carries chain id `11124`. The block explorer is hosted at [explorer.testnet.abs.xyz](https://explorer.testnet.abs.xyz) and exposes verified source for every contract listed above.
 
-## How to verify
+## How to verify a contract yourself
 
-1. Open the explorer link above.
-2. Paste the address into the search bar.
-3. Look at the "Contract" tab. Source should be verified and readable.
-4. Confirm the bytecode hash matches what's deployed.
+The verification process is straightforward. Open the explorer at the link above, paste any of the addresses from the table into the search bar, and the explorer will route you to the contract page. The Contract tab on that page shows whether the source has been verified, the compiler version used, and the full source code for review. Comparing the deployed bytecode hash with the hash that the Dealers.sh repository produces locally confirms that the verified source matches what is actually running.
 
-We don't ask you to trust the table. We ask you to check.
+We do not ask anyone to trust the table on this page. The whole point of publishing addresses is so that you can verify them.

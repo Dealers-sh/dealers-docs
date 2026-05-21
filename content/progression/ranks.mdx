@@ -1,17 +1,15 @@
 ---
 title: Ranks
-description: The Dealers.sh rank ladder.
+description: The Dealers.sh rank ladder and how reputation thresholds translate into titles.
 ---
 
 # /progression/ranks
 
-The ladder.
+Ranks are the visible expression of your reputation total. As your reputation rises, you cross thresholds that change the title displayed on your STASH tab and in other places where your dealer shows up. The ladder is intentionally familiar to anyone who has seen a mafia movie: it climbs from low-level participants up to the people running the show.
 
-> **TODO:** publish the full rank list with REP thresholds once finalized.
+## The ladder
 
-Ranks gate behaviors and titles. A higher rank gets a different label on the STASH tab and a different position in PVP target lists.
-
-## The ladder, sketched
+The current outline of the rank ladder is below. The exact reputation thresholds for each tier will be published here once the progression contract is finalised for mainnet.
 
 - Foot Soldier
 - Associate
@@ -20,12 +18,10 @@ Ranks gate behaviors and titles. A higher rank gets a different label on the STA
 - Underboss
 - Drug Lord
 
-The exact REP thresholds will appear here when locked.
+Each rank covers a band of reputation values, and the displayed title updates the moment your reputation crosses the band boundary. There is no claim step required: ranks are not achievements, they are simply a visualisation of where your reputation total currently sits.
 
-## What ranks do
+## What ranks affect
 
-- Affect your visible title.
-- May affect PVP matchmaking ranges.
-- May affect heist eligibility.
+Ranks are primarily a status signal, but they also have some functional impact. The visible label on your dealer changes, which is the most immediately noticeable effect. The matchmaking range used to surface PVP targets may take rank into account, so a higher-ranked dealer is more likely to see other higher-ranked dealers in their target list. Some heist eligibility checks may also gate on rank rather than on raw reputation.
 
-Ranks do not refund REP if you lose it. They are not a streak. They are a level you cross and re-cross. Don't read too much into them. The number is the number.
+What ranks do not do is refund or protect reputation. They are not a streak or a badge that persists once you fall below the threshold. If your reputation drops back below a band boundary, your title drops with it. The number is always the source of truth.

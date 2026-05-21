@@ -1,22 +1,22 @@
 ---
 title: Dynamic State
-description: What changes on the NFT as you play.
+description: What changes on the NFT as you play, and what stays fixed at mint.
 ---
 
 # /the-art/dynamic
 
-The NFT is not a static picture. It has state. The state shows up.
+A Dealers.sh NFT is not a static image. The base traits are assigned at mint and never change, but a layer of game state lives on top of those traits and updates continuously as you play. This page explains which parts move and which parts do not.
 
-## What changes
+## What changes as you play
 
-- **The UI inside the NFT.** Your stats, area, inventory, action log. All live state read from the chain.
-- **Achievement visuals.** Some claimed achievements add visual elements to the character: a chain, a hat, a wound, a smirk.
-- **Mood / status overlays.** Heat, jail, safe-house all change the visual context behind the UI.
+The most obvious dynamic element is the game UI that renders inside the NFT. Stats like reputation, heat, cash, attempts, and stash are all read from on-chain state at render time, which means they reflect whatever just happened in your most recent transaction. The action log, the area you are in, and any pending notifications also live in this updating layer.
 
-> **TODO:** confirm which visual state changes ship at launch vs which come post-launch as achievement-driven.
+A second category of dynamic content is achievement-driven visual state. Some achievements add a permanent visual element to the character once they are claimed: an accessory, a piece of clothing, a small overlay. These additions are stored alongside the base traits and become part of the rendered SVG from that point forward. They are the closest thing in the game to a visible level-up.
 
-## What does not change
+A third category is mood and status overlays. When your dealer is in a Safe House or in jail, or when your heat is elevated, the environment behind the UI can shift to reflect that condition. The exact list of overlays that ship at launch versus the ones that come later as achievement rewards is being finalised in the design pass.
 
-The base traits rolled at mint are permanent. The character you minted is the character you have. You can decorate them. You can't replace them.
+## What stays fixed
 
-Your dealer levels up. Your JPEG doesn't.
+The base traits rolled at mint are permanent. The character you minted is the character you keep. Achievements can layer on top of those traits, but they cannot replace them, and there is no mechanism in the game to reroll or swap out anything that was set at mint.
+
+The summary line we use to capture this is that your dealer levels up while your JPEG stays put. Some things grow, and other things are fixed, and both are by design.

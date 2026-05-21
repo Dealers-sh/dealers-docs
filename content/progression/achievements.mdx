@@ -1,38 +1,22 @@
 ---
 title: Achievements
-description: Claimable accomplishments. Rewards and flow.
+description: Claimable accomplishments in Dealers.sh, how they work, and what they reward.
 ---
 
 # /progression/achievements
 
-Things you can do that the contract notices.
+Achievements in Dealers.sh are on-chain records of specific things your dealer has done. Some are applied automatically as soon as you meet their criteria. Others require an explicit claim transaction, which lets you choose the moment of confirmation and pay the gas yourself. The system is implemented in the `DealersExeClaims` contract, and the full catalog is being finalised in the run-up to launch.
 
-## How they work
+## How a claim works
 
-Some achievements are auto-applied as you play. Others sit in your [/the-game/pager](/the-game/pager) waiting for you to claim them.
+When you earn a claimable achievement, an entry appears in your [pager](/the-game/pager). Each entry includes a short description of what was achieved and a button that opens the claim flow. Confirming the transaction calls the claims contract, which verifies on chain that the criteria were actually met and then applies the reward to your dealer.
 
-Claiming is a transaction. The achievement contract verifies you earned it. The reward applies on confirm.
+Because the verification happens on chain, claims cannot be faked. You cannot grant yourself an achievement, and the contract cannot grant you one you did not earn. The trust model is the same as the rest of the game: the contract is the source of truth, and the UI is a thin layer that shows what the contract says.
 
 ## What you can earn
 
-> **TODO:** populate the achievement list from `DealersExeClaims` once the catalogue is final.
+The full achievement catalog will be published here once it is locked for mainnet, but the rough categories already in place include the following. First-deal milestones reward you for early actions, like the very first buy and the very first sell. Streak achievements reward sustained performance, like a long run of successful deals without a jail trip, or a string of PVP wins. Heat achievements reward managing risk, such as surviving an extended run at heat 4 without getting picked up. PVP achievements reward specific outcomes, such as your first successful steal above a cash threshold or topping the infamy list in a given area. Heist achievements reward participation and success in the larger jobs.
 
-Categories will include:
+## What the rewards look like
 
-- **First-deal milestones.** Welcome gifts.
-- **Streak achievements.** N deals without jail. N PVP wins in a row.
-- **Heat achievements.** Survive a 5-heat run without jail. Clear heat N times.
-- **PVP achievements.** First clip. First clean steal of $X. Best-in-area.
-- **Heist achievements.** First job. First clean job. Loot thresholds.
-- **Time achievements.** Active days, period streaks.
-
-## What rewards look like
-
-Rewards vary by achievement:
-
-- Cash drops.
-- REP bumps.
-- Stash drops (specific drugs).
-- Visual NFT trait changes that show on the character.
-
-The last one is the fun one. Your dealer levels up. Your JPEG doesn't.
+Rewards vary depending on the achievement. Some grant a flat cash payout. Some grant a reputation bump that can help you cross into the next rank. Some grant a specific drug or set of drugs to your stash. The most visually interesting category is the small set of achievements that update your dealer's on-chain trait state, which then changes how your character is rendered. Those are the achievements that let your dealer level up while the underlying NFT stays in place.

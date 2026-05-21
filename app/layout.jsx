@@ -1,5 +1,5 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Head } from 'nextra/components'
+import { Anchor, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { Inter, Source_Code_Pro, Fira_Mono } from 'next/font/google'
 import 'nextra-theme-docs/style.css'
@@ -79,12 +79,30 @@ function DocsLogo() {
   )
 }
 
+function XIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      height="24"
+      width="24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+    </svg>
+  )
+}
+
 const navbar = (
   <Navbar
     logo={<DocsLogo />}
     projectLink="https://github.com/dealers-sh"
-    chatLink="https://x.com/dealers_sh"
-  />
+    chatLink="https://discord.gg/B7enpek3x8"
+  >
+    <Anchor href="https://x.com/Dealerssh" aria-label="Dealers.sh on X">
+      <XIcon />
+    </Anchor>
+  </Navbar>
 )
 
 const footer = (
@@ -114,6 +132,7 @@ export default async function RootLayout({ children }) {
           pageMap={await getPageMap()}
           feedback={{ content: null }}
           themeSwitch={{ dark: 'Dark', light: 'Light', system: 'System' }}
+          nextThemes={{ defaultTheme: 'dark' }}
         >
           {children}
         </Layout>

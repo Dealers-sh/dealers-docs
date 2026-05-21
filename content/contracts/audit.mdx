@@ -1,28 +1,24 @@
 ---
 title: Audit
-description: Audit status and report for the Dealers.sh contracts.
+description: Audit status and report for the Dealers.sh smart contracts.
 ---
 
 # /contracts/audit
 
-## Status
+The Dealers.sh contracts are currently undergoing a third-party security audit. Mainnet launch is gated on the audit closing cleanly: we are not shipping to production until the report is signed off and any findings have been remediated. This page tracks the current status, the scope of the engagement, and the remediation log.
 
-> **TODO:** update when the audit closes.
+## Current status
 
-The Dealers.sh contracts are currently in audit. We are not shipping mainnet until the audit is signed off and findings have been remediated.
+The contracts are in active audit. This page will be updated as the engagement progresses, with the date of each milestone and a link to the signed report once it is delivered. We will not publish a summary of the report in lieu of the report itself: when the audit completes, the full document will be hosted publicly, and the link will appear here.
 
-## Scope
+## Scope of the audit
 
-The audit covers every contract listed in [/contracts/overview](/contracts/overview).
-
-## Report
-
-The signed report will be linked here when it lands. It will be hosted publicly. We will not publish a summary in lieu of the report.
+The audit covers every contract listed on [/contracts/overview](/contracts/overview). That includes the NFT and core state contracts, the action modules for PVE and PVP, the boost system, both registries, the claims contract, the payment handler, the randomness contract, the chat factory, the multicall helper, and both renderers. Nothing in the deployed stack is out of scope.
 
 ## Remediation log
 
-Each finding will be tracked from "open" to "remediated" with a commit hash. The log will appear here.
+Each individual finding from the report will be tracked here from "open" through "remediated," with the commit hash that addresses it. The log is intended to make it easy for anyone reviewing the project to see exactly which issues were raised and how each one was resolved. The format will mirror what most reputable audit firms publish themselves, with severity, description, and the corresponding fix linked together.
 
-## Why we wait
+## Why we are waiting
 
-We'd rather ship a week later than ship something that bricks holders. The character art and game live in the bytecode. A bad upgrade is a permanent scar.
+The choice to gate mainnet launch on a clean audit is deliberate. Because the character art and the playable game are stored directly in contract bytecode, a bad upgrade is more disruptive than it would be for a typical NFT collection. Patching a hosted website is cheap; patching an on-chain artifact that thousands of holders are loading is not. We would rather delay launch by a few weeks than ship a deployment that creates a permanent scar for the holders who minted on day one.

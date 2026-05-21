@@ -5,44 +5,44 @@ description: Common questions about Dealers.sh.
 
 # /faq
 
-The questions we get most.
+This page collects the questions we are asked most often, along with the short version of each answer and a pointer to the longer one when the topic has its own page.
 
 ## Is the art really on chain?
 
-Yes. The SVG character is rendered from packed traits stored on `DealersExeNFT`. The game itself is HTML/JS/CSS, gzipped, stored via `FileStore` on Abstract, and embedded in the NFT's `animation_url`. See [/the-art/rendering](/the-art/rendering).
+Yes. The character SVG for every dealer is generated from packed trait data stored on `DealersExeNFT`, and the playable game UI is stored on chain as well, gzipped and registered through Abstract's FileStore. The complete experience is returned as part of the standard `tokenURI` and `animation_url` response, with no external host involved. For a step-by-step walkthrough of the pipeline, see [/the-art/rendering](/the-art/rendering).
 
-## What chain is this on?
+## What chain does Dealers.sh run on?
 
-Abstract. Testnet for development, mainnet at launch. See [/contracts/addresses](/contracts/addresses) for everything.
+Dealers.sh runs on Abstract. Development happens on the Abstract testnet, and mainnet launch will happen once the audit is signed off. The full list of deployed contracts and their verified addresses lives on [/contracts/addresses](/contracts/addresses).
 
 ## Do I need an Abstract Global Wallet?
 
-No, any Abstract-compatible wallet works. AGW is the easiest path because there's no seed phrase. See [/start/connect](/start/connect).
+No. Any wallet that signs transactions on Abstract works, including any of the standard browser-extension wallets configured with the Abstract network. Abstract Global Wallet is simply the easiest option for new players because it does not require a seed phrase and can be set up with an email address. See [/start/connect](/start/connect) for both paths.
 
-## How do I pronounce it?
+## How do I pronounce the name?
 
-"Dealers dot S-H". Not "dealers shell".
+The name is pronounced "Dealers dot S-H," letter by letter for the suffix. Not "Dealers shell." If you are saying it on a podcast, a voice memo, or a space, please use the spelled-out version.
 
 ## Is this gambling?
 
-It's a strategy game with on-chain stakes. There is no house, no payout pool, no spin-to-win. Outcomes resolve against game logic, not against the contract owner. Read [/contracts/overview](/contracts/overview) and decide for yourself.
+Dealers.sh is a strategy game with on-chain stakes. There is no central house, no payout pool, and no spin-to-win mechanic. Outcomes resolve against deterministic game logic, not against the project operator, and the project does not take a cut of player-vs-player flows. The contracts are public and verified, and we encourage anyone with concerns to read [/contracts/overview](/contracts/overview) and decide for themselves.
 
-## Are you glamorizing drugs?
+## Are you glamorizing real-world drug use?
 
-No. Dealers.sh is stylized 80s arcade fiction, in the lineage of Drug Wars on an MS-DOS machine. The fiction is a game frame. We do not promote real-world drug use.
+No. The fiction in Dealers.sh is deliberately stylised in the tradition of 1980s arcade games like the original Drug Wars. The reference exists because games have always offered safe space to do things you would not do in real life, and the visual language of the project leans into that arcade history rather than any kind of gritty realism. The project does not endorse, promote, or romanticise real-world drug use.
 
-## How big is the supply?
+## How big is the collection?
 
-> **TODO:** publish final supply at mint.
+The final supply will be published before mint opens. The figure will appear here once it is locked.
 
-## When does it launch?
+## When does Dealers.sh launch?
 
-When the audit signs off. We are not picking a date before the audit. See [/contracts/audit](/contracts/audit).
+The launch date is gated on the audit. We are not committing to a date publicly until the audit is signed off and any findings have been remediated. The current status is tracked on [/contracts/audit](/contracts/audit).
 
 ## How do I report a bug?
 
-> **TODO:** link the public bug template once the docs repo is public.
+A public bug report template will be linked here once the docs repository goes public. In the meantime, the fastest path is to flag the issue in the project community channels, where a maintainer can follow up directly.
 
-## Where do I ask a question that isn't here?
+## Where do I ask a question that is not on this page?
 
-The community knows. Find us on [X](https://x.com/dealers_sh) and the family will help.
+The community is the best place. We are most active on [X](https://x.com/dealers_sh), and the regulars are friendly to new players asking honest questions.

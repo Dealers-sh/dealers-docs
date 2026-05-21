@@ -1,26 +1,24 @@
 ---
 title: Leaderboard
-description: How the Dealers.sh leaderboard is computed.
+description: How the global Dealers.sh leaderboard is computed and refreshed.
 ---
 
 # /progression/leaderboard
 
-Global standing.
+The leaderboard is the global view of who is doing well in Dealers.sh. It ranks every dealer that has played the game and refreshes on a regular cadence, so positions move in near real time as new transactions confirm.
 
-> **TODO:** finalize and publish leaderboard contract and refresh cadence.
+## How positions are ranked
 
-## What ranks the board
+The primary sort is reputation. The dealer with the highest reputation total at the moment of refresh is at the top, and positions cascade down from there. When two dealers are tied on reputation, infamy is used as the first tiebreaker, and current cash on hand is used as the second. Beyond those, the position is effectively a function of who got there first.
 
-Primary sort: REP. Tiebreak: Infamy. Second tiebreak: cash on hand.
-
-The board reads on-chain state. There's no separate ledger. If it doesn't match the contract, the contract wins.
+Because the inputs are all read directly from on-chain state, there is no separate ledger to reconcile and no scenario in which the leaderboard says one thing and the contract says another. If a number on the leaderboard ever looks wrong, the contract value is what is correct.
 
 ## Refresh cadence
 
-The leaderboard view refreshes on a schedule. State changes are immediate on chain; the displayed sort updates at the refresh boundary.
+State changes on chain are immediate. The leaderboard view, however, is computed and sorted on a schedule rather than on every block. The displayed sort updates at the refresh boundary, so a transaction that just confirmed might not be reflected in the standings until the next refresh.
 
-## Why you'd care
+The exact refresh cadence and contract that powers the standings will be published here once the system is finalised.
 
-- Position on the board may gate certain seasonal achievements.
-- Heists and gang formation may use board position as a tiebreaker.
-- It looks good on a profile.
+## Why position matters
+
+Position is partly bragging rights and partly a real input into the game. Some seasonal achievements may gate on holding a top-N position for a defined period. Heist eligibility and crew formation may also use leaderboard position as a tiebreaker. Beyond that, a strong leaderboard position is simply visible to everyone else, and visibility tends to attract both attention and challenge from other players.

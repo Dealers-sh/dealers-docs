@@ -1,36 +1,30 @@
 ---
 title: Stash
-description: The STASH tab. Your dashboard. Stats on the left, inventory on the right.
+description: The STASH tab is your dashboard. It shows your stats on the left and your inventory on the right.
 ---
 
 # /the-game/stash
 
-The STASH tab is your dashboard. It's the default view. Always available.
+The STASH tab is the default view of the game and acts as your dashboard. It is the screen you return to between actions, and the screen you should learn to read fluently. Nothing about the tab is interactive in the sense that you cannot take an action from inside it; instead, it surfaces every important piece of state so that you can decide which action tab to open next.
 
-## What it shows
+## What the tab shows
 
-- **Left panel.** Your stats: REP, Heat, Cash, Attempts. Plus rank label and area.
-- **Right panel.** Your drug inventory. Type, amount, and weight.
+The left half of the tab is your stats panel. It displays your current reputation total, your current heat level, your cash on hand, the number of attempts remaining in the current period, and the area you are presently in. The rank label associated with your reputation is also displayed here.
 
-## What you do here
+The right half of the tab is your drug inventory. Each line shows one drug type with the quantity you currently hold. When you are carrying nothing, the inventory is empty and your stats panel will reflect a balance of zero across most lines.
 
-Nothing, directly. STASH is for reading, not for acting. From here you tap into the action tabs:
+## How to read the numbers
 
-- 🤝 [/the-game/deal](/the-game/deal)
-- ✈️ [/the-game/move](/the-game/move)
-- ⚔️ [/the-game/pvp](/the-game/pvp)
-- 🏦 [/the-game/heist](/the-game/heist)
-- 🛍️ [/the-game/shop](/the-game/shop)
-- 📟 [/the-game/pager](/the-game/pager)
-
-## Reading the numbers
+The lines that appear in the stats panel use a consistent shorthand worth memorising on your first session.
 
 | Line | What it means |
 | --- | --- |
-| `REP nnn` | Reputation total. |
-| `🔥 n/5` | Current heat level. |
-| `$nnn,nnn` | Cash on hand. |
-| `⚡️ n/N` | Attempts remaining this period. |
-| `Area: <name>` | Where you are. Affects everything else. |
+| `REP nnn` | Your current reputation total. |
+| `🔥 n/5` | Your current heat level, from 0 to 5. |
+| `$nnn,nnn` | Cash on hand, in compact format. |
+| `⚡️ n/N` | Attempts remaining in the current period, out of the maximum. |
+| `Area: <name>` | The area your dealer is currently in. |
 
-> **TODO:** screenshot of the STASH tab here once the design is final.
+Once those lines feel natural, the rest of the game is mostly about deciding which tab to open next based on what they say.
+
+> A reference screenshot of the STASH tab will be added here once the final design is locked.

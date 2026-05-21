@@ -1,43 +1,30 @@
 ---
 title: Jail
-description: The 🔒 state. How you get there, how you get out.
+description: How you get sent to jail in Dealers.sh, and the two ways to get out.
 ---
 
 # /the-game/jail
 
-Not where you wanted to be.
+Jail is a state, not a tab. You enter it automatically when your heat reaches the maximum of 5, and while you are inside, most of the game is locked. This page covers how jail sentences happen, what is restricted while you are inside, and how to get out.
 
 ## How you got here
 
-Heat at 5 puts you in jail. Heat at 5 comes from:
+Heat is the through-line. Every deal in the game generates at least a small amount of police attention, and clean deals add less than failed ones. When your heat sits at 4, a single bad outcome can push you over the line. When it sits at 5, you go to jail at the next state update. Jail can also be triggered by losing certain PVP fights at higher heat levels.
 
-- A run of failed deals that you didn't clear.
-- One catastrophic deal.
-- Losing PVP fights at a high enough level.
+## What is restricted
 
-## What jail does
+While your dealer is in jail, the action tabs change behavior. The deal tab is closed and reports back that you cannot operate while incarcerated. The PVP tab is also closed: you can neither attack nor be attacked. The heist tab is unavailable. The move tab is the one tab that remains active, but its options change. Instead of choosing a destination, you choose how you want to handle the sentence.
 
-While in jail:
+## Paying bail
 
-- 🤝 is off. No deals.
-- ⚔️ is off. No PVP.
-- 🏦 is off. No heists.
-- ✈️ shows two new actions: **bail** and **breakout**.
+Paying bail is the safe option. The cost in cash scales with your current status, and the transaction releases you immediately on confirmation. If you have the cash and you have plans for the rest of your session, bail is generally the right choice.
 
-## Bail
+## Attempting a breakout
 
-- **Cost:** cash. Scales with your status.
-- **Outcome:** guaranteed release.
-- **When to use it:** when you have the cash and you have plans tonight.
-
-## Breakout
-
-- **Cost:** zero cash if it works. More time if it doesn't.
-- **Outcome:** rolled. You either walk free or you stay in and the meter resets.
-- **When to use it:** when you're cash-poor or feeling lucky.
+Attempting a breakout costs no cash but is not guaranteed. The transaction resolves on chain, and a roll determines whether you walk out free or remain locked in for another period. The breakout is the right choice when your cash position is too thin to afford bail, or when the time cost of waiting is acceptable relative to the cash you would otherwise spend.
 
 ## After release
 
-You come out with Heat at 0 and a fresh start on the streets. REP and stash are preserved. Cash spent on bail is gone.
+When you are released, by either method, you come back out of jail with your heat reset to 0. Your reputation and stash are preserved, but any cash spent on bail is gone. You return to the streets with a clean record from a heat perspective, but you keep everything else you built up before the arrest.
 
-Don't speedrun back to 5.
+The practical advice is to remember that the road back from 5 is short. After a release, it is tempting to immediately swing for the fences and recover the lost cash, but a couple of failed deals can put you right back in the same situation. Pace yourself for the first few moves out.

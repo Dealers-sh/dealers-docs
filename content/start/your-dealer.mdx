@@ -1,37 +1,35 @@
 ---
 title: Your Dealer
-description: What the Dealers.sh NFT is and how its state changes as you play.
+description: What the Dealers.sh NFT is and how its on-chain state evolves as you play.
 ---
 
 # /start/your-dealer
 
-Your dealer is an NFT. That sounds boring. Here's the twist.
+Each Dealers.sh NFT is both a piece of generative art and a save file. The image you see on a marketplace is rendered directly from contract bytecode, and the gameplay state attached to that token (your cash, your stash, your reputation, your heat) lives in the same set of contracts. There is no separate database keeping track of your progress.
 
-## The art is in the contract
+## The art is on chain
 
-When the NFT loads, the bytecode renders an SVG character and embeds a playable game inside the `animation_url`. No IPFS. No off-chain renderer. No hosting bill we forget to pay. The character and the game are both on Abstract.
+When a wallet or a marketplace requests the metadata for your dealer, the contract assembles an SVG from packed trait data and returns it as part of the standard `tokenURI` response. Alongside that SVG, the `animation_url` contains the playable game HTML, gzipped and stored on chain through Abstract's FileStore. Nothing about the visual or interactive experience depends on an external host.
 
-We are quietly proud of this. See [/the-art/rendering](/the-art/rendering) for how it works.
+For a deeper walkthrough of how the rendering pipeline works, see [/the-art/rendering](/the-art/rendering).
 
-## Dynamic state, on chain
+## State that changes as you play
 
-The NFT is not a static picture. Every dealer has live state:
+Each dealer has a handful of stats that move as you take actions. They are all stored on the contracts and visible to anyone who reads them.
 
 | Stat | What it means |
 | --- | --- |
-| **REP** | Reputation. Your standing in the family. Earned through deals. |
-| **Heat** | Police attention, 0 to 5. Higher means jail risk. |
-| **Cash** | Working capital. Buys stash, boosts, travel, bail. |
-| **Stash** | Drugs you hold. Tracked by type and amount. |
-| **Attempts** | Actions left this period. Refills over time. |
-| **Infamy** | What other dealers see when they see your tag. |
+| **Reputation (REP)** | Your standing in the family. Earned through deals and combat. Gates rank progression. |
+| **Heat** | Police attention from 0 to 5. The higher it goes, the higher your risk of being sent to jail. |
+| **Cash** | Working capital, used for buying drugs, paying for travel, posting bail, and shopping. |
+| **Stash** | Drugs you currently hold, tracked by type and quantity. |
+| **Attempts** | The number of actions you have left in the current period. Refills over time. |
+| **Infamy** | A separate score that rises and falls with PVP outcomes and shapes how other players see you. |
 
-Every one of those numbers lives on chain. You move them. We don't.
-
-Your dealer levels up. Your JPEG doesn't.
+Because each of these stats lives on chain, your dealer effectively levels up as you play, while the underlying NFT remains exactly the token you minted.
 
 ## Traits and rarity
 
-Each dealer has a randomized look at mint: hair, clothing, accessories, background, the lot. The trait distribution is documented in [/the-art/rarity](/the-art/rarity).
+Each dealer is randomized at mint across several visual trait categories, including background, hair, eyes, mouth, outfit, and accessory. Rarer combinations are exactly that: rarer. They affect how your dealer looks, but they do not affect what the dealer can do in the game. A common dealer with a high reputation outranks a one-of-one with no track record.
 
-Rarity affects your look. It does not gate gameplay. A common dealer with a high REP outranks a 1/1 with a clean record.
+The full trait distribution will be published on [/the-art/rarity](/the-art/rarity) once the collection is final.

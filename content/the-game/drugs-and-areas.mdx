@@ -1,33 +1,28 @@
 ---
 title: Drugs & Areas
-description: Reference. What's available where. Rarities by drug.
+description: Reference. The drug catalogue, the area catalogue, and how the two interact to drive prices.
 ---
 
 # /the-game/drugs-and-areas
 
-The reference table.
+This page is the reference table that the rest of the game relies on. Every drug in Dealers.sh has its own rarity tier and its own price band, and every area has its own subset of drugs available for trade. The combination of those two facts is what makes price arbitrage possible.
 
 ## Drugs
 
-Each drug has its own rarity and its own price band. Common drugs are widely available across areas. Rare drugs only appear in specific spots.
+The drug catalogue is maintained on chain in the `DEDrugRegistry` contract. Each drug has a name, a rarity tier, and a base price that the local prices fluctuate around. Common drugs tend to be available across many areas, which keeps their prices relatively similar from place to place. Rarer drugs appear in fewer areas, which means the gap between the lowest and highest local price is wider and the arbitrage opportunity is larger.
 
-> **TODO:** populate the full drug list with rarity tiers from `DEDrugRegistry`. Pull from on-chain rather than maintaining a copy here.
-
-Examples (non-exhaustive): Weed, Speed, Cocaine.
+The final drug list and rarity tiers will be published here as a table once the registry is locked for mainnet. Until then, the in-game UI is the source of truth: it reads the registry directly and reflects whatever is currently deployed.
 
 ## Areas
 
-Each area has:
+The area catalogue is maintained in the `DEAreaRegistry` contract and follows the same structure. Each area has a name, a type (streets, safe house, black market, or jail), a list of available drugs, and a price band that swings around a base value. Some areas trade in a wide selection of common drugs, and others specialise in a narrower set of rarer drugs.
 
-- A name (Manhattan and others).
-- A type: **streets**, **safe house**, **black market**, **jail**.
-- A drug list available for buying and selling.
-- A local price band that swings around a base value.
+As with drugs, the final area list will be published here in table form once the registry is finalised for mainnet.
 
-> **TODO:** populate the full area list from `DEAreaRegistry`.
+## How prices move
 
-## The pattern
+Local prices are not static. Each area's price for a given drug fluctuates within its band, and the fluctuations are part of what drives the moment-to-moment decisions you make as a player. A drug you bought yesterday at a low price might be even cheaper today, which means it is worth holding, or it might be approaching the top of its band, which means it is time to sell or to move on.
 
-Where you'd expect a price drop, prices drop. Specific drugs cluster in specific neighborhoods. The arbitrage isn't hidden. You just have to remember it.
+The pattern is not hidden. Areas that look like they should have cheap supply tend to have cheap supply, and areas that look like they should pay a premium tend to pay a premium. The fiction matches the economics on purpose, and learning the geography is part of getting good at the game.
 
-This page will become the canonical lookup table once the registries are finalized for mainnet.
+When the registries are final, this page will become the canonical lookup table for both halves of the system.

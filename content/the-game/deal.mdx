@@ -1,54 +1,42 @@
 ---
 title: Deal (PVE)
-description: The 🤝 tab. Buy and sell drugs. Manage heat. Visit the black market.
+description: The 🤝 tab. Buy and sell drugs across areas, manage your heat, and visit the black market.
 ---
 
 # /the-game/deal
 
-The 🤝 tab. This is where you make money.
+The 🤝 tab is the main action tab in Dealers.sh. Almost all of your income comes from here, and almost all of your heat is generated here as well. This page covers everything that can happen inside it.
 
-## The actions
+## The three actions
 
-On the streets, you get three choices:
+When you open the deal tab on the streets of a normal area, you are presented with three options. Each one represents a different kind of action with a different cost.
 
-- **BUY.** Purchase a drug at the local price. Costs cash, costs an attempt.
-- **SELL.** Offload from your stash at the local price. Earns cash, costs an attempt.
-- **CLEAR HEAT.** Only available when your heat is above 0. Spend cash to drop a level.
+**Buy** lets you purchase a drug at the local price. It costs cash, it costs one attempt from your daily budget, and it adds the resulting amount to your stash. **Sell** offloads a drug from your stash at the local price. It pays you cash and also costs one attempt. **Clear Heat** is only available when your current heat level is above zero, and it allows you to spend cash to drop one level of police attention rather than continuing to risk being arrested.
 
-If you're in a Safe House, the streets are off. Move out first. If you're at the Black Market, you get the BM menu instead of the streets menu. If you're in Jail, neither. Pay bail or breakout, see [/the-game/jail](/the-game/jail).
+If your current area is a Safe House, the streets are closed for business and you will be told to leave before you can deal. If your current area is the Black Market, the menu changes entirely (see below). If you are in jail, neither set of actions is available, and the tab redirects you to handle bail or attempt a breakout. The full mechanics for those states are documented on [/the-game/jail](/the-game/jail).
 
-## The flow
+## How a deal flows
 
-A buy or sell walks through four screens:
+A buy or sell walks you through four short screens. First, you choose between Buy and Sell. Second, you pick which drug you want to trade, from the list of drugs available in the current area. Third, you choose the amount, either using one of the quick presets or by entering a custom number. Fourth, you choose a strategy: a small set of options that influences how the negotiation actually resolves.
 
-1. **Choose action.** BUY or SELL.
-2. **Choose drug.** What's available depends on your area. See [/the-game/drugs-and-areas](/the-game/drugs-and-areas).
-3. **Choose amount.** Quick presets, or a custom number.
-4. **Choose strategy.** The wrinkle. Each strategy resolves differently against the NPC. Read the chat log on the way out.
+Once you confirm, the transaction is submitted to the chain. The result is written to the chat log inside the game and shows you exactly what changed: how much cash moved, how the deal resolved, how much reputation you earned, and how your heat shifted.
 
-The result rolls on chain.
+## Strategies and matchups
 
-## Strategies, briefly
+The strategy step is the wrinkle that turns a simple buy-and-sell game into a thinking game. Each strategy you can pick has a different relationship to whatever approach the NPC happens to play, broadly along the lines of rock paper scissors. Some combinations resolve cleanly and pay full reputation. Others get caught short and add heat without paying out.
 
-The strategy step is loosely rock-paper-scissors. The NPC plays one approach. You play another. Heat, REP, and cash all move based on the matchup.
-
-We will not publish the full matrix. Half the game is learning it. The chat log after each deal tells you what happened. Pay attention to it and the matchups become legible.
+We do not publish a full matrix of every matchup, because learning the patterns is part of the game. The chat log after each deal contains everything you need to start spotting them. Pay attention to what you played, what the NPC played, and what the outcome was, and the system becomes legible within a session or two.
 
 ## Attempts
 
-Each buy or sell costs an attempt. The badge looks like `⚡️ 4/10`. Attempts refill on a timer. If you run out:
+Each buy or sell costs one attempt from your current period's budget, displayed in the UI as a counter like `⚡️ 4/10`. When you run out, you have two options: you can wait for the daily reset, or you can purchase an attempt reset from the [shop](/the-game/shop). The shop reset is the right choice when you are on a profitable run and the next deal is worth more than the price of the reset.
 
-- Wait for the daily reset.
-- Buy a reset from the [/the-game/shop](/the-game/shop).
+## Heat and Clear Heat
 
-## Heat and CLEAR HEAT
-
-Heat rises with deals. Heat at 5 = jail. CLEAR HEAT lets you spend cash to drop a level instead of getting picked up.
-
-Sometimes it's worth it. Sometimes you'd rather take the risk and use the cash for stash. That's the call.
+Heat rises across most deals and reaches jail at level 5. The Clear Heat action provides an out: instead of risking another deal that pushes you into jail, you can pay a cash fee to drop one level back down. The decision of when to clear is one of the recurring economic choices in the game. Sometimes the cash is better spent on more inventory, and sometimes preserving your run is worth the spend.
 
 ## The Black Market
 
-When your current area is the Black Market, the menu changes. The vendor has a different price sheet and a different action set. Read the room.
+Some areas are designated as Black Market locations. When you are in one of these, the deal tab shows a different menu from a different vendor, with its own price sheet and its own action set. The Black Market is generally a different selling environment, not a different drug catalog, and it complements the regular streets rather than replacing them.
 
-> Tip: a Safe House is for cooling heat without spending. A Black Market is for selling at a different price. They are not the same room.
+A Safe House and a Black Market are not the same thing. A Safe House lets you sit out and cool your heat. A Black Market lets you do business at a different price. They serve different purposes, and recognizing which one you are in is a small but useful piece of intuition.

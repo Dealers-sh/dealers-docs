@@ -1,42 +1,28 @@
 ---
 title: ABI & Source
-description: Where to find Dealers.sh contract source and ABIs.
+description: Where to find the Dealers.sh contract source code and machine-readable ABIs.
 ---
 
 # /contracts/abi
 
-Source over hand-waving.
+This page is for developers who want to integrate with Dealers.sh contracts directly. It points to the contract source, lists the ways you can get ABIs, and outlines the conventions used across the codebase so you know what to expect.
 
-## Source
+## Where the source lives
 
-The contracts repo:
+The Dealers.sh contract source currently lives in the private `dealers-exe-contracts` directory inside the main project repository. The public version of the repo will be published once the audit is complete, and the URL will be added here at that time.
 
-> **TODO:** publish the contracts repo URL when it goes public for audit. Until then it lives in the private `dealers-exe-contracts/` directory.
+## How to get ABIs
 
-## ABIs
+There are three reliable ways to obtain machine-readable ABIs for any of the deployed contracts. The first is the block explorer itself: every verified contract page on Abstract exposes its full ABI as a JSON file, which you can copy directly into your tooling. The second is the public contracts repo once it goes live, which will include an `abi/` directory containing one JSON file per deployed contract. The third is the TypeScript SDK we are building for integrators: when it ships, it will re-export typed ABI bindings so you can call contracts without copying ABI files manually.
 
-Per-contract ABIs are available three ways:
+## Conventions across the codebase
 
-1. **From the explorer.** Each verified contract on Abstract exposes its ABI on the contract page. See [/contracts/addresses](/contracts/addresses).
-2. **From the repo.** Once public, `dealers-exe-contracts/abi/*.json` will contain machine-readable ABIs for every deployed contract.
-3. **From the SDK.** When a TypeScript SDK ships, it will re-export typed ABIs.
+A handful of conventions hold consistently across every contract in the system. The contracts are written in Solidity 0.8.x with strict no-libraries policies on critical paths, on the principle that fewer dependencies are easier to audit than fancier ones. Every revert path uses custom errors rather than revert strings, which makes integration debugging easier and keeps gas costs low. Events are documented inline in the source so that anyone reading the contract can quickly see what notifications it emits.
 
-## Conventions
+## A recommended reading order
 
-- Solidity 0.8.x.
-- Strict no-libraries on critical paths. We prefer fewer dependencies over fancy ones.
-- All errors are custom errors. No revert strings.
-- All events are documented inline.
+If you want to read the entire codebase end to end, the order below is the one we recommend. It moves from data to logic, then to the auxiliary systems, then to the rendering layer.
 
-## Reading order, if you're new
+Start with `DealersExeNFT` to understand the data layout and the per-token storage model. Then read `DealersExeActions` to see how user calls are dispatched to the action modules. Follow with `DealersExePVE`, which is the most heavily used path in the game, and then `DealersExePVP` as the second most heavily used. After those, the two registries (`DEDrugRegistry` and `DEAreaRegistry`) round out the data model. Finally, the two renderers (`DealerRendererSVG` and `DealerRendererHTML`) show how the art and the embedded game are assembled from on-chain primitives.
 
-If you want to read the codebase end-to-end, start here:
-
-1. `DealersExeNFT`. The data layout.
-2. `DealersExeActions`. How user calls dispatch.
-3. `DealersExePVE`. The most-used path.
-4. `DealersExePVP`. The second-most-used.
-5. The registries (`DEDrugRegistry`, `DEAreaRegistry`). The data model.
-6. The renderers (`DealerRendererSVG`, `DealerRendererHTML`). How the art is built.
-
-Skip `DealersExeMulticall` until you actually need it. It's plumbing.
+`DealersExeMulticall` is plumbing rather than business logic, and you can safely skip it on a first read.

@@ -1,39 +1,26 @@
 ---
 title: Rendering
-description: How the Dealers.sh NFT renders its art and embeds the game.
+description: How a Dealers.sh NFT renders its character art and embeds the playable game.
 ---
 
 # /the-art/rendering
 
-We are quietly proud of this. Here's how it works.
+This page explains how a Dealers.sh NFT actually renders. It is one of the parts of the project we are most proud of, because the result is unusual: there are no off-chain hosts in the pipeline, and everything you see when you open the NFT comes directly from the Abstract blockchain.
 
-## The pipeline
+## The pipeline, step by step
 
-1. The dealer's traits are stored on chain as packed bits.
-2. `DealerRendererSVG.sol` reads those bits and assembles an SVG character from on-chain trait fragments.
-3. `DealerRendererHTML.sol` wraps the SVG in a playable HTML game. The game itself is the [dealers-app](https://github.com/dealers-sh) build, gzipped and stored via `FileStore.sol`.
-4. When a marketplace reads `tokenURI`, it gets back metadata + a complete `animation_url` data URI.
-5. The viewer renders the SVG behind the UI. The UI is a self-contained React app. It talks to the rest of the contracts over `window.ethereum`.
+The process begins with the trait data for your specific dealer, which is stored on chain as a packed set of bits inside the `DealersExeNFT` contract. When a marketplace or block explorer requests the metadata for your token, the contract reads those bits and passes them to `DealerRendererSVG`, which assembles an SVG character from on-chain trait fragments. Those fragments are also stored on chain, in the same contracts, so the rendering process never has to reach out for anything external.
 
-## What's actually on chain
+`DealerRendererSVG` returns the assembled image to `DealerRendererHTML`, which wraps it in a small HTML shell. That shell hosts the playable game UI, which is itself stored on chain through Abstract's FileStore contract. The complete HTML payload, including the SVG character, the game UI, the styles, and the JavaScript, is returned to the requester as a data URI in the `animation_url` field of the standard token metadata.
 
-- The trait fragments (SVG paths).
-- The trait assignment for every token.
-- The game HTML/JS/CSS, gzipped.
-- The contract that stitches them together.
+When a viewer renders the NFT, it sees the SVG character as the static image and renders the `animation_url` HTML as the interactive view. The game inside connects to your wallet via standard EIP-1193 plumbing and talks to the rest of the Dealers.sh contracts directly. At no point in the chain is there an off-chain host.
 
-What is **not** on chain: nothing important. No off-chain server holds anything you need to play.
+## What is and is not on chain
 
-## Why this matters
+The traits, the trait fragments, the trait assignment for every minted token, the full game HTML and JavaScript and CSS, the gzipped binary that holds it all, and the contracts that stitch it together: all on chain. The wallet you sign with, the RPC node you use to read the chain, and the marketplace UI that initially loads the metadata: those are infrastructure, but none of them hold any project-specific data. Swap any of them out, and the NFT still renders correctly from a different source.
 
-No servers means no servers to go down. No storage means no link to break. No hosting means no bill we forget to pay.
+## Why we think this matters
 
-If Abstract is up, your dealer is up. That's the deal.
+The reason we built it this way is straightforward. A server that is not running cannot keep your NFT alive. A storage service that goes out of business cannot serve a missing image. A hosted database that we forget to pay cannot be queried. None of those failure modes exist for Dealers.sh. So long as the Abstract chain itself is online, your dealer is online.
 
-## Read it yourself
-
-- [`DealerRendererSVG`](/contracts/addresses)
-- [`DealerRendererHTML`](/contracts/addresses)
-- `FileStore` contract address on Abstract.
-
-The source is verified. Read the bytecode if you'd rather.
+If you want to verify any of this yourself, the contract addresses for `DealerRendererSVG`, `DealerRendererHTML`, and the FileStore are documented on [/contracts/addresses](/contracts/addresses). All of them are verified on the Abstract block explorer, and the source code is readable from the contract pages.
