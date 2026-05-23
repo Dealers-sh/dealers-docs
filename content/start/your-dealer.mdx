@@ -7,6 +7,8 @@ description: What the Dealers.sh NFT is and how its on-chain state evolves as yo
 
 Each Dealers.sh NFT is both a piece of generative art and a save file. The image you see on a marketplace is rendered directly from contract bytecode, and the gameplay state attached to that token (your cash, your stash, your reputation, your heat) lives in the same set of contracts. There is no separate database keeping track of your progress.
 
+![A dealer with the game ui and metadata as one combined image.](/concept.jpg)
+
 ## The art is on chain
 
 When a wallet or a marketplace requests the metadata for your dealer, the contract assembles an SVG from packed trait data and returns it as part of the standard `tokenURI` response. Alongside that SVG, the `animation_url` contains the playable game HTML, gzipped and stored on chain through Abstract's FileStore. Nothing about the visual or interactive experience depends on an external host.

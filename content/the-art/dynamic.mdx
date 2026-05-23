@@ -15,6 +15,19 @@ A second category of dynamic content is achievement-driven visual state. Some ac
 
 A third category is environmental state. The area you are currently in, your jail status, the outcome of your most recent PVP exchange, and your active heat level all feed into how the scene around the character reads. These shifts are driven directly by on-chain state, so they update as soon as a transaction confirms.
 
+## Dynamic traits in the NFT metadata
+
+The standard `tokenURI` for a Dealers.sh NFT carries four **live** traits in addition to the fixed visual attributes. Each one is read from the contract at query time, so when a marketplace or wallet refreshes the token, the value reflects the dealer's current on-chain state.
+
+| Trait | Source | Notes |
+| --- | --- | --- |
+| `Rank` | `getReputationTitle(totalReputation)` | The current tier name, drawn from the 10-tier ladder — Outsider → Legend. See [/progression/ranks](/progression/ranks). |
+| `Infamy` | `getInfamy(tokenId)` | Numeric, increments and decrements with PVP outcomes. |
+| `Area` | current area's name | The street, Safe House, Black Market, or Jail. |
+| `Heat` | star string | Rendered as `⭐` repeated to match the heat level. |
+
+The trait names and order match `DealersNFT._getDynamicTraits`. Marketplaces that index ERC-721 metadata pick these up automatically, which means a filtering UI can list dealers by rank or infamy without any off-chain indexer.
+
 ## What stays fixed
 
 The base traits rolled at mint are permanent. The character you minted is the character you keep. Achievements can layer on top of those traits, but they cannot replace them, and there is no mechanism in the game to reroll or swap out anything that was set at mint.

@@ -11,16 +11,33 @@ This page explains how a Dealers.sh NFT actually renders. It is one of the parts
 
 The process begins with the trait data for your specific dealer, which is stored on chain as a packed set of bits inside the `DealersExeNFT` contract. When a marketplace or block explorer requests the metadata for your token, the contract reads those bits and passes them to `DealerRendererSVG`, which assembles an SVG character from on-chain trait fragments. Those fragments are also stored on chain, in the same contracts, so the rendering process never has to reach out for anything external.
 
-`DealerRendererSVG` returns the assembled image to `DealerRendererHTML`, which wraps it in a small HTML shell. That shell hosts the playable game UI, which is itself stored on chain through Abstract's FileStore contract. The complete HTML payload, including the SVG character, the game UI, the styles, and the JavaScript, is returned to the requester as a data URI in the `animation_url` field of the standard token metadata.
+`DealerRendererSVG` returns the assembled image to `DealerRendererHTML`, which wraps it in a small HTML shell. That shell hosts the playable game UI, which is itself stored on chain through a FileStore contract. 
+
+The complete HTML payload, including the SVG character, the game UI, the styles, and the JavaScript, is returned to the requester as a data URI in the `animation_url` field of the standard token metadata.
 
 When a viewer renders the NFT, it sees the SVG character as the static image and renders the `animation_url` HTML as the interactive view. The game inside connects to your wallet via standard EIP-1193 plumbing and talks to the rest of the Dealers.sh contracts directly. At no point in the chain is there an off-chain host.
 
 ## What is and is not on chain
 
-The traits, the trait fragments, the trait assignment for every minted token, the full game HTML and JavaScript and CSS, the gzipped binary that holds it all, and the contracts that stitch it together: all on chain. The wallet you sign with, the RPC node you use to read the chain, and the marketplace UI that initially loads the metadata: those are infrastructure, but none of them hold any project-specific data. Swap any of them out, and the NFT still renders correctly from a different source.
+**What is:**
+The traits, the trait fragments, the trait assignment for every minted token, the full game HTML and JavaScript and CSS, the gzipped binary that holds it all, and the contracts that stitch it together: all on chain. 
+
+**What isn't:**
+The wallet you sign with, the RPC node you use to read the chain, and the marketplace UI that initially loads the metadata: those are infrastructure, but none of them hold any project-specific data. Swap any of them out, and the NFT still renders correctly from a different source.
+
+## Why IPFS is not safe enough
+
+Most NFTs do not actually live "on chain" — they live on **IPFS**, with only a content hash recorded in the contract. That arrangement is often described as decentralised, but it is not the same as on-chain storage, and the difference matters.
+
+- **Pinning is not persistence.** IPFS is content-addressed, not content-stored. A CID is just a fingerprint. If no node is actively pinning the file behind that fingerprint, the network will eventually garbage-collect it. The CID still exists, but the bytes are gone.
+- **Most NFTs depend on a single pinner.** In practice the project (or one paid service like Pinata, NFT.Storage, or Filebase) is the only node pinning the JPEG. When that service goes down, changes terms, or the team stops paying, the image stops resolving everywhere downstream.
+- **Gateways are centralised.** Marketplaces and wallets typically fetch IPFS content through HTTP gateways (`ipfs.io`, `cloudflare-ipfs.com`, etc.). Each gateway is a single point of failure run by a single operator. Outages and rate limits regularly take "decentralised" NFTs offline for hours at a time.
+- **The historical record is full of dead JPEGs.** Several high-profile NFT projects have already lost their art when their pinning service shut down or their hosting expired. The CID is permanent; the file behind it isn't.
+
+Dealers.sh deliberately does not use IPFS for any of the rendering pipeline. The trait fragments, the assembled SVG, the HTML shell, and the embedded game UI all live in contract storage on Abstract. There is no pinner to forget to pay, no gateway to fail over, and no `ipfs://` URL anywhere in the metadata.
 
 ## Why we think this matters
 
-The reason we built it this way is straightforward. A server that is not running cannot keep your NFT alive. A storage service that goes out of business cannot serve a missing image. A hosted database that we forget to pay cannot be queried. None of those failure modes exist for Dealers.sh. So long as the Abstract chain itself is online, your dealer is online.
+The reason we built it this way is straightforward. A server that is not running cannot keep your NFT alive. A storage service that goes out of business cannot serve a missing image. A hosted database that we forget to pay cannot be queried. An IPFS pin that is silently dropped cannot be retrieved. None of those failure modes exist for Dealers.sh. So long as the Abstract chain itself is online, your dealer is online.
 
 If you want to verify any of this yourself, the contract addresses for `DealerRendererSVG`, `DealerRendererHTML`, and the FileStore are documented on [/contracts/addresses](/contracts/addresses). All of them are verified on the Abstract block explorer, and the source code is readable from the contract pages.

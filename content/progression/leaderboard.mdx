@@ -1,24 +1,30 @@
 ---
 title: Leaderboard
-description: How the global Dealers.sh leaderboard is computed and refreshed.
+description: How the two Dealers.sh leaderboards rank dealers and where to read them.
 ---
 
 # /progression/leaderboard
 
-The leaderboard is the global view of who is doing well in Dealers.sh. It ranks every dealer that has played the game and refreshes on a regular cadence, so positions move in near real time as new transactions confirm.
+Dealers.sh has **two leaderboards**, not one. They sort the same population of dealers by two different scores and stand on their own.
 
-## How positions are ranked
+- **PVE leaderboard** — sorted by **reputation**. This is the long-running score that drives the rank ladder.
+- **PVP leaderboard** — sorted by **infamy**. This is the PVP-specific score that moves with attack outcomes.
 
-The primary sort is reputation. The dealer with the highest reputation total at the moment of refresh is at the top, and positions cascade down from there. When two dealers are tied on reputation, infamy is used as the first tiebreaker, and current cash on hand is used as the second. Beyond those, the position is effectively a function of who got there first.
+Each board shows the **top 25** dealers. If two dealers tie on the sort score, the lower token ID wins the tie. Infamy is not a tiebreaker on the PVE board and reputation is not a tiebreaker on the PVP board.
 
-Because the inputs are all read directly from on-chain state, there is no separate ledger to reconcile and no scenario in which the leaderboard says one thing and the contract says another. If a number on the leaderboard ever looks wrong, the contract value is what is correct.
+## Live, not refreshed
 
-## Refresh cadence
+Both boards are computed from on-chain reads at query time. There is no separate ledger to reconcile and no refresh schedule to wait on — the moment a transaction confirms, the underlying numbers move, and the next query reflects them. If a board ever shows something that disagrees with the contract, the contract is correct.
 
-State changes on chain are immediate. The leaderboard view, however, is computed and sorted on a schedule rather than on every block. The displayed sort updates at the refresh boundary, so a transaction that just confirmed might not be reflected in the standings until the next refresh.
+## Where to read them
+
+In the 📟 pager:
+
+- `/leaderboard pve` — top 25 by reputation
+- `/leaderboard pvp` — top 25 by infamy
+
+Your own dealer's row is highlighted if you are in the top 25. To find your overall position (whether you make the top 25 or not), use `/rank`.
 
 ## Why position matters
 
-Position is partly bragging rights and partly a real input into the game. Some seasonal achievements may gate on holding a top-N position for a defined period. Beyond that, a strong leaderboard position is simply visible to everyone else, and visibility tends to attract both attention and challenge from other players.
-
-Live standings are available in-game — type `/leaderboard pve` or `/leaderboard pvp` in the 📟 tab.
+Position is mostly bragging rights and visibility. A high reputation total signals a steady, productive dealer; a high infamy total signals a dealer who picks fights and wins them. Both attract attention, and the PVP board in particular tends to make holders into targets — a high-infamy dealer is exactly who other PVP players are scouting for.
