@@ -7,6 +7,10 @@ description: The Dealers.sh contract architecture on Abstract.
 
 Dealers.sh is implemented as a set of small, composable smart contracts on Abstract rather than as a single monolithic contract. The split keeps each component auditable on its own and makes it easier to swap or extend pieces without touching the rest. This page lists every contract in the system and walks through how they cooperate during a typical action.
 
+![The Dealers.sh public function surface grouped by domain: ERC-721 lifecycle, PVE actions, shop and claims, PVP, and the supporting registries.](/contracts.jpg)
+
+This map mirrors the [game loop diagram](/the-game/overview) — each colored region corresponds to the same gameplay area, but populated with the actual on-chain functions that drive it.
+
 ## The contract graph
 
 The system has fifteen deployed contracts at present. Each one has a focused responsibility, and most player actions touch three or four of them in sequence.
@@ -37,4 +41,4 @@ The PVE module reads the relevant drug data from `DEDrugRegistry` and the releva
 
 The chat log is appended through `DealersExeChatFactory`, which is the contract that holds the per-token activity stream that the pager reads from. When the next render happens, the in-NFT UI reads the updated state from `DealersExeCore`, reads the new chat entries from the chat factory, and shows the player exactly what happened.
 
-Every step of that flow is a public, verified contract call that anyone can inspect on the Abstract block explorer. The contract addresses are documented on [/contracts/addresses](/contracts/addresses), and a visual graph of the architecture will be added to this page once the audit version of the diagram is finalised.
+Every step of that flow is a public, verified contract call that anyone can inspect on the Abstract block explorer. The contract addresses are documented on [/contracts/addresses](/contracts/addresses).

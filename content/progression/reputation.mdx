@@ -5,30 +5,35 @@ description: How reputation is earned, lost, and what it gates as your dealer pr
 
 # /progression/reputation
 
-Reputation is the long-running scoring system in Dealers.sh and the single most important measure of your dealer's progress. Every meaningful action in the game adjusts it in one direction or the other, and the total reputation you hold at any moment determines your rank, your access to PVP, and your standing on the global leaderboard.
+Reputation is the long-running score that drives ranks, gates PVP, and feeds the PVE leaderboard. Every PVE and PVP action either pays or charges reputation; jail also charges it. The numbers below come from the contracts and can be inspected on chain.
 
 ## How reputation is earned
 
-You earn reputation primarily through the gameplay loops on the deal, PVP, and heist tabs. A clean PVE deal pays a reputation bump scaled to the difficulty of the matchup, the rarity of the drug involved, and the risk you accepted. A successful PVP attack pays a reputation bump scaled to the matchup between you and the target. Heists pay the largest reputation amounts but also carry the largest reputation swings on failure.
+The PVE deal pays reputation on win and on tie:
 
-A smaller secondary source of reputation comes from achievements. Certain achievements grant a one-time reputation bump on claim, which can be a meaningful boost if you are sitting just below a rank threshold and need a push to cross it. See [/progression/achievements](/progression/achievements) for details on which achievements pay reputation and which pay other kinds of rewards.
+- A **win** pays `repWinBonus`, scaled by your current rank tier and your active boost. The base formula is `(tier.winBonus × stakeValue / repStakeDivisor) × repMultiplier / 100`, clamped to `repCap`. **Stake value** is `amount × drug price` for the trade you actually made — bigger trades earn more rep, with diminishing returns at the per-action cap.
+- A **tie** pays a smaller `repTieBonus`, scaled the same way.
+
+A **PVP win** as the attacker pays a flat `repWinBonus × repMultiplier / 100`. PVP payout is **not** scaled by matchup — the matchup (threat, armor, rep delta) only affects your win odds, not the size of the reward. A defender who survives an attack picks up a small `defenderRepBonus` (currently 2 rep).
+
+Some achievements grant a one-time reputation bump on claim. See [/progression/achievements](/progression/achievements) for the catalogue. Use `/achievements` in the 📟 pager to see your live list.
 
 ## How reputation is lost
 
-The same systems that pay reputation can also charge it. Certain PVE outcomes subtract reputation when the matchup goes badly, particularly when you make repeated weak plays in a row. PVP losses cost reputation as well, and the loss scales with the matchup: losing to a much weaker dealer is more punishing than losing to a stronger one.
+Three sources subtract reputation:
 
-Time spent in jail is not, by itself, a direct reputation tax, but it is reputation you are not earning during that period. The opportunity cost is real, and it is part of why heat management is itself a reputation strategy.
-
-The exact reputation curves for each interaction will be published once the contract pass is final.
+- **PVE losses.** Pay `repLossPenalty` per loss, drawn from your current rank tier. The penalty is the same per loss — there is no streak modifier.
+- **PVP losses.** As the attacker, you take your tier's `repLossPenalty`. As a defender who got hit, the same. Like PVP wins, PVP losses do **not** scale with matchup.
+- **Jail.** Going to jail subtracts `(reputation × jailRepPenaltyPercent) / 100`, capped at `jailRepPenaltyCap`. The current defaults are **10% of current reputation, capped at 50 rep absolute**. Jail also confiscates a percentage of one drug from your stash (`jailDrugConfiscationPercent`). Both numbers are read from the core config and may move with rebalances.
 
 ## What reputation unlocks
 
-Reputation gates several things. The most immediate is rank: your displayed title on the STASH tab is determined entirely by your current reputation total, and crossing a rank threshold updates the label in real time. See [/progression/ranks](/progression/ranks) for the ladder.
+- **Rank.** Your title on the STASH tab is read from the rank ladder against your current reputation total, updating in real time as you cross thresholds. See [/progression/ranks](/progression/ranks).
+- **PVP.** Until you cross `pvpMinReputation`, the PVP tab is read-only — you can browse and scout but cannot commit attacks.
+- **Leaderboard.** Reputation is the sort key for `/leaderboard pve`. Infamy is the sort key for the separate `/leaderboard pvp`. The two boards stand on their own; reputation is not a tiebreaker for the PVP board and infamy is not a tiebreaker for the PVE board.
 
-Reputation also gates PVP. Until you cross the minimum threshold, the PVP tab is in read-only mode and you cannot commit an attack. Finally, your position on the global leaderboard is primarily a function of reputation, with infamy and other stats acting as tiebreakers.
+## Reputation vs infamy
 
-## Reputation and infamy
+The two scores are deliberately different. Reputation is the broad, slow score that drives ranks and PVE leaderboard position. Infamy is the PVP-specific score that controls loot drop quality and adds an extra arrest-roll bonus when you attack. A pure-PVE dealer climbs rank fast and stays at low infamy. A pure-PVP dealer climbs rank more slowly (gated by daily attacks and available targets) but stacks infamy and exotic loot. See [/the-game/pvp](/the-game/pvp) for the infamy mechanics.
 
-It is worth separating reputation from infamy explicitly, because the two are often confused on a first read. Reputation is the slow, broad measure of progress and is earned across all gameplay loops. Infamy is a PVP-specific score that moves faster, swings further, and signals to other dealers how visible you are.
-
-A dealer can have high reputation and low infamy if they have grinded PVE almost exclusively. A dealer can also have moderate reputation and very high infamy if they have run a lot of PVP. Both are legitimate ways to play. They simply produce different reputations, in the conversational sense, around the table.
+For current values on your own dealer, use `/info dealer` in the 📟 tab. For the underlying mechanics, `/info pve` and `/info pvp` show how each loop resolves.

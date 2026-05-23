@@ -1,28 +1,18 @@
 ---
 title: Rarity
-description: Trait categories and rarity distribution across the Dealers.sh collection.
+description: How dealer traits are assigned at mint and where rarity data lives.
 ---
 
 # /the-art/rarity
 
-Each Dealers.sh dealer has a randomized appearance assigned at mint. The randomization runs across several trait categories, and within each category a number of distinct options exist at different rarity tiers. This page documents the categories and the distribution, and once the collection is finalised it will host the full per-trait counts.
+Every dealer carries a fixed visual trait set that is encoded on chain when the NFT mints. The trait categories cover the dealer's body, outfit, accessories, and the surrounding scene — together they produce the silhouette you see when you open the token. Rarity is simply the result of how often each trait, and each combination of traits, appears across the collection.
 
-## The trait categories
+## Rarity is readable on chain
 
-Every dealer is rolled across seven visual categories: background, body or character base, hair, eyes, mouth, outfit, and accessory. Each category contributes a piece of the assembled SVG that renders for your token, and together they produce the silhouette you see when you open the NFT.
-
-The full table of options per category, along with the exact count of dealers that received each option, will be published here once mint is complete and the assignments are locked. The data is already available on chain in the trait registry, and the in-game UI reads from it directly.
-
-## How rarity is distributed
-
-Within each category, the available traits are spread across a small number of rarity tiers, from common at the bottom to rare at the top. Common traits appear in a large number of dealers, uncommon traits appear in a smaller number, rare traits in a much smaller number, and so on. The exact percentages will be published alongside the trait counts.
-
-Because the assignment happens at mint and is recorded on chain, a trait cannot be rerolled, swapped, or upgraded. Whatever your dealer was born with is what it carries for the life of the token.
+The trait assignments live inside `DealersExeNFT`, and the SVG renderer `DealerRendererSVG` composes them at call time. No middleware or off-chain index is required: anyone with an Abstract RPC connection can read the trait data directly. Your own dealer's assembled character is visible in the STASH view inside the game.
 
 ## Rarity is cosmetic
 
-This is worth stating explicitly because it comes up often. Rarity affects how your dealer looks, and a rare combination is a flex in exactly the way a rare hat in any other collectible is a flex. It does not, however, affect any gameplay system. Reputation, infamy, heat, and cash are all independent of which traits you rolled, and a common dealer with a high reputation total outranks a one-of-one with no track record.
+Rarity affects how your dealer looks. It does not affect any gameplay system. Reputation, infamy, heat, and cash are independent of which traits you rolled, and a common dealer with a high reputation total outranks a one-of-one with no track record.
 
-## Reading the data on chain
-
-If you want to inspect trait data directly, the NFT contract exposes per-token queries that return the trait assignment for any minted dealer. No middleware or off-chain index is required: the rarity data lives on chain, and anyone with an Abstract RPC connection can read it. The contract is documented on [/contracts/overview](/contracts/overview).
+For aggregate rarity views — sorted trait counts, ranking, filters — third-party marketplaces and explorers index the on-chain trait data after mint. The docs do not maintain rarity tables.

@@ -11,9 +11,15 @@ The 🤝 tab is the main action tab in Dealers.sh. Almost all of your income com
 
 When you open the deal tab on the streets of a normal area, you are presented with three options. Each one represents a different kind of action with a different cost.
 
-**Buy** lets you purchase a drug at the local price. It costs cash, it costs one attempt from your daily budget, and it adds the resulting amount to your stash. **Sell** offloads a drug from your stash at the local price. It pays you cash and also costs one attempt. **Clear Heat** is only available when your current heat level is above zero, and it allows you to spend cash to drop one level of police attention rather than continuing to risk being arrested.
+- **Buy** lets you purchase a drug at the local price. It costs cash, it costs one attempt from your daily budget, and it adds the resulting amount to your stash. 
+- **Sell** offloads a drug from your stash at the local price. It pays you cash and also costs one attempt. 
+- **Clear Heat** is only available when your current heat level is above zero, and it allows you to spend cash to drop police attention rather than continuing to risk being arrested.
 
-If your current area is a Safe House, the streets are closed for business and you will be told to leave before you can deal. If your current area is the Black Market, the menu changes entirely (see below). If you are in jail, neither set of actions is available, and the tab redirects you to handle bail or attempt a breakout. The full mechanics for those states are documented on [/the-game/jail](/the-game/jail).
+## Area limits
+
+- **🛡️ Safe House**: the streets are closed for business and you will be told to leave before you can deal. You are protected from other dealers while inside.
+- **Black Market**: a shop run by a guy named Carl. Gated behind 10+ Infamy. The menu replaces drug deals with a single seller for exotic items earned from PVE — **Goods, Contraband, and Jewels** — at payouts well above normal sells.
+- **🛡️ Jail**: neither set of actions is available, and the tab redirects you to handle bail or attempt a breakout. You are also protected from PVP while inside. Full mechanics on [/the-game/jail](/the-game/jail).
 
 ## How a deal flows
 
@@ -21,22 +27,22 @@ A buy or sell walks you through four short screens. First, you choose between Bu
 
 Once you confirm, the transaction is submitted to the chain. The result is written to the chat log inside the game and shows you exactly what changed: how much cash moved, how the deal resolved, how much reputation you earned, and how your heat shifted.
 
-## Strategies and matchups
+## Deal, Threaten, or Bail
 
-The strategy step is the wrinkle that turns a simple buy-and-sell game into a thinking game. Each strategy you can pick has a different relationship to whatever approach the NPC happens to play, broadly along the lines of rock paper scissors. Some combinations resolve cleanly and pay full reputation. Others get caught short and add heat without paying out.
+The strategy step is rock-paper-scissors against the streets. You commit to one of three approaches and the NPC commits to one of their own. The matchup decides whether you walk away with full reputation, a clean swap, or nothing at all.
 
-We do not publish a full matrix of every matchup, because learning the patterns is part of the game. The chat log after each deal contains everything you need to start spotting them. Pay attention to what you played, what the NPC played, and what the outcome was, and the system becomes legible within a session or two.
+- **🤝 Deal** — play it straight. You meet, swap cash for product, and leave.
+- **🔫 Threaten** — pull a gun and take what you want. Works when the other side blinks.
+- **🏃 Bail** — try to run with the goods. You skip the transaction entirely and hope they don't catch you at the turn.
+
+The three options form a cycle. Each one beats one of the others and loses to the third. The NPC plays the same game from the other side, so a fresh dealer can read the chat log to learn which counters which. The matchups become legible within a session or two.
 
 ## Attempts
 
-Each buy or sell costs one attempt from your current period's budget, displayed in the UI as a counter like `⚡️ 4/10`. When you run out, you have two options: you can wait for the daily reset, or you can purchase an attempt reset from the [shop](/the-game/shop). The shop reset is the right choice when you are on a profitable run and the next deal is worth more than the price of the reset.
+Each buy or sell costs one attempt from your current period's budget, displayed in the UI as a counter like `⚡️ 4/10`. When you run out, you have two options: you can wait for the daily reset, or you can purchase an attempt reset from the [shop](/the-game/shop). 
 
 ## Heat and Clear Heat
 
-Heat rises across most deals and reaches jail at level 5. The Clear Heat action provides an out: instead of risking another deal that pushes you into jail, you can pay a cash fee to drop one level back down. The decision of when to clear is one of the recurring economic choices in the game. Sometimes the cash is better spent on more inventory, and sometimes preserving your run is worth the spend.
+Every action adds one heat, capped at 5. On every action the game rolls for arrest with chance equal to `heat × 0.5%`, so heat 5 is a 2.5% jail risk per action. 
 
-## The Black Market
-
-Some areas are designated as Black Market locations. When you are in one of these, the deal tab shows a different menu from a different vendor, with its own price sheet and its own action set. The Black Market is generally a different selling environment, not a different drug catalog, and it complements the regular streets rather than replacing them.
-
-A Safe House and a Black Market are not the same thing. A Safe House lets you sit out and cool your heat. A Black Market lets you do business at a different price. They serve different purposes, and recognizing which one you are in is a small but useful piece of intuition.
+The Clear Heat action provides an out: pay a cash fee to drop one level back down. The decision of when to clear is one of the recurring economic choices in the game. Sometimes the cash is better spent on more inventory, and sometimes preserving your run is worth the spend.

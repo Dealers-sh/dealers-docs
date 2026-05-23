@@ -9,11 +9,11 @@ This page is for developers who want to integrate with Dealers.sh contracts dire
 
 ## Where the source lives
 
-The Dealers.sh contract source currently lives in the private `dealers-exe-contracts` directory inside the main project repository. The public version of the repo will be published once the audit is complete, and the URL will be added here at that time.
+The Dealers.sh contract source lives in the `dealers-exe-contracts/` directory of the project repository. The Solidity layout in `src/` matches the contract table on [/contracts/overview](/contracts/overview) one-to-one: each row in that table corresponds to a deployed contract under `src/core/`, `src/nft/`, `src/social/`, or `src/utils/`. ABIs are emitted by `forge build` into the standard Foundry `out/` directory, with one JSON artefact per contract (`out/<ContractName>.sol/<ContractName>.json`).
 
 ## How to get ABIs
 
-There are three reliable ways to obtain machine-readable ABIs for any of the deployed contracts. The first is the block explorer itself: every verified contract page on Abstract exposes its full ABI as a JSON file, which you can copy directly into your tooling. The second is the public contracts repo once it goes live, which will include an `abi/` directory containing one JSON file per deployed contract. The third is the TypeScript SDK we are building for integrators: when it ships, it will re-export typed ABI bindings so you can call contracts without copying ABI files manually.
+There are two reliable ways to obtain machine-readable ABIs for any of the deployed contracts. The first is the block explorer itself: every verified contract page on Abstract exposes its full ABI as a JSON file, which you can copy directly into your tooling. The second is to build the contracts locally — `forge build` (or `forge build --zksync --skip "RendererSVG"` for the zkSync-native modules) produces a Foundry artefact for every contract under `out/`, and the `.abi` field on each artefact is the standard JSON ABI that `viem`, `ethers`, and `wagmi` consume directly.
 
 ## Conventions across the codebase
 

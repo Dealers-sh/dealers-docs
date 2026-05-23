@@ -7,13 +7,19 @@ description: Core mechanics of Dealers.sh. Reputation, Heat, Attempts, Areas, an
 
 This page gives you the complete game on a single screen. Every system mentioned here has its own dedicated page below if you want to dive deeper.
 
+![The Dealers.sh game loop: mint a dealer, build inventory through PVE deals across areas, unlock PVP to attack other dealers, and use chat and the pager to track the world around you.](/loop.jpg)
+
 ## The core loop
 
 At its heart, Dealers.sh is a price arbitrage game wrapped in a mafia fiction. You move between areas, buy drugs where they are cheap, sell them where they are expensive, and reinvest the profits into bigger and bigger plays. The complication is that every action generates police heat, every area has different opportunities and risks, and other players in your area can attack you once you start to look like a worthwhile target.
 
-A typical session moves through three stages. You begin on the streets with PVE (player versus environment) deals that build your reputation and your cash position. Once your reputation crosses a threshold, PVP (player versus player) opens up and you can start stealing from other dealers in your area. Heists sit at the top of the curve and pay the largest amounts, but they require the most setup and carry the most downside.
+A typical session moves through two stages. You begin on the streets with PVE (player versus environment) deals that build your reputation and your cash position. Once your reputation crosses a threshold, PVP (player versus player) opens up and you can start attacking other dealers in your area for additional reputation and infamy.
 
-The shorthand we use for this is "PVE for the rep, PVP for the infamy, heists for the bag," and the rest of this section explains what each of those words actually means.
+## Free to play, not pay to win
+
+Dealers.sh is designed so the full game is playable without ever spending ETH on anything except the initial NFT mint. The starter areas — **Manhattan** and **Amsterdam** — are free to move between, and that pair is enough to run the core buy-cheap-sell-high loop, climb the early ranks, and unlock PVP. Moving to the later areas (Colombia onward) costs a small ETH fee, and the [shop](/the-game/shop) sells optional boosts in ETH that multiply rewards and add daily attempts.
+
+Boosts do not change odds. A boosted dealer wins the same PVE matchups, wins the same PVP fights, and fails the same jail rolls — they just get more out of each win. The shop is a time discount, not an advantage. A free-play dealer reaches every milestone a boosted dealer does, over more sessions.
 
 ## The five numbers that matter
 
@@ -22,8 +28,8 @@ Almost everything in Dealers.sh moves one or more of the following stats. Knowin
 | Stat | What it represents | What changes it |
 | --- | --- | --- |
 | **Reputation (REP)** | Your standing in the family. Drives ranks and gates PVP. | Earned through PVE wins, PVP wins, achievements. Lost on PVE failures and PVP losses. |
-| **Heat** | Police attention, scaled 0 to 5. At 5 you go to jail. | Most deals add a little. Failed deals add a lot. The Clear Heat action lowers it. |
-| **Cash** | Liquid working capital. | Spent on drugs, travel, boosts, and bail. Earned from sells, PVP loot, and heists. |
+| **Heat** | Police attention, capped at 5. Each action rolls for arrest at `heat × 0.5%`. | Every action (PVE or PVP) adds 1. The Clear Heat action drops it by 1 for a cash fee. |
+| **Cash** | Liquid working capital. | Spent on drugs, travel, boosts, and bail. Earned from sells and PVP loot. |
 | **Stash** | Drugs you currently hold, by type and quantity. | Goes up when you buy or win a PVP fight. Goes down when you sell or lose one. |
 | **Attempts** | Actions remaining in the current period. | Each buy or sell costs one. Refills on a daily timer or via a shop reset. |
 
@@ -33,14 +39,13 @@ There is a sixth stat, Infamy, that is specific to PVP. It tracks how much other
 
 The game UI is divided into a small number of tabs, each documented in its own page.
 
-The dashboard tab, [Stash](/the-game/stash), is your default view and surfaces all of the stats above in one place. From there, four tabs handle actions: [Deal](/the-game/deal) covers PVE buying and selling, [Move](/the-game/move) handles travel and area changes, [PVP](/the-game/pvp) lets you attack other dealers, and [Heist](/the-game/heist) is reserved for larger coordinated jobs.
-
-Two more tabs handle utilities. The [Shop](/the-game/shop) sells time-limited boosts and attempt resets, and the [Pager](/the-game/pager) is where notifications and claimable achievements appear. Finally, [Jail](/the-game/jail) is a state rather than a tab in the strict sense, but it has its own page because the rules change while you are inside.
-
-## How the systems interact
-
-The systems are designed to pull against each other. Successful PVE adds reputation but almost always adds some heat as well, so a long PVE session without ever pausing to clear heat will eventually put you in jail. PVP wins pay reputation and infamy at the same time, but losing PVP fights costs both, and the more infamous you are the more often other players will target you. The Move tab is the lever you use to manage all of these tradeoffs: a Safe House cools your heat without costing cash, a Black Market gives you different selling prices, and a different street gives you fresh PVP targets to scout.
-
-The shop boosts (Grinder, Hustler, and Kingpin) multiply gains for a fixed window of time, which is why they are most valuable when you are running a known-profitable strategy, not when you are gambling on a single risky deal.
+- [Stash](/the-game/stash) is the dashboard view and surfaces every stat above in one place. 
+- [Deal](/the-game/deal) is the PVE tab where you buy, sell, and clear heat. 
+- [Move](/the-game/move) handles travel between areas. 
+- [PVP](/the-game/pvp) lets you attack other dealers currently in your area. 
+- [Shop](/the-game/shop) sells time-limited boosts and attempt resets. 
+- [Pager](/the-game/pager) is the chat surface — area and world rooms — plus the in-game `/help` command line. 
+- [Bank](/the-game/bank) is a one-line tab that hints at a future game mode. 
+- [Jail](/the-game/jail) is a state rather than a tab in the strict sense, but it has its own page because the rules change while you are inside.
 
 If this reads as a lot to track on a first pass, the [/start/first-deal](/start/first-deal) walkthrough is a much gentler introduction.

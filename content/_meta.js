@@ -11,6 +11,7 @@ export default {
   progression: 'Progression',
   'the-art': 'The Art',
   contracts: 'Contracts',
+  agents: 'Agents',
   'patch-notes': 'Changelog',
   faq: 'FAQ',
   tos: {

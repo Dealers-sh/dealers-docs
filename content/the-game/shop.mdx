@@ -1,24 +1,39 @@
 ---
 title: Shop
-description: The 🛍️ tab. Spend cash on time-limited boosts and on attempt resets.
+description: The 🛍️ tab. Buy a boost, restock cash, or reset attempts. Everything in the shop is paid in ETH.
 ---
 
 # /the-game/shop
 
-The 🛍️ tab is where you convert cash into edges. The shop sells two broad categories of items: time-limited boosts that multiply your gains for a fixed window, and consumables like attempt resets that let you keep playing when you would otherwise have to wait for the daily timer.
+The 🛍️ tab is where you spend **ETH** to give your dealer an edge. The shop has three product lines: four tiers of time-limited boost, a $CASH restock, and an attempt reset. Nothing in the shop costs in-game cash — every button settles `msg.value` in ETH at purchase.
 
-## The boosts
+The shop is optional. See [/the-game/overview](/the-game/overview) for the free-play framing — short version: boosts change pace, not outcomes.
 
-There are three tiers of boost, each with its own price, duration, and multiplier. Grinder is the entry-level option: it is the cheapest, has the shortest active window, and provides a modest multiplier on certain gains. Hustler is the mid-tier choice and is the boost most active players reach for during a regular session. Kingpin is the top tier, with the highest cost, the longest window, and the largest multiplier.
+## The four boost tiers
 
-The exact percentages and durations for each tier will be published here once the boost contract pass is final.
+A boost is a single active modifier that runs for a fixed window. It changes four things at once: how much cash and drugs you pull per win, how much rep you earn per win, your daily attempt cap, and (on the top two tiers) whether area travel is free.
 
-## When boosts are worth it
+| Tier | Price | Duration | Drug & Cash | Rep | Attempts | Free travel |
+| --- | --- | --- | --- | --- | --- | --- |
+| 🧃 Grinder    | 0.0025 ETH | 3 days  | 1.25× | 1.10× | 5 → 7  | — |
+| 💎 Hustler    | 0.005 ETH  | 7 days  | 1.50× | 1.15× | 5 → 8  | — |
+| 👑 Kingpin    | 0.01 ETH   | 14 days | 1.75× | 1.25× | 5 → 11 | ✓ |
+| 🌹 Godfather  | 0.023 ETH  | 30 days | 2.25× | 1.35× | 5 → 12 | ✓ |
 
-A boost multiplies whatever you do during its active window, which means it is most valuable when you are already on a strategy you know is profitable. The classic use case is a planned arbitrage run: you have identified a price gap between two areas, you have the cash to move significant inventory, and you want to extract maximum value before the window closes. Stacking a Hustler or Kingpin on top of that run is almost always the right call.
+A boost does **not** change win odds. It does not improve your PVE matchups, your PVP win chance, or your arrest roll. It scales the size of the rewards when you do win, and it gives you more attempts to play with. Plan accordingly.
 
-The opposite is also true. Burning a Kingpin on a single speculative PVP attack, or on a deal where you are not sure of the matchup, is the fastest way to waste a boost. If you would not bet on the underlying play without the boost, the boost itself does not change the odds. It only changes the size of the outcome.
+## Upgrading an active boost
 
-## Attempt resets
+You can only switch from an active boost to a **strictly more expensive** tier. Lower tiers and same tiers are disabled while a boost is running. The new tier overwrites the old one — its full duration starts fresh from the moment of purchase, and the remaining time on the previous boost is lost. With no active boost, any tier is buyable.
 
-The shop also sells attempt resets, which top your daily attempts back up to the maximum. When you have run out of attempts and your daily refill is still hours away, a reset lets you keep playing immediately. The reset is the right purchase when you are mid-run and the next deal is worth more than the reset price. It is the wrong purchase when you are bored and looking to do something just to do something.
+## Restock
+
+Below the boost cards, **RESTOCK** tops up your $CASH balance by a fixed amount for a fixed ETH price. The button is only available when your cash sits below the configured restock threshold — if you have plenty of working capital, it disables itself.
+
+## Reset attempts
+
+The last card, **RESET ATTEMPTS**, refills your daily attempt counter back to the max for an ETH fee. The button is only enabled when your attempts have hit zero. Use it when you are mid-run, the next deal is worth more than the reset fee, and waiting for the daily timer would cost more than it saves.
+
+## When to buy
+
+Boosts are sized for the workload you actually intend to do. Grinder is the cheapest test of the system and lasts long enough for a weekend. Hustler covers a normal week. Kingpin and Godfather only make sense if you are going to play often enough across two to four weeks that the per-day cost compares favourably to your expected earnings. The drug/cash multiplier is the headline number — at 2.25× on Godfather, every win pays more than twice what it would unboosted. The rep multiplier is smaller because the rank ladder is meant to take time even with help.

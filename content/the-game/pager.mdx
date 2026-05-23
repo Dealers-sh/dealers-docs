@@ -1,22 +1,38 @@
 ---
 title: Pager
-description: The 📟 tab. Notifications, messages, and claimable achievements.
+description: The 📟 tab. Area chat, world chat, and the in-game command surface.
 ---
 
 # /the-game/pager
 
-The 📟 tab is the inbox for your dealer. It collects notifications from the game itself, alerts about events involving other players, and any achievements you have earned but not yet claimed. Most players check the pager at the start of a session to catch up on what happened while they were away.
+The 📟 tab is the chat surface for the game. It has two rooms and a command line. No notifications, no achievement claims — just messages and commands.
 
-## What appears in the pager
+![Pager ui screens](/pager.jpg)
 
-System notifications cover the routine background events: when a new period rolls over, when your daily attempts refill, when a jail sentence completes. PVP notifications cover anything involving other dealers: who attacked you, how the fight resolved, and when a dealer you previously scouted comes back into your area. Family announcements appear when something ships at the project level that affects how holders play. Finally, claimable achievements show up here when you have earned one but have not yet completed the on-chain claim transaction.
+## The two rooms
 
-## Claiming achievements
+A toggle in the chat input cycles between **AREA** and **WORLD**.
 
-Some achievements apply automatically as soon as you meet their criteria. Others require an on-chain claim transaction before the reward applies. The pager is where the second category lives. Each unclaimed achievement appears with a button that opens a confirmation flow, and confirming the transaction settles the reward to your dealer.
+- **AREA** is the per-area room. Only dealers currently in the same area as you can see what you post, and you only see what they post. Area chat is disabled in Safe Houses and Jail.
+- **WORLD** is the global room. Everyone in the game sees it.
 
-The reward varies depending on the achievement. Some grant a one-time cash drop, some grant a reputation bump, some add a specific drug to your stash, and some unlock a visual trait change that becomes part of your dealer's appearance. The full list of achievements and their effects will be documented on [/progression/achievements](/progression/achievements) as the catalog is finalised.
+Each message is posted on chain. Messages persist on the room contract until they fall out of the circular buffer.
 
 ## Commands
 
-The pager doubles as a small command surface. Typing `/tutorial` restarts the onboarding flow at any time, which is useful if you skipped it on your first session or want to refresh on the basic mechanics. More commands may appear here as the game grows.
+Anything you type starting with `/` is treated as a command instead of a chat message. Commands run locally and show their output only to you. The pager is the canonical reference for live game data — areas, achievements, ranks — and the docs do not duplicate those tables.
+
+| Command | What it does |
+| --- | --- |
+| `/help` | Show the command menu. |
+| `/info` | Overall game status (jail rules, breakout chance, mint totals). |
+| `/info dealer` | Your dealer's current stats, rep tier, and active boost. |
+| `/info areas` | Overview of all areas. |
+| `/info pve` | How PVE resolves. |
+| `/info pvp` | How PVP resolves. |
+| `/area [name]` | Details for a specific area, including drugs sold there. |
+| `/leaderboard [pve\|pvp]` | Top dealers by reputation or infamy. |
+| `/rank` | Your dealer's position in the rankings. |
+| `/achievements` | Full achievement catalogue. |
+| `/tutorial` | Replay the in-game intro. |
+| `/clear` | Clear the local chat history. |

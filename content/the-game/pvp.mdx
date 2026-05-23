@@ -7,6 +7,8 @@ description: The ⚔️ tab. Steal cash and stash from other real dealers in you
 
 The ⚔️ tab is where Dealers.sh becomes a player versus player game. While the deal tab pits you against NPC traders, the PVP tab lets you attack real dealers who are currently in the same area as you. Successful attacks pay out in cash and stolen drugs, and the outcome moves both your reputation and your infamy.
 
+![The Dealers.sh pvp game interface.](/pvp.jpg)
+
 ## Unlocking the tab
 
 PVP is gated by reputation. Until your dealer hits the minimum threshold, the tab is read-only: you can browse and scout, but you cannot commit an attack. The exact threshold is documented in [/progression/reputation](/progression/reputation). The tab is also disabled while you are in jail or while you are sitting in a Safe House, since neither of those locations is appropriate for picking a fight.
@@ -17,15 +19,35 @@ Hitting a target moves through three short stages. First, you browse the list of
 
 A win pays you a portion of the target's cash, a quantity of one drug type from their stash, an increase to your reputation, and an increase to your infamy. The exact amounts scale with the difference between your dealer and the target.
 
-A loss is exactly what it sounds like. You walk away with nothing from the target, you lose reputation, your infamy drops, and depending on how the fight went you may also pick up some heat. The cops, after all, do not love a street fight.
+A loss is exactly what it sounds like. You walk away with nothing from the target, you lose reputation, and your infamy drops. Either way, attacking always costs you one heat and rolls for arrest at `heat × 0.5%` — picking fights is loud, and the cops are listening. The defender stays clean: only the attacker takes the heat.
 
 ## Why infamy matters
 
-Reputation and infamy are similar in that both go up when you win and down when you lose, but they play different roles. Reputation is the long, steady score that drives ranks and gates progress. Infamy is a more volatile score that signals to other dealers how much of a threat (or how much of an opportunity) you represent.
+Reputation and infamy play different roles. Reputation is the long, steady score that drives ranks and gates progress. Infamy is the PVP-specific score that controls your loot quality and your jail risk while attacking.
 
-A dealer with a high infamy is a tempting target. Players actively scout high-infamy holders because beating one is worth more reputation than beating an unknown. Infamy is therefore a tradeoff: it earns faster than reputation, but it also paints a larger target on your back.
+**Better drops.** On a PVP win, the attacker rolls a separate drop table for exotic items — **Goods, Contraband, and Jewels** — which can later be sold to Carl at the Black Market for outsized cash. The drop table is gated by infamy: the higher your infamy, the lower the no-drop chance and the higher the odds of pulling a rare item.
 
-The phrase that captures the difference is "PVE for the rep, PVP for the infamy." Pure PVE players accrue reputation slowly and quietly. Pure PVP players accrue infamy fast and very loudly. Most players end up doing a mix, and where you sit on that spectrum is part of how you play the game.
+| Infamy band | Drop odds (none / common / uncommon / rare) |
+| --- | --- |
+| 0–9   | 40% / 60% / — / — |
+| 10–19 | 35% / 50% / 15% / — |
+| 20–29 | 30% / 45% / 20% / 5% |
+| 30–39 | 25% / 40% / 25% / 10% |
+| 40–49 | 20% / 35% / 30% / 15% |
+| 50+   | 15% / 30% / 35% / 20% |
+
+**More PVP jail risk.** On every PVP attack, the arrest roll picks up an extra `floor(infamy / 10) × 0.5%` on top of the usual `heat × 0.5%`. The infamy bonus caps at +2.0% once you cross **40 infamy**, so each step on the loot ladder also raises the jail tax. The infamy bonus only applies to PVP attacks — PVE rolls use heat alone.
+
+**A larger target.** A dealer with high infamy is a tempting target. Players actively scout high-infamy holders, because beating one is worth more reputation than beating an unknown. Infamy is therefore a tradeoff: it unlocks better drops, but it also paints a larger target on your back.
+
+## PVE vs PVP: where the value sits
+
+The two loops are deliberately weighted against each other.
+
+- **PVE is the faster reputation lane.** Every attempt resolves, you can grind up to your daily attempt budget, and a clean session walks your REP up the rank ladder steadily.
+- **PVP is the slower reputation lane but the only loot lane.** Attacks are rate-limited by your daily attack budget and by the dealers actually in your area, so raw REP per session lags behind PVE. The compensation is the drop table above — Goods, Contraband, and Jewels only come from PVP wins, and the higher your infamy the better they land.
+
+Pure PVE players climb the rank ladder fast and quietly. Pure PVP players climb more slowly but stack the exotic items that pay out at the Black Market. Most players end up doing a mix, and where you sit on that spectrum is part of how you play the game.
 
 ## Etiquette and revenge
 

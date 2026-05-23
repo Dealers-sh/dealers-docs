@@ -1,30 +1,34 @@
 ---
 title: Stash
-description: The STASH tab is your dashboard. It shows your stats on the left and your inventory on the right.
+description: The STASH tab is your dashboard. Identity and combat record on the left, inventory on the right.
 ---
 
 # /the-game/stash
 
-The STASH tab is the default view of the game and acts as your dashboard. It is the screen you return to between actions, and the screen you should learn to read fluently. Nothing about the tab is interactive in the sense that you cannot take an action from inside it; instead, it surfaces every important piece of state so that you can decide which action tab to open next.
+The STASH tab is the default view of the game. It is the screen you return to between actions and the screen you should learn to read fluently. The tab itself is not interactive — you cannot take an action from inside it — but it surfaces every piece of dealer-level state so you can decide which action tab to open next.
+
+Note that REP, cash, attempts, and heat live on the top bar that is visible on every tab. STASH does not repeat them; it surfaces the slower-moving identity and combat numbers instead.
 
 ## What the tab shows
 
-The left half of the tab is your stats panel. It displays your current reputation total, your current heat level, your cash on hand, the number of attempts remaining in the current period, and the area you are presently in. The rank label associated with your reputation is also displayed here.
-
-The right half of the tab is your drug inventory. Each line shows one drug type with the quantity you currently hold. When you are carrying nothing, the inventory is empty and your stats panel will reflect a balance of zero across most lines.
-
-## How to read the numbers
-
-The lines that appear in the stats panel use a consistent shorthand worth memorising on your first session.
+The left half is your **identity and combat record**.
 
 | Line | What it means |
 | --- | --- |
-| `REP nnn` | Your current reputation total. |
-| `🔥 n/5` | Your current heat level, from 0 to 5. |
-| `$nnn,nnn` | Cash on hand, in compact format. |
-| `⚡️ n/N` | Attempts remaining in the current period, out of the maximum. |
-| `Area: <name>` | The area your dealer is currently in. |
+| `ID: #n` | Your dealer's token ID. |
+| `TITLE: <rank>` | Your current rank, derived from your reputation total. |
+| `INFAMY: n` | Your PVP-only score. Goes up on PVP wins, down on PVP losses. |
+| `DEALS: nW/nT/nL` | PVE record: wins / ties / losses. |
+| `STEALS: nW/nL` | PVP record as attacker: wins / losses. |
+| `DEF: nW/nL` | PVP record as defender: times you survived a hit / times you got hit. |
+| `THR/ARM: n%/n%` | Threat and Armor — redacted item-system stats. Currently always `0%/0%`. |
 
-Once those lines feel natural, the rest of the game is mostly about deciding which tab to open next based on what they say.
+`THR/ARM` is the visible surface of a future item-and-module system. Both values exist in the contract and render here, but no in-game source moves them yet. Mechanics are not documented while the system is unreleased.
 
-> A reference screenshot of the STASH tab will be added here once the final design is locked.
+The right half is your **inventory**.
+
+- `$CASH (n)` — your liquid cash balance.
+- One line per drug you hold, with the quantity in parentheses.
+- A `REP (+n)` line below a divider — a reputation bonus derived from the drugs you are currently holding. The contract sums `quantity × base cash value` across every drug in your stash and converts the total into a reputation amount with diminishing returns at higher tiers. The bonus is folded into your total reputation at read time, so it moves the moment your inventory does.
+
+Inventory is keyed off real on-chain state, so it always reflects whatever just happened in your most recent transaction.
