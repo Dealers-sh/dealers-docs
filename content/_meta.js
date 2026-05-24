@@ -14,12 +14,10 @@ export default {
   agents: 'Agents',
   'patch-notes': 'Changelog',
   faq: 'FAQ',
-  tos: {
-    title: '/tos',
-    display: 'hidden'
+  '-- legal': {
+    type: 'separator',
+    title: 'Legal'
   },
-  privacy: {
-    title: '/privacy',
-    display: 'hidden'
-  }
+  tos: '/tos',
+  privacy: '/privacy'
 }

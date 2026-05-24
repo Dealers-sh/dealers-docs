@@ -1,4 +1,4 @@
-import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Footer, Layout, Navbar, ThemeSwitch } from 'nextra-theme-docs'
 import { Anchor, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { Inter, Source_Code_Pro, Fira_Mono } from 'next/font/google'
@@ -102,6 +102,7 @@ const navbar = (
     <Anchor href="https://x.com/Dealerssh" aria-label="Dealers.sh on X">
       <XIcon />
     </Anchor>
+    <ThemeSwitch lite className="dealers-navbar-theme-switch" />
   </Navbar>
 )
 
@@ -128,7 +129,7 @@ export default async function RootLayout({ children }) {
           footer={footer}
           editLink="Edit this page on GitHub"
           docsRepositoryBase="https://github.com/dealers-sh/dealers-docs/blob/main"
-          sidebar={{ defaultMenuCollapseLevel: 1, toggleButton: true }}
+          sidebar={{ defaultMenuCollapseLevel: 1, toggleButton: false }}
           pageMap={await getPageMap()}
           feedback={{ content: null }}
           themeSwitch={{ dark: 'Dark', light: 'Light', system: 'System' }}

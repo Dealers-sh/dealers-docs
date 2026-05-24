@@ -208,3 +208,15 @@ article blockquote {
 .nextra-sidebar a {
   font-family: var(--font-body);
 }
+
+/* Theme switch lives in the navbar — hide the duplicates in the
+   sidebar footer and the mobile nav, and drop the sticky footer
+   shelf entirely (no toggle button, nothing to keep). */
+.nextra-sidebar button[title='Change theme'],
+.nextra-mobile-nav button[title='Change theme'] {
+  display: none;
+}
+
+.nextra-sidebar-footer {
+  display: none;
+}
