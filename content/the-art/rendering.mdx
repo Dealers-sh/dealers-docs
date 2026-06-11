@@ -9,7 +9,7 @@ This page explains how a Dealers.sh NFT actually renders. It is one of the parts
 
 ## The pipeline, step by step
 
-The process begins with the trait data for your specific dealer, which is stored on chain as a packed set of bits inside the `DealersExeNFT` contract. When a marketplace or block explorer requests the metadata for your token, the contract reads those bits and passes them to `DealerRendererSVG`, which assembles an SVG character from on-chain trait fragments. Those fragments are also stored on chain, in the same contracts, so the rendering process never has to reach out for anything external.
+The process begins with the trait data for your specific dealer, which is stored on chain as a packed set of bits inside the `DealersNFT` contract. When a marketplace or block explorer requests the metadata for your token, the contract reads those bits and passes them to `DealerRendererSVG`, which assembles an SVG character from on-chain trait fragments. Those fragments are also stored on chain, in the same contracts, so the rendering process never has to reach out for anything external.
 
 `DealerRendererSVG` returns the assembled image to `DealerRendererHTML`, which wraps it in a small HTML shell. That shell hosts the playable game UI, which is itself stored on chain through a FileStore contract. 
 

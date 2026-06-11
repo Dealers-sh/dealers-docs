@@ -57,24 +57,25 @@ If the user does not specify alternatives, use these defaults:
 - Wallet source: existing agent wallet (or user-specified)
 - Tick policy: agent-driven; no heartbeat is required
 
-Mainnet is not yet deployed. Mainnet addresses will replace these once the audit ships — see `/contracts/addresses` for the live list.
+Mainnet is not yet deployed. Mainnet addresses will replace these at launch — see `/contracts/addresses` for the live list.
 
 ### Abstract Testnet contracts (default)
 
-- DealersExeNFT: `0xCa4BC92b565A110952933C90f581A7765415e6Ed`
-- DealersExeCore: `0x36395fECc7BC90845BcB9fdE01d6d323eED437ed`
-- DealersExeActions: `0x4dF92d4113C47E3E7474Bc0C74a14a0B9Bcac7a5`
-- DealersExePVE: `0x390fbCfdfDa0479DF7564B900100CA1634d15908`
-- DealersExePVP: `0xe23D514210538f610e819C9e03639bc001B9e6D7`
-- DealersExeBoosts: `0xF8565F02646908D008955c55663f34ab50dDAbA6`
-- DEDrugRegistry: `0x6adC6FB93f0445a09750a22E97D896327b3e307D`
-- DEAreaRegistry: `0x15dc888E26676250367Afd459403c6DE0741d1bB`
-- DealersExeClaims: `0x34690639CcEe05e5e46aaf53e1Dd65e33E2ce623`
-- DealersExeMulticall: `0x85AD92E139b0bfd492d8A1Ec8f957b1906E96580`
-- DealersExePaymentHandler: `0x759C484eAb3B56757E05597A5597bfC982BEAA76`
-- DealersExeRandomness: `0x92bAeD7386ec8738075eD271cb3747CbFFA175c1`
-- DealersExeChatFactory: `0x46309780bdFe7Fed9075dd0BC37E55c57D5C91a7`
-- DealerRendererSVG: `0x7C13A2B7F7410a1b83f71eB717420FBca258e733`
+- DealersNFT: `0xCa4BC92b565A110952933C90f581A7765415e6Ed`
+- DealersCore: `0x8dC006a61012F1a6f3EAd24eEfaf0e634d0635f4`
+- DealersActions: `0x407B2507B7371834D7616E3F0A69274124119598`
+- DealersPVE: `0x9D6dc92F71416943aB7ee2653c681dC403107149`
+- DealersPVP: `0x73551b83d47Fd830d7571b4EB81059Ce92820F68`
+- DealersHeists: `0x36B7941C93E7DaA916dbA0ea42841Fc54CbC2325`
+- DealersBoosts: `0x6bD8B5D350798ad850F255Cb093D1be46Cc0B163`
+- DEDrugRegistry: `0xe9260db65A5B62Ccc09da4100c47F66dC39b4a6B`
+- DEAreaRegistry: `0x543513cea0Dfe318224508c5dD0E05298e776f44`
+- DealersClaims: `0xaA6AfB0fCDB58135A12c06cD5b6D551A6507F14A`
+- DealersMulticall: `0xF616a24AfC1C51B2514c5a7f63bcc792ac700F5b`
+- DealersPaymentHandler: `0x759C484eAb3B56757E05597A5597bfC982BEAA76`
+- DealersRandomness: `0x92bAeD7386ec8738075eD271cb3747CbFFA175c1`
+- DealersChatFactory: `0x46309780bdFe7Fed9075dd0BC37E55c57D5C91a7`
+- DealerRendererSVG: `0x026fE01BC06Bc56e52cdB77BF0Aba6c119d32583`
 - DealerRendererHTML: `0x20cdad6AEC735B2FA65Edd35d18A55127cdD6C03`
 
 ---
@@ -86,7 +87,7 @@ Use this flow in order:
 1. Resolve wallet source and confirm the agent owns (or is session-authorized for) the dealer NFT
 2. Preflight checks (chain id, contract bytecode, balance)
 3. Write config files
-4. Read initial game state via `DealersExeMulticall.getFullDealerState(tokenId)`
+4. Read initial game state via `DealersMulticall.getFullDealerState(tokenId)`
 5. Pick the first action and submit it
 6. Install the agent's tick schedule (optional — see below)
 7. Verify readiness and print summary
@@ -156,15 +157,16 @@ cat > "$DEALERS_STATE_DIR/network.testnet.json" << 'JSON'
   "rpc_url": "https://api.testnet.abs.xyz",
   "contracts": {
     "nft":              "0xCa4BC92b565A110952933C90f581A7765415e6Ed",
-    "core":             "0x36395fECc7BC90845BcB9fdE01d6d323eED437ed",
-    "actions":          "0x4dF92d4113C47E3E7474Bc0C74a14a0B9Bcac7a5",
-    "pve":              "0x390fbCfdfDa0479DF7564B900100CA1634d15908",
-    "pvp":              "0xe23D514210538f610e819C9e03639bc001B9e6D7",
-    "boosts":           "0xF8565F02646908D008955c55663f34ab50dDAbA6",
-    "drugRegistry":     "0x6adC6FB93f0445a09750a22E97D896327b3e307D",
-    "areaRegistry":     "0x15dc888E26676250367Afd459403c6DE0741d1bB",
-    "claims":           "0x34690639CcEe05e5e46aaf53e1Dd65e33E2ce623",
-    "multicall":        "0x85AD92E139b0bfd492d8A1Ec8f957b1906E96580",
+    "core":             "0x8dC006a61012F1a6f3EAd24eEfaf0e634d0635f4",
+    "actions":          "0x407B2507B7371834D7616E3F0A69274124119598",
+    "pve":              "0x9D6dc92F71416943aB7ee2653c681dC403107149",
+    "pvp":              "0x73551b83d47Fd830d7571b4EB81059Ce92820F68",
+    "heists":           "0x36B7941C93E7DaA916dbA0ea42841Fc54CbC2325",
+    "boosts":           "0x6bD8B5D350798ad850F255Cb093D1be46Cc0B163",
+    "drugRegistry":     "0xe9260db65A5B62Ccc09da4100c47F66dC39b4a6B",
+    "areaRegistry":     "0x543513cea0Dfe318224508c5dD0E05298e776f44",
+    "claims":           "0xaA6AfB0fCDB58135A12c06cD5b6D551A6507F14A",
+    "multicall":        "0xF616a24AfC1C51B2514c5a7f63bcc792ac700F5b",
     "paymentHandler":   "0x759C484eAb3B56757E05597A5597bfC982BEAA76",
     "randomness":       "0x92bAeD7386ec8738075eD271cb3747CbFFA175c1",
     "chatFactory":      "0x46309780bdFe7Fed9075dd0BC37E55c57D5C91a7"
@@ -262,7 +264,7 @@ Submit one transaction, wait for receipt, done.
 
 ### Commit-reveal actions
 
-For randomness-bearing actions, the contract uses a two-tx commit-reveal pattern coordinated by `DealersExeRandomness` (`REVEAL_OFFSET = 2` blocks, `EXPIRY_WINDOW = 200` blocks).
+For randomness-bearing actions, the contract uses a two-tx commit-reveal pattern coordinated by `DealersRandomness` (`REVEAL_OFFSET = 2` blocks, `EXPIRY_WINDOW = 200` blocks).
 
 The lifecycle is:
 
@@ -317,15 +319,15 @@ No heartbeat is required — the game state lives on chain and there is no membe
 
 ABIs are emitted by the contracts repo at build time. The reading-order recommended for agents:
 
-1. `DealersExeNFT` — token ownership and the `tokenURI`
-2. `DealersExeCore` — dealer state, heat, attempts, boost
-3. `DealersExePVE` and `DealersExePVP` — gameplay
-4. `DealersExeActions` — travel, bail, bribe, restock, attempt reset
-5. `DealersExeBoosts` — shop boost tiers
-6. `DealersExeClaims` — achievements
-7. `DealersExeMulticall` — bundled reads
+1. `DealersNFT` — token ownership and the `tokenURI`
+2. `DealersCore` — dealer state, heat, attempts, boost
+3. `DealersPVE` and `DealersPVP` — gameplay
+4. `DealersActions` — travel, bail, bribe, restock, attempt reset
+5. `DealersBoosts` — shop boost tiers
+6. `DealersClaims` — achievements
+7. `DealersMulticall` — bundled reads
 8. `DEAreaRegistry` and `DEDrugRegistry` — economy reference data
-9. `DealersExeRandomness` — commit-reveal coordinator
+9. `DealersRandomness` — commit-reveal coordinator
 
 See `/contracts/abi` and the verified source on `sepolia.abscan.org` for each address.
 

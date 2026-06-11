@@ -13,32 +13,33 @@ This map mirrors the [game loop diagram](/the-game/overview) — each colored re
 
 ## The contract graph
 
-The system has fifteen deployed contracts at present. Each one has a focused responsibility, and most player actions touch three or four of them in sequence.
+The system has sixteen deployed contracts at present. Each one has a focused responsibility, and most player actions touch three or four of them in sequence.
 
 | Contract | Responsibility |
 | --- | --- |
-| `DealersExeNFT` | The ERC-721 itself. Holds ownership records and per-token game state. |
-| `DealersExeCore` | Shared game configuration and state used by every action module. |
-| `DealersExeActions` | The dispatcher. Routes player calls to the appropriate module. |
-| `DealersExePVE` | Handles buy, sell, clear heat, and black market resolution. |
-| `DealersExePVP` | Handles same-area player versus player attacks. |
-| `DealersExeBoosts` | Implements the time-limited shop boosts (Grinder, Hustler, Kingpin). |
+| `DealersNFT` | The ERC-721 itself. Holds ownership records and per-token game state. |
+| `DealersCore` | Shared game configuration and state used by every action module. |
+| `DealersActions` | The dispatcher. Routes player calls to the appropriate module. |
+| `DealersPVE` | Handles buy, sell, clear heat, and black market resolution. |
+| `DealersPVP` | Handles same-area player versus player attacks. |
+| `DealersHeists` | The heists module: five-stage push-your-luck runs and the optional ETH jackpot add-on, drawn through Pyth Entropy. |
+| `DealersBoosts` | Implements the time-limited shop boosts (Grinder, Hustler, Kingpin). |
 | `DEDrugRegistry` | The drug catalogue: names, rarities, and base prices. |
 | `DEAreaRegistry` | The area catalogue: names, types, and price bands. |
-| `DealersExeClaims` | Verifies achievement criteria and issues rewards. |
-| `DealersExeMulticall` | Batched reads and writes used by the in-NFT UI. |
-| `DealersExePaymentHandler` | Centralises cash flows for mint, bail, shop, and travel. |
-| `DealersExeRandomness` | Provides the resolution source for stochastic outcomes. |
-| `DealersExeChatFactory` | Stores the on-chain chat and pager log per token. |
+| `DealersClaims` | Verifies achievement criteria and issues rewards. |
+| `DealersMulticall` | Batched reads and writes used by the in-NFT UI. |
+| `DealersPaymentHandler` | Centralises cash flows for mint, bail, shop, and travel. |
+| `DealersRandomness` | Provides the resolution source for stochastic outcomes. |
+| `DealersChatFactory` | Stores the on-chain chat and pager log per token. |
 | `DealerRendererSVG` | Builds the character SVG from packed trait data. |
 | `DealerRendererHTML` | Wraps the SVG and the embedded game into the `animation_url`. |
 
 ## How a deal flows in plain English
 
-Following a single buy action through the contracts is a useful way to understand how everything fits together. When the player taps Buy on the deal tab inside the NFT viewer, the game UI builds a call to `DealersExeActions`. The dispatcher inspects the call and routes it to `DealersExePVE`, which is the PVE module.
+Following a single buy action through the contracts is a useful way to understand how everything fits together. When the player taps Buy on the deal tab inside the NFT viewer, the game UI builds a call to `DealersActions`. The dispatcher inspects the call and routes it to `DealersPVE`, which is the PVE module.
 
-The PVE module reads the relevant drug data from `DEDrugRegistry` and the relevant area data from `DEAreaRegistry`, then asks `DealersExeRandomness` for the roll that determines how the negotiation resolves. With those inputs in hand, the module computes the result, updates the player's reputation, heat, cash, and stash on `DealersExeCore`, and instructs `DealersExePaymentHandler` to settle the cash side of the deal.
+The PVE module reads the relevant drug data from `DEDrugRegistry` and the relevant area data from `DEAreaRegistry`, then asks `DealersRandomness` for the roll that determines how the negotiation resolves. With those inputs in hand, the module computes the result, updates the player's reputation, heat, cash, and stash on `DealersCore`, and instructs `DealersPaymentHandler` to settle the cash side of the deal.
 
-The chat log is appended through `DealersExeChatFactory`, which is the contract that holds the per-token activity stream that the pager reads from. When the next render happens, the in-NFT UI reads the updated state from `DealersExeCore`, reads the new chat entries from the chat factory, and shows the player exactly what happened.
+The chat log is appended through `DealersChatFactory`, which is the contract that holds the per-token activity stream that the pager reads from. When the next render happens, the in-NFT UI reads the updated state from `DealersCore`, reads the new chat entries from the chat factory, and shows the player exactly what happened.
 
 Every step of that flow is a public, verified contract call that anyone can inspect on the Abstract block explorer. The contract addresses are documented on [/contracts/addresses](/contracts/addresses).

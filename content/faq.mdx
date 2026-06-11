@@ -9,11 +9,11 @@ This page collects the questions we are asked most often, along with the short v
 
 ## Is the art really on chain?
 
-Yes. The character SVG for every dealer is generated from packed trait data stored on `DealersExeNFT`, and the playable game UI is stored on chain as well, gzipped and registered through Abstract's FileStore. The complete experience is returned as part of the standard `tokenURI` and `animation_url` response, with no external host involved. For a step-by-step walkthrough of the pipeline, see [/the-art/rendering](/the-art/rendering).
+Yes. The character SVG for every dealer is generated from packed trait data stored on `DealersNFT`, and the playable game UI is stored on chain as well, gzipped and registered through Abstract's FileStore. The complete experience is returned as part of the standard `tokenURI` and `animation_url` response, with no external host involved. For a step-by-step walkthrough of the pipeline, see [/the-art/rendering](/the-art/rendering).
 
 ## What chain does Dealers.sh run on?
 
-Dealers.sh runs on Abstract. Development happens on the Abstract testnet, and mainnet launch will happen once the audit is signed off. The full list of deployed contracts and their verified addresses lives on [/contracts/addresses](/contracts/addresses).
+Dealers.sh runs on Abstract. Development happens on the Abstract testnet ahead of mainnet launch. The full list of deployed contracts and their verified addresses lives on [/contracts/addresses](/contracts/addresses).
 
 ## Do I need an Abstract Global Wallet?
 
@@ -23,11 +23,15 @@ Yes. The game UI connects through Abstract Global Wallet (AGW), so an AGW is req
 
 The name is pronounced "Dealers dot S-H," letter by letter for the suffix. Not "Dealers shell." If you are saying it on a podcast, a voice memo, or a space, please use the spelled-out version.
 
+## How do heists work?
+
+A heist is a five-stage push-your-luck run on the 🚚 tab. You stake `$CASH` on a job, each stage resolves on chain to a clean advance, a setback, or a bust, and after every clean stage from stage II onward you choose to cash out or push deeper. The pot scales from about 1× the stake at stage I to 10–16× at stage V, and a bust loses everything. The full stage table, payout rules, and edge cases are on [/the-game/heists](/the-game/heists).
+
 ## Is this gambling?
 
 The core game — PVE dealing and PVP — is a strategy game with on-chain stakes. For that core loop there is no central house, no payout pool, and no spin-to-win mechanic: outcomes resolve against deterministic game logic, not against the project operator, and the project does not take a cut of player-vs-player flows.
 
-DealerHeists is different, and we want to be straight about it. It is an optional feature where you can add a small amount of ETH to a run for a chance at a randomized ETH jackpot, drawn via the Pyth Entropy oracle. That jackpot is backed by an operator-funded reserve, and the project keeps a fee on the ETH add-on. You can lose your entry, the odds favour the design of the game over any individual run, and there is no promised return. Treat it as entertainment, not an investment. It is restricted to eligible players (18+, or the age of majority where you live, and only where it is legal for you), and the full terms are in the [DealerHeists section of /tos](/tos). The contracts are public and verified, and we encourage anyone with concerns to read [/contracts/overview](/contracts/overview) and decide for themselves.
+The ETH jackpot add-on on [heists](/the-game/heists) is different, and we want to be straight about it. It is an optional feature where you can add a small amount of ETH to a run for a chance at a randomized ETH jackpot, drawn via the Pyth Entropy oracle. That jackpot is backed by an operator-funded reserve, and the project keeps a fee on the ETH add-on. You can lose your entry, the odds favour the design of the game over any individual run, and there is no promised return. Treat it as entertainment, not an investment. It is restricted to eligible players (18+, or the age of majority where you live, and only where it is legal for you), and the full terms are in the [DealerHeists section of /tos](/tos). The contracts are public and verified, and we encourage anyone with concerns to read [/contracts/overview](/contracts/overview) and decide for themselves.
 
 ## Are you glamorizing real-world drug use?
 

@@ -23,6 +23,6 @@ A handful of conventions hold consistently across every contract in the system. 
 
 If you want to read the entire codebase end to end, the order below is the one we recommend. It moves from data to logic, then to the auxiliary systems, then to the rendering layer.
 
-Start with `DealersExeNFT` to understand the data layout and the per-token storage model. Then read `DealersExeActions` to see how user calls are dispatched to the action modules. Follow with `DealersExePVE`, which is the most heavily used path in the game, and then `DealersExePVP` as the second most heavily used. After those, the two registries (`DEDrugRegistry` and `DEAreaRegistry`) round out the data model. Finally, the two renderers (`DealerRendererSVG` and `DealerRendererHTML`) show how the art and the embedded game are assembled from on-chain primitives.
+Start with `DealersNFT` to understand the data layout and the per-token storage model. Then read `DealersActions` to see how user calls are dispatched to the action modules. Follow with `DealersPVE`, which is the most heavily used path in the game, and then `DealersPVP` as the second most heavily used. `DealersHeists` rounds out the action modules — it is also the one contract that integrates an external oracle, consuming Pyth Entropy for the jackpot draw. After those, the two registries (`DEDrugRegistry` and `DEAreaRegistry`) round out the data model. Finally, the two renderers (`DealerRendererSVG` and `DealerRendererHTML`) show how the art and the embedded game are assembled from on-chain primitives.
 
-`DealersExeMulticall` is plumbing rather than business logic, and you can safely skip it on a first read.
+`DealersMulticall` is plumbing rather than business logic, and you can safely skip it on a first read.

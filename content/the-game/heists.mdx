@@ -1,0 +1,87 @@
+---
+title: Heists
+description: The 🚚 tab. Five-stage push-your-luck runs that pay out in product or cash, with an optional ETH jackpot add-on.
+---
+
+# /the-game/heists
+
+The 🚚 tab is the third activity loop next to dealing and PVP. A heist is a push-your-luck run: you stake `$CASH` up front, then play through up to five escalating stages. Every stage you clear grows the pot, and after each clear you choose — take the bag now, or push deeper for more. Push too far and you walk away with nothing.
+
+Where PVE is the steady grind and PVP is the loot lane, heists are the volatility lane. A run can multiply your stake by double digits or wipe it out in one bad stage, and reading when to stop is the entire skill.
+
+## Starting a run
+
+A heist starts with three choices. First you pick a **family**: a **Supply Run** pays out in product (drugs from your current area), a **Cash Run** pays out in `$CASH`. Second, you decide whether to add the optional [ETH jackpot stake](#the-eth-jackpot-add-on). Third, you pick a **job**, which sets the difficulty, the rep gate, and the `$CASH` stake:
+
+| Difficulty | Cash Run job | Supply Run job | Rep gate | Stake |
+| --- | --- | --- | ---: | ---: |
+| Easy | 🏬 Rob Store | 🪩 Clubbing | 600 (Soldier) | 600 `$CASH` |
+| Medium | 🏧 Crack ATM | 🧪 Cooking | 1,500 (Capo) | 2,500 `$CASH` |
+| Hard | 🚛 CIT Truck | 🚢 The Docks | 5,500 (Underboss) | 12,000 `$CASH` |
+
+Starting a run costs **one attempt** — the run itself, not each stage — and debits the stake immediately. You can only have one active heist at a time, and you cannot start one while in [jail](/the-game/jail) or a Safe House. Higher difficulties do not change the odds: every job rolls the same stage table below. What the harder jobs buy you is a bigger stake, and therefore a bigger pot ceiling.
+
+## How a run plays out
+
+A run is five stages, and stage I is the prep. Each stage resolves on chain through the same commit-reveal randomness as the deal tab, and lands on one of three outcomes:
+
+- **🟢 CLEAN** — you advance. The pot re-rolls to the next stage's range, and from stage II onward you choose: **cash out** and bank the pot, or **push on** to the next stage.
+- **🟡 SETBACK** — you got away, but dropped part of the bag. The run ends and you keep a fraction of the current pot. Costs 1 heat.
+- **🔴 BUSTED** — you lose the pot and the stake. The run ends, you lose 3 rep, take 1 heat, and the game rolls for arrest at the usual `heat × 0.5%`. A bad bust ends in jail.
+
+Stage I is prep, so there is nothing to bank yet — the first cash-out decision comes after a clean stage II. A clean stage V is the getaway: the whole pot pays out automatically, no decision needed.
+
+## The odds and the pot
+
+The numbers are public, so here is the full stage table. The pot is rolled fresh within each stage's range, as a multiple of your stake:
+
+| Stage | Clean | Setback | Bust | Setback keeps | Pot range (× stake) | Rep on payout |
+| ---: | ---: | ---: | ---: | ---: | --- | ---: |
+| I | 72% | 20% | 8% | 50% | 1.0–1.4× | — |
+| II | 62% | 28% | 10% | 45% | 1.8–2.8× | +2 |
+| III | 52% | 33% | 15% | 40% | 3.0–4.6× | +4 |
+| IV | 42% | 38% | 20% | 35% | 5.2–7.8× | +7 |
+| V | 32% | 40% | 28% | 30% | 10.0–16.0× | +12 |
+
+Reputation is granted once, at payout, based on the stage you cashed at. Setbacks pay no rep, and clean stages add no heat — a run that ends in a voluntary cash-out is the only action in the game that leaves your heat untouched.
+
+Do the math on the clean odds and the shape of the game appears: clearing all five stages happens about 3% of the time. Cashing out at stage II or III is the sensible-money play; pushing to stage V is a deliberate gamble on a 10–16× payday. Both are valid ways to play, but only one of them is a strategy.
+
+## Supply Run payouts
+
+A Cash Run pays the pot as `$CASH`, straight to your balance. A Supply Run converts the same pot value into product from your **current area**, with the quality of the mix improving the deeper you cashed out:
+
+| Stage cashed | Common | Uncommon | Rare |
+| ---: | ---: | ---: | ---: |
+| I | 100% | — | — |
+| II | 70% | 30% | — |
+| III | 40% | 60% | — |
+| IV | 10% | 50% | 40% |
+| V | — | — | 100% |
+
+If your area cannot fill the owed rarity in product, the remainder pays out as `$CASH` instead — real winnings, not something left behind. Since the product comes from where you are standing, where you run a Supply Run matters: cash out a deep run in an area whose product you actually want to sell.
+
+## The ETH jackpot add-on
+
+Before the job select, the game offers an optional ETH stake (currently `0.001 ETH`). It does not change your odds, your pot, or anything else about the run. What it buys is a jackpot roll on every clean stage — and the deeper the stage, the bigger the prize band:
+
+| Stage cleared | Trigger chance | Payout (× the add-on) |
+| ---: | ---: | ---: |
+| I | 40% | 0.7–1.0× |
+| II | 34% | 0.9–2.3× |
+| III | 30% | 1.0–5.5× |
+| IV | 32% | 1.2–12× |
+| V | 40% | **1.5–20×** |
+
+The jackpot fires **at most once per run**, and an early hit ends the chase — so a stage I or II fire is a consolation prize that pays around what you put in, while surviving deep *without* firing is what earns you a roll on the big bands. From stage III on, any hit pays more than the add-on, and a stage V clear has a 40% shot at 1.5–20× it. The payout is drawn through the Pyth Entropy oracle.
+
+Won jackpots are credited to your dealer and claimed separately — type `/jackpot` in the [pager](/the-game/pager) to see your pending balance and claim it.
+
+To be straight about it, as we are in the [FAQ](/faq#is-this-gambling): this is a paid chance at a randomized ETH outcome. The add-on is never refunded, a portion of it is kept by the project as a fee, and across many runs you should expect the add-on to pay back less than it costs. It is entertainment for the players who enjoy the extra edge on a deep push, it is restricted to eligible players (18+, and only where legal for you), and the full terms live in the [DealerHeists section of the ToS](/tos).
+
+## Edge cases worth knowing
+
+- **Abandoning before stage I.** If you start a run and back out before committing the first stage, the `$CASH` stake refunds in full. The attempt and any ETH add-on are forfeit.
+- **Walking away mid-run.** If you clear a stage and then go idle, the run waits. After 24 hours anyone can finalize it, which pays out your current pot as a normal cash-out — banked winnings are never stranded.
+- **A missed reveal.** If a stage's reveal window expires before the outcome resolves, the run counts as a bust — but a timeout is not getting caught at the scene, so no arrest roll.
+- **Jail.** Getting arrested on a bust hands you over to the normal [jail](/the-game/jail) rules. The run is already over at that point; jail does not hold your winnings hostage.
