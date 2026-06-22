@@ -15,7 +15,7 @@ At its heart, Dealers.sh is a price arbitrage game wrapped in a mafia fiction. Y
 
 A typical session moves through two stages. You begin on the streets with PVE (player versus environment) deals that build your reputation and your cash position. Once your reputation crosses a threshold, PVP (player versus player) opens up and you can start attacking other dealers in your area for additional reputation and infamy.
 
-A third loop, [heists](/the-game/heists), unlocks at the Soldier rank. Heists are push-your-luck runs: you stake cash on a five-stage job and after every clean stage choose to bank the pot or push deeper for a bigger one. Where dealing compounds steadily, heists are the high-variance lane — a single run can pay double digits on the stake or lose all of it.
+A third loop, [heists](/the-game/heists), unlocks at the <TierNameForRep path="heists.difficulties.0.repGate" /> rank. Heists are push-your-luck runs: you stake cash on a five-stage job and after every clean stage choose to bank the pot or push deeper for a bigger one. Where dealing compounds steadily, heists are the high-variance lane — a single run can pay double digits on the stake or lose all of it.
 
 ## Free to play, not pay to win
 
@@ -30,7 +30,7 @@ Almost everything in Dealers.sh moves one or more of the following stats. Knowin
 | Stat | What it represents | What changes it |
 | --- | --- | --- |
 | **Reputation (REP)** | Your standing in the family. Drives ranks and gates PVP. | Earned through PVE wins, PVP wins, achievements. Lost on PVE failures and PVP losses. |
-| **Heat** | Police attention, capped at 5. Each action rolls for arrest at `heat × 0.5%`. | Every action (PVE or PVP) adds 1. The Clear Heat action drops it by 1 for a cash fee. |
+| **Heat** | Police attention, capped at <C path="core.maxHeatLevel" />. Each action rolls for arrest at heat × <C path="core.config.jailChancePerHeat" format="perMille" />. | Every action (PVE or PVP) adds 1. The Clear Heat action drops it by 1 for a cash fee. |
 | **Cash** | Liquid working capital. | Spent on drugs, travel, boosts, and bail. Earned from sells and PVP loot. |
 | **Stash** | Drugs you currently hold, by type and quantity. | Goes up when you buy or win a PVP fight. Goes down when you sell or lose one. |
 | **Attempts** | Actions remaining in the current period. | Each buy or sell costs one. Refills on a daily timer or via a shop reset. |

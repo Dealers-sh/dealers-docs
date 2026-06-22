@@ -14,7 +14,7 @@ The PVE deal pays reputation on win and on tie:
 - A **win** pays `repWinBonus`, scaled by your current rank tier and your active boost. The base formula is `(tier.winBonus × stakeValue / repStakeDivisor) × repMultiplier / 100`, clamped to `repCap`. **Stake value** is `amount × drug price` for the trade you actually made — bigger trades earn more rep, with diminishing returns at the per-action cap.
 - A **tie** pays a smaller `repTieBonus`, scaled the same way.
 
-A **PVP win** as the attacker pays a flat `repWinBonus × repMultiplier / 100`. PVP payout is **not** scaled by matchup — the matchup (threat, armor, rep delta) only affects your win odds, not the size of the reward. A defender who survives an attack picks up a small `defenderRepBonus` (currently 2 rep).
+A **PVP win** as the attacker pays a flat `repWinBonus × repMultiplier / 100`. PVP payout is **not** scaled by matchup — the matchup (threat, armor, rep delta) only affects your win odds, not the size of the reward. A defender who survives an attack picks up a small `defenderRepBonus` (currently <C path="pvp.defenderRepBonus" /> rep).
 
 Some achievements grant a one-time reputation bump on claim. See [/progression/achievements](/progression/achievements) for the catalogue. Use `/achievements` in the 📟 pager to see your live list.
 
@@ -24,12 +24,12 @@ Three sources subtract reputation:
 
 - **PVE losses.** Pay `repLossPenalty` per loss, drawn from your current rank tier. The penalty is the same per loss — there is no streak modifier.
 - **PVP losses.** As the attacker, you take your tier's `repLossPenalty`. As a defender who got hit, the same. Like PVP wins, PVP losses do **not** scale with matchup.
-- **Jail.** Going to jail subtracts `(reputation × jailRepPenaltyPercent) / 100`, capped at `jailRepPenaltyCap`. The current defaults are **10% of current reputation, capped at 50 rep absolute**. Jail also confiscates a percentage of one drug from your stash (`jailDrugConfiscationPercent`). Both numbers are read from the core config and may move with rebalances.
+- **Jail.** Going to jail subtracts `(reputation × jailRepPenaltyPercent) / 100`, capped at `jailRepPenaltyCap`. The current values are **<C path="core.config.jailRepPenaltyPercent" format="percent" /> of current reputation, capped at <C path="core.config.jailRepPenaltyCap" /> rep absolute**. Jail also confiscates <C path="core.config.jailDrugConfiscationPercent" format="percent" /> of one random drug from your stash. These numbers are read from the core config and move with rebalances.
 
 ## What reputation unlocks
 
 - **Rank.** Your title on the STASH tab is read from the rank ladder against your current reputation total, updating in real time as you cross thresholds. See [/progression/ranks](/progression/ranks).
-- **PVP.** Until you cross `pvpMinReputation`, the PVP tab is read-only — you can browse and scout but cannot commit attacks.
+- **PVP.** Until you cross `pvpMinReputation` (currently <C path="pvp.minReputation" format="number" /> rep), the PVP tab is read-only — you can browse and scout but cannot commit attacks.
 - **Leaderboard.** Reputation is the sort key for `/leaderboard pve`. Infamy is the sort key for the separate `/leaderboard pvp`. The two boards stand on their own; reputation is not a tiebreaker for the PVP board and infamy is not a tiebreaker for the PVE board.
 
 ## Reputation vs infamy

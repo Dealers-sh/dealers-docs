@@ -1,0 +1,1017 @@
+{
+  "DealersCore": [
+    {
+      "type": "function",
+      "name": "config",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct DealersCore.CoreConfig",
+          "components": [
+            {
+              "name": "attemptResetFee",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "bribeCopFee",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "cashTopupPrice",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "cashTopupAmount",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "cashPurchaseThreshold",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "jailRepPenaltyPercent",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "jailRepPenaltyCap",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "wantedPosterSuccessChance",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "breakoutSuccessChance",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "jailDrugConfiscationPercent",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "starterCash",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "jailChancePerHeat",
+              "type": "uint16",
+              "internalType": "uint16"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "reputationTiers",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "minReputation",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "winBonus",
+          "type": "int16",
+          "internalType": "int16"
+        },
+        {
+          "name": "tieBonus",
+          "type": "int16",
+          "internalType": "int16"
+        },
+        {
+          "name": "lossPenalty",
+          "type": "int16",
+          "internalType": "int16"
+        },
+        {
+          "name": "repCap",
+          "type": "int16",
+          "internalType": "int16"
+        },
+        {
+          "name": "tierName",
+          "type": "string",
+          "internalType": "string"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_REPUTATION",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_INFAMY",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "BASE_MAX_ATTEMPTS",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_HEAT_LEVEL",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_TIERS",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "STARTING_REPUTATION",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "STARTER_WEED",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "STARTER_XTC",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "STARTER_COCAINE",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "DECAY_GRACE_PERIOD",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "DECAY_RATE_PER_DAY",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "INFAMY_DECAY_MULTIPLIER",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "STASH_DIVISOR",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersPVP": [
+    {
+      "type": "function",
+      "name": "config",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct IDealersPVP.PVPConfig",
+          "components": [
+            {
+              "name": "minReputation",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "baseWinChance",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "minWinChance",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "maxWinChance",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "maxAttacksPerDay",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "drugStealPercent",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "cashStealPercent",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "rarityWeightCommon",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "rarityWeightUncommon",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "rarityWeightRare",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "repRangePercent",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "defenderRepBonus",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "repRangeThreshold",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersPVE": [
+    {
+      "type": "function",
+      "name": "tieChance",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "winChance",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "repStakeDivisor",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersHeists": [
+    {
+      "type": "function",
+      "name": "stageWinOdds",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "stageSetbackOdds",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "stageSetbackKeepBps",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint16",
+          "internalType": "uint16"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "stagePotMinBps",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint32",
+          "internalType": "uint32"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "stagePotMaxBps",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint32",
+          "internalType": "uint32"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "stageRepReward",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint16",
+          "internalType": "uint16"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "supplyMix",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "jackpotConfig",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "triggerPct",
+          "type": "uint16",
+          "internalType": "uint16"
+        },
+        {
+          "name": "minMultBps",
+          "type": "uint32",
+          "internalType": "uint32"
+        },
+        {
+          "name": "maxMultBps",
+          "type": "uint32",
+          "internalType": "uint32"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "ethAddOn",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint96",
+          "internalType": "uint96"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "jackpotReserveBps",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint16",
+          "internalType": "uint16"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "minCashStage",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "bustRepPenalty",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint16",
+          "internalType": "uint16"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "difficultyConfigs",
+      "inputs": [
+        {
+          "name": "difficulty",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "repGate",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "cashEntry",
+          "type": "uint96",
+          "internalType": "uint96"
+        },
+        {
+          "name": "active",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "IDLE_TIMEOUT",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint64",
+          "internalType": "uint64"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersBoosts": [
+    {
+      "type": "function",
+      "name": "totalTiers",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getBoostTier",
+      "inputs": [
+        {
+          "name": "tierId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct DealersBoosts.BoostTier",
+          "components": [
+            {
+              "name": "price",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "duration",
+              "type": "uint64",
+              "internalType": "uint64"
+            },
+            {
+              "name": "drugMultiplier",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "repMultiplier",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "extraAttempts",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "freeAreaMovement",
+              "type": "bool",
+              "internalType": "bool"
+            },
+            {
+              "name": "cashMultiplier",
+              "type": "uint8",
+              "internalType": "uint8"
+            },
+            {
+              "name": "isActive",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersNFT": [
+    {
+      "type": "function",
+      "name": "getMintConfig",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "status",
+          "type": "uint8",
+          "internalType": "enum DealersNFT.MintStatus"
+        },
+        {
+          "name": "price",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "maxPerWallet",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "currentSupply",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "maxSupply",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "ROYALTY_PERCENTAGE",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersActions": [
+    {
+      "type": "function",
+      "name": "BLACK_MARKET_MIN_INFAMY",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersAreaRegistry": [
+    {
+      "type": "function",
+      "name": "getTotalAreas",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAreaInfo",
+      "inputs": [
+        {
+          "name": "areaId",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct IAreaRegistry.AreaInfo",
+          "components": [
+            {
+              "name": "name",
+              "type": "string",
+              "internalType": "string"
+            },
+            {
+              "name": "movementFee",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "minReputation",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "isActive",
+              "type": "bool",
+              "internalType": "bool"
+            },
+            {
+              "name": "isSafeHouse",
+              "type": "bool",
+              "internalType": "bool"
+            },
+            {
+              "name": "isJail",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAreaDrugIds",
+      "inputs": [
+        {
+          "name": "areaId",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]",
+          "internalType": "uint256[]"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAreaDrugConfig",
+      "inputs": [
+        {
+          "name": "areaId",
+          "type": "uint8",
+          "internalType": "uint8"
+        },
+        {
+          "name": "drugId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct IAreaRegistry.AreaDrugConfig",
+          "components": [
+            {
+              "name": "drugId",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "buyPrice",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "sellPrice",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "isAvailable",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "BLACK_MARKET_AREA",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8",
+          "internalType": "uint8"
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ],
+  "DealersDrugRegistry": [
+    {
+      "type": "function",
+      "name": "getAllDrugIds",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]",
+          "internalType": "uint256[]"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getDrugInfo",
+      "inputs": [
+        {
+          "name": "drugId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct IDrugRegistry.DrugInfo",
+          "components": [
+            {
+              "name": "name",
+              "type": "string",
+              "internalType": "string"
+            },
+            {
+              "name": "rarity",
+              "type": "uint8",
+              "internalType": "enum IDrugRegistry.DrugRarity"
+            },
+            {
+              "name": "baseCashValue",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "isActive",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    }
+  ]
+}

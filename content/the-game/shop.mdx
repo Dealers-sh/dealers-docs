@@ -13,12 +13,7 @@ The shop is optional. See [/the-game/overview](/the-game/overview) for the free-
 
 A boost is a single active modifier that runs for a fixed window. It changes four things at once: how much cash and drugs you pull per win, how much rep you earn per win, your daily attempt cap, and (on the top two tiers) whether area travel is free.
 
-| Tier | Price | Duration | Drug & Cash | Rep | Attempts | Free travel |
-| --- | --- | --- | --- | --- | --- | --- |
-| 🧃 Grinder    | 0.0025 ETH | 3 days  | 1.25× | 1.10× | 5 → 7  | — |
-| 💎 Hustler    | 0.005 ETH  | 7 days  | 1.50× | 1.15× | 5 → 8  | — |
-| 👑 Kingpin    | 0.01 ETH   | 14 days | 1.75× | 1.25× | 5 → 11 | ✓ |
-| 🌹 Godfather  | 0.023 ETH  | 30 days | 2.25× | 1.35× | 5 → 12 | ✓ |
+<BoostTiersTable />
 
 A boost does **not** change win odds. It does not improve your PVE matchups, your PVP win chance, or your arrest roll. It scales the size of the rewards when you do win, and it gives you more attempts to play with. Plan accordingly.
 
@@ -28,12 +23,12 @@ You can only switch from an active boost to a **strictly more expensive** tier. 
 
 ## Restock
 
-Below the boost cards, **RESTOCK** tops up your $CASH balance by a fixed amount for a fixed ETH price. The button is only available when your cash sits below the configured restock threshold — if you have plenty of working capital, it disables itself.
+Below the boost cards, **RESTOCK** tops up your $CASH balance by <C path="core.config.cashTopupAmount" format="number" /> `$CASH` for <C path="core.config.cashTopupPrice" format="eth" />. The button is only available when your cash sits below the restock threshold of <C path="core.config.cashPurchaseThreshold" format="number" /> `$CASH` — if you have plenty of working capital, it disables itself.
 
 ## Reset attempts
 
-The last card, **RESET ATTEMPTS**, refills your daily attempt counter back to the max for an ETH fee. The button is only enabled when your attempts have hit zero. Use it when you are mid-run, the next deal is worth more than the reset fee, and waiting for the daily timer would cost more than it saves.
+The last card, **RESET ATTEMPTS**, refills your daily attempt counter back to the max for <C path="core.config.attemptResetFee" format="eth" />. The button is only enabled when your attempts have hit zero. Use it when you are mid-run, the next deal is worth more than the reset fee, and waiting for the daily timer would cost more than it saves.
 
 ## When to buy
 
-Boosts are sized for the workload you actually intend to do. Grinder is the cheapest test of the system and lasts long enough for a weekend. Hustler covers a normal week. Kingpin and Godfather only make sense if you are going to play often enough across two to four weeks that the per-day cost compares favourably to your expected earnings. The drug/cash multiplier is the headline number — at 2.25× on Godfather, every win pays more than twice what it would unboosted. The rep multiplier is smaller because the rank ladder is meant to take time even with help.
+Boosts are sized for the workload you actually intend to do. Grinder is the cheapest test of the system and lasts long enough for a weekend. Hustler covers a normal week. Kingpin and Godfather only make sense if you are going to play often enough across two to four weeks that the per-day cost compares favourably to your expected earnings. The drug/cash multiplier is the headline number — at <C path="boosts.tiers.3.drugMultiplier" format="x100" /> on Godfather, every win pays more than twice what it would unboosted. The rep multiplier is smaller because the rank ladder is meant to take time even with help.

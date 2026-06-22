@@ -9,7 +9,7 @@ Jail is a state, not a tab. Every action you take rolls for arrest, and when the
 
 ## How you got here
 
-Every action — buy, sell, PVP — adds exactly one heat (capped at 5) and immediately rolls for arrest. The roll fires at `heat × 0.5%`: heat 1 is 0.5% per action, heat 5 is 2.5% per action. There is no automatic threshold and no extra heat for losing — heat 5 just means the dice are loaded against you on the next move. Sooner or later the roll comes up arrest, and you go to jail.
+Every action — buy, sell, PVP — adds exactly one heat (capped at <C path="core.maxHeatLevel" />) and immediately rolls for arrest. The roll fires at heat × <C path="core.config.jailChancePerHeat" format="perMille" />: heat 1 is <C path="core.config.jailChancePerHeat" format="perMille" /> per action, heat <C path="core.maxHeatLevel" /> is <HeatRiskMax /> per action. There is no automatic threshold and no extra heat for losing — max heat just means the dice are loaded against you on the next move. Sooner or later the roll comes up arrest, and you go to jail.
 
 ## What is restricted
 

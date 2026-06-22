@@ -13,7 +13,7 @@ Dealers.sh is built so an agent can play it as well as a human can. Every action
 
 - **All actions are on-chain.** PVE, PVP, travel, shop, claims, chat — every player verb is a function on a public contract. The transaction is the truth.
 - **All state is on-chain.** Reputation, heat, cash, drug inventory, infamy, jail status, boost status — readable in one call via [`DealersMulticall.getFullDealerState`](/contracts/overview). No subgraph required to play.
-- **Deterministic outcomes you can model.** PVE is a rock-paper-scissors matchup. PVP win odds are computable from threat/armor/rep deltas. Arrest is a clear probability of `heat × 0.5%` (`+ infamy bonus` on PVP). Drops are an infamy-banded table. An agent that can read the formulas can plan against them.
+- **Deterministic outcomes you can model.** PVE is a rock-paper-scissors matchup. PVP win odds are computable from threat/armor/rep deltas. Arrest is a clear probability of heat × <C path="core.config.jailChancePerHeat" format="perMille" /> (`+ infamy bonus` on PVP). Drops are an infamy-banded table. An agent that can read the formulas can plan against them.
 - **No heartbeat, no upkeep.** The contracts do not punish absence. Agents tick on whatever cadence the strategy demands — every minute, every hour, every day.
 - **Composable identity.** A wallet that holds the NFT can play directly, or it can delegate a scoped session key to an agent and keep custody. Either path uses the same contracts.
 

@@ -1,0 +1,685 @@
+{
+  "network": "mainnet",
+  "chainName": "Abstract",
+  "chainId": 2741,
+  "explorerUrl": "https://explorer.abs.xyz",
+  "fetchedAt": {
+    "blockNumber": "71416789",
+    "blockTimestamp": "1782161830",
+    "iso": "2026-06-22T20:57:10.000Z"
+  },
+  "contracts": {
+    "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
+    "DealersCore": "0x0D8d2755a49d30BD57F6a9bA5Fa8a7c9FFF86E8e",
+    "DealersActions": "0xa02bccd8Aa2b9067bf22213d25E7E73D3F6cDB6D",
+    "DealersPVE": "0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6",
+    "DealersPVP": "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
+    "DealersHeists": "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
+    "DealersBoosts": "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
+    "DEDrugRegistry": "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
+    "DEAreaRegistry": "0xe7598E61738921967f888736A1977b80Da526510",
+    "DealersClaims": "0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8",
+    "DealersMulticall": "0x39249C625D7a6C952A5aC389510839eB1bB33099",
+    "DealersPaymentHandler": "0x798E0f15A34F491eF4A69E9CC626A625bb80A504",
+    "DealersRandomness": "0x76f965BdB22f482503Cf0de3C67394d987da400D",
+    "DealersChatFactory": "0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe",
+    "DealerRendererSVG": "0x8c99b0c302E774CF50ba6B4763dcB15d84ede31A",
+    "DealerRendererHTML": "0x889F5a12DaB04b3f5bB60672FDD599be8A0949d5"
+  },
+  "core": {
+    "config": {
+      "attemptResetFee": "1000000000000000",
+      "bribeCopFee": "1000000000000000",
+      "cashTopupPrice": "1000000000000000",
+      "cashTopupAmount": "100",
+      "cashPurchaseThreshold": "10",
+      "jailRepPenaltyPercent": 10,
+      "jailRepPenaltyCap": "50",
+      "wantedPosterSuccessChance": 50,
+      "breakoutSuccessChance": 50,
+      "jailDrugConfiscationPercent": 3,
+      "starterCash": "250",
+      "jailChancePerHeat": 7
+    },
+    "maxReputation": "75000",
+    "maxInfamy": "10000",
+    "baseMaxAttempts": 5,
+    "maxHeatLevel": 5,
+    "startingReputation": "25",
+    "starterDrugs": {
+      "weed": "100",
+      "xtc": "5",
+      "cocaine": "1"
+    },
+    "decay": {
+      "gracePeriodSeconds": "604800",
+      "ratePerDay": "1",
+      "infamyMultiplier": "2"
+    },
+    "stashDivisor": "100",
+    "reputationTiers": [
+      {
+        "tier": 0,
+        "minReputation": "0",
+        "winBonus": 120,
+        "tieBonus": 60,
+        "lossPenalty": -3,
+        "repCap": 120,
+        "tierName": "Outsider"
+      },
+      {
+        "tier": 1,
+        "minReputation": "100",
+        "winBonus": 90,
+        "tieBonus": 45,
+        "lossPenalty": -4,
+        "repCap": 90,
+        "tierName": "Associate"
+      },
+      {
+        "tier": 2,
+        "minReputation": "250",
+        "winBonus": 60,
+        "tieBonus": 30,
+        "lossPenalty": -4,
+        "repCap": 60,
+        "tierName": "Dealer"
+      },
+      {
+        "tier": 3,
+        "minReputation": "600",
+        "winBonus": 36,
+        "tieBonus": 18,
+        "lossPenalty": -5,
+        "repCap": 40,
+        "tierName": "Soldier"
+      },
+      {
+        "tier": 4,
+        "minReputation": "1500",
+        "winBonus": 28,
+        "tieBonus": 14,
+        "lossPenalty": -6,
+        "repCap": 40,
+        "tierName": "Capo"
+      },
+      {
+        "tier": 5,
+        "minReputation": "3000",
+        "winBonus": 22,
+        "tieBonus": 11,
+        "lossPenalty": -6,
+        "repCap": 44,
+        "tierName": "Consigliere"
+      },
+      {
+        "tier": 6,
+        "minReputation": "5500",
+        "winBonus": 18,
+        "tieBonus": 9,
+        "lossPenalty": -7,
+        "repCap": 48,
+        "tierName": "Underboss"
+      },
+      {
+        "tier": 7,
+        "minReputation": "10000",
+        "winBonus": 15,
+        "tieBonus": 7,
+        "lossPenalty": -6,
+        "repCap": 52,
+        "tierName": "Don"
+      },
+      {
+        "tier": 8,
+        "minReputation": "22000",
+        "winBonus": 12,
+        "tieBonus": 6,
+        "lossPenalty": -8,
+        "repCap": 56,
+        "tierName": "Godfather"
+      },
+      {
+        "tier": 9,
+        "minReputation": "50000",
+        "winBonus": 4,
+        "tieBonus": 2,
+        "lossPenalty": -10,
+        "repCap": 8,
+        "tierName": "Legend"
+      }
+    ]
+  },
+  "pvp": {
+    "minReputation": "200",
+    "baseWinChance": 50,
+    "minWinChance": 25,
+    "maxWinChance": 75,
+    "maxAttacksPerDay": 3,
+    "drugStealPercent": 2,
+    "cashStealPercent": 2,
+    "rarityWeightCommon": 75,
+    "rarityWeightUncommon": 20,
+    "rarityWeightRare": 5,
+    "repRangePercent": 25,
+    "defenderRepBonus": 2,
+    "repRangeThreshold": "22000"
+  },
+  "pve": {
+    "tieChance": 50,
+    "winChance": 25,
+    "repStakeDivisor": "50"
+  },
+  "heists": {
+    "stages": [
+      {
+        "stage": 1,
+        "winOdds": 72,
+        "setbackOdds": 20,
+        "setbackKeepBps": 5000,
+        "potMinBps": 10000,
+        "potMaxBps": 14000,
+        "repReward": 0,
+        "supplyMix": {
+          "common": 100,
+          "uncommon": 0,
+          "rare": 0
+        },
+        "jackpot": {
+          "triggerPct": 40,
+          "minMultBps": 7000,
+          "maxMultBps": 10000
+        }
+      },
+      {
+        "stage": 2,
+        "winOdds": 62,
+        "setbackOdds": 28,
+        "setbackKeepBps": 4500,
+        "potMinBps": 18000,
+        "potMaxBps": 28000,
+        "repReward": 6,
+        "supplyMix": {
+          "common": 70,
+          "uncommon": 30,
+          "rare": 0
+        },
+        "jackpot": {
+          "triggerPct": 34,
+          "minMultBps": 9000,
+          "maxMultBps": 23000
+        }
+      },
+      {
+        "stage": 3,
+        "winOdds": 52,
+        "setbackOdds": 33,
+        "setbackKeepBps": 4000,
+        "potMinBps": 30000,
+        "potMaxBps": 46000,
+        "repReward": 12,
+        "supplyMix": {
+          "common": 40,
+          "uncommon": 60,
+          "rare": 0
+        },
+        "jackpot": {
+          "triggerPct": 30,
+          "minMultBps": 10000,
+          "maxMultBps": 55000
+        }
+      },
+      {
+        "stage": 4,
+        "winOdds": 42,
+        "setbackOdds": 38,
+        "setbackKeepBps": 3500,
+        "potMinBps": 52000,
+        "potMaxBps": 78000,
+        "repReward": 21,
+        "supplyMix": {
+          "common": 10,
+          "uncommon": 50,
+          "rare": 40
+        },
+        "jackpot": {
+          "triggerPct": 32,
+          "minMultBps": 12000,
+          "maxMultBps": 120000
+        }
+      },
+      {
+        "stage": 5,
+        "winOdds": 32,
+        "setbackOdds": 40,
+        "setbackKeepBps": 3000,
+        "potMinBps": 100000,
+        "potMaxBps": 160000,
+        "repReward": 36,
+        "supplyMix": {
+          "common": 0,
+          "uncommon": 0,
+          "rare": 100
+        },
+        "jackpot": {
+          "triggerPct": 40,
+          "minMultBps": 15000,
+          "maxMultBps": 200000
+        }
+      }
+    ],
+    "difficulties": [
+      {
+        "difficulty": 0,
+        "repGate": "600",
+        "cashEntry": "600",
+        "active": true
+      },
+      {
+        "difficulty": 1,
+        "repGate": "1500",
+        "cashEntry": "4000",
+        "active": true
+      },
+      {
+        "difficulty": 2,
+        "repGate": "5500",
+        "cashEntry": "25000",
+        "active": true
+      }
+    ],
+    "ethAddOn": "1000000000000000",
+    "jackpotReserveBps": 6000,
+    "minCashStage": 2,
+    "bustRepPenalty": 3,
+    "idleTimeoutSeconds": "86400"
+  },
+  "boosts": {
+    "tiers": [
+      {
+        "tierId": 1,
+        "price": "2500000000000000",
+        "durationSeconds": "259200",
+        "drugMultiplier": 110,
+        "repMultiplier": 110,
+        "extraAttempts": 2,
+        "freeAreaMovement": false,
+        "cashMultiplier": 110,
+        "isActive": true
+      },
+      {
+        "tierId": 2,
+        "price": "5000000000000000",
+        "durationSeconds": "604800",
+        "drugMultiplier": 115,
+        "repMultiplier": 115,
+        "extraAttempts": 3,
+        "freeAreaMovement": false,
+        "cashMultiplier": 115,
+        "isActive": true
+      },
+      {
+        "tierId": 3,
+        "price": "10000000000000000",
+        "durationSeconds": "1209600",
+        "drugMultiplier": 120,
+        "repMultiplier": 125,
+        "extraAttempts": 6,
+        "freeAreaMovement": true,
+        "cashMultiplier": 120,
+        "isActive": true
+      },
+      {
+        "tierId": 4,
+        "price": "23000000000000000",
+        "durationSeconds": "2592000",
+        "drugMultiplier": 125,
+        "repMultiplier": 135,
+        "extraAttempts": 7,
+        "freeAreaMovement": true,
+        "cashMultiplier": 125,
+        "isActive": true
+      }
+    ]
+  },
+  "nft": {
+    "mintStatus": "Disabled",
+    "mintPrice": "10000000000000000",
+    "maxPerWallet": "10",
+    "currentSupply": "0",
+    "maxSupply": "10000",
+    "royaltyBps": "500"
+  },
+  "actions": {
+    "blackMarketMinInfamy": "10"
+  },
+  "drugs": [
+    {
+      "id": "1",
+      "name": "Goods",
+      "rarity": "Common",
+      "baseCashValue": "75",
+      "isActive": true
+    },
+    {
+      "id": "2",
+      "name": "Contraband",
+      "rarity": "Uncommon",
+      "baseCashValue": "500",
+      "isActive": true
+    },
+    {
+      "id": "3",
+      "name": "Jewels",
+      "rarity": "Rare",
+      "baseCashValue": "2500",
+      "isActive": true
+    },
+    {
+      "id": "4",
+      "name": "Weed",
+      "rarity": "Common",
+      "baseCashValue": "1",
+      "isActive": true
+    },
+    {
+      "id": "5",
+      "name": "XTC",
+      "rarity": "Uncommon",
+      "baseCashValue": "10",
+      "isActive": true
+    },
+    {
+      "id": "6",
+      "name": "Cocaine",
+      "rarity": "Rare",
+      "baseCashValue": "100",
+      "isActive": true
+    },
+    {
+      "id": "7",
+      "name": "Shrooms",
+      "rarity": "Uncommon",
+      "baseCashValue": "12",
+      "isActive": true
+    },
+    {
+      "id": "8",
+      "name": "Heroin",
+      "rarity": "Rare",
+      "baseCashValue": "150",
+      "isActive": true
+    },
+    {
+      "id": "9",
+      "name": "Opioids",
+      "rarity": "Common",
+      "baseCashValue": "18",
+      "isActive": true
+    },
+    {
+      "id": "10",
+      "name": "Meth",
+      "rarity": "Uncommon",
+      "baseCashValue": "25",
+      "isActive": true
+    },
+    {
+      "id": "11",
+      "name": "Fentanyl",
+      "rarity": "Rare",
+      "baseCashValue": "200",
+      "isActive": true
+    }
+  ],
+  "areas": [
+    {
+      "id": 1,
+      "name": "Manhattan",
+      "movementFee": "0",
+      "minReputation": "0",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "4",
+          "name": "Weed",
+          "buyPrice": "1",
+          "sellPrice": "1",
+          "isAvailable": true
+        },
+        {
+          "drugId": "5",
+          "name": "XTC",
+          "buyPrice": "12",
+          "sellPrice": "10",
+          "isAvailable": true
+        },
+        {
+          "drugId": "6",
+          "name": "Cocaine",
+          "buyPrice": "120",
+          "sellPrice": "100",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Amsterdam",
+      "movementFee": "0",
+      "minReputation": "75",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "4",
+          "name": "Weed",
+          "buyPrice": "3",
+          "sellPrice": "2",
+          "isAvailable": true
+        },
+        {
+          "drugId": "7",
+          "name": "Shrooms",
+          "buyPrice": "15",
+          "sellPrice": "12",
+          "isAvailable": true
+        },
+        {
+          "drugId": "8",
+          "name": "Heroin",
+          "buyPrice": "180",
+          "sellPrice": "150",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Colombia",
+      "movementFee": "1000000000000000",
+      "minReputation": "500",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "4",
+          "name": "Weed",
+          "buyPrice": "1",
+          "sellPrice": "1",
+          "isAvailable": true
+        },
+        {
+          "drugId": "6",
+          "name": "Cocaine",
+          "buyPrice": "60",
+          "sellPrice": "50",
+          "isAvailable": true
+        },
+        {
+          "drugId": "8",
+          "name": "Heroin",
+          "buyPrice": "90",
+          "sellPrice": "75",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Hong Kong",
+      "movementFee": "1000000000000000",
+      "minReputation": "800",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "9",
+          "name": "Opioids",
+          "buyPrice": "18",
+          "sellPrice": "15",
+          "isAvailable": true
+        },
+        {
+          "drugId": "10",
+          "name": "Meth",
+          "buyPrice": "28",
+          "sellPrice": "22",
+          "isAvailable": true
+        },
+        {
+          "drugId": "8",
+          "name": "Heroin",
+          "buyPrice": "140",
+          "sellPrice": "110",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Seoul",
+      "movementFee": "1000000000000000",
+      "minReputation": "1200",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "9",
+          "name": "Opioids",
+          "buyPrice": "8",
+          "sellPrice": "7",
+          "isAvailable": true
+        },
+        {
+          "drugId": "10",
+          "name": "Meth",
+          "buyPrice": "14",
+          "sellPrice": "12",
+          "isAvailable": true
+        },
+        {
+          "drugId": "11",
+          "name": "Fentanyl",
+          "buyPrice": "90",
+          "sellPrice": "75",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Tokyo",
+      "movementFee": "1000000000000000",
+      "minReputation": "2500",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "9",
+          "name": "Opioids",
+          "buyPrice": "24",
+          "sellPrice": "20",
+          "isAvailable": true
+        },
+        {
+          "drugId": "10",
+          "name": "Meth",
+          "buyPrice": "32",
+          "sellPrice": "26",
+          "isAvailable": true
+        },
+        {
+          "drugId": "11",
+          "name": "Fentanyl",
+          "buyPrice": "200",
+          "sellPrice": "160",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Dubai",
+      "movementFee": "2000000000000000",
+      "minReputation": "10000",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "5",
+          "name": "XTC",
+          "buyPrice": "14",
+          "sellPrice": "20",
+          "isAvailable": true
+        },
+        {
+          "drugId": "6",
+          "name": "Cocaine",
+          "buyPrice": "160",
+          "sellPrice": "200",
+          "isAvailable": true
+        },
+        {
+          "drugId": "8",
+          "name": "Heroin",
+          "buyPrice": "200",
+          "sellPrice": "240",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 254,
+      "name": "Black Market",
+      "movementFee": "0",
+      "minReputation": "100",
+      "isActive": true,
+      "isBlackMarket": true,
+      "drugs": [
+        {
+          "drugId": "1",
+          "name": "Goods",
+          "buyPrice": "75",
+          "sellPrice": "150",
+          "isAvailable": true
+        },
+        {
+          "drugId": "2",
+          "name": "Contraband",
+          "buyPrice": "500",
+          "sellPrice": "1200",
+          "isAvailable": true
+        },
+        {
+          "drugId": "3",
+          "name": "Jewels",
+          "buyPrice": "2500",
+          "sellPrice": "6500",
+          "isAvailable": true
+        }
+      ]
+    }
+  ]
+}

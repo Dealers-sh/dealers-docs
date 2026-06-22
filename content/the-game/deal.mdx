@@ -18,7 +18,7 @@ When you open the deal tab on the streets of a normal area, you are presented wi
 ## Area limits
 
 - **🛡️ Safe House**: the streets are closed for business and you will be told to leave before you can deal. You are protected from other dealers while inside.
-- **Black Market**: a shop run by a guy named Carl. Gated behind 10+ Infamy. The menu replaces drug deals with a single seller for exotic items earned from PVE — **Goods, Contraband, and Jewels** — at payouts well above normal sells.
+- **Black Market**: a shop run by a guy named Carl. Gated behind <C path="actions.blackMarketMinInfamy" />+ Infamy. The menu replaces drug deals with a single seller for exotic items earned from PVE — **Goods, Contraband, and Jewels** — at payouts well above normal sells.
 - **🛡️ Jail**: neither set of actions is available, and the tab redirects you to handle bail or attempt a breakout. You are also protected from PVP while inside. Full mechanics on [/the-game/jail](/the-game/jail).
 
 ## How a deal flows
@@ -43,6 +43,6 @@ Each buy or sell costs one attempt from your current period's budget, displayed 
 
 ## Heat and Clear Heat
 
-Every action adds one heat, capped at 5. On every action the game rolls for arrest with chance equal to `heat × 0.5%`, so heat 5 is a 2.5% jail risk per action. 
+Every action adds one heat, capped at <C path="core.maxHeatLevel" />. On every action the game rolls for arrest with chance equal to heat × <C path="core.config.jailChancePerHeat" format="perMille" />, so heat <C path="core.maxHeatLevel" /> is a <HeatRiskMax /> jail risk per action. 
 
 The Clear Heat action provides an out: pay a cash fee to drop one level back down. The decision of when to clear is one of the recurring economic choices in the game. Sometimes the cash is better spent on more inventory, and sometimes preserving your run is worth the spend.

@@ -20,13 +20,13 @@ When a PVE deal resolves, the chat log writes back what changed:
 - **Cash** moves first — the price you paid or were paid, after the deal landed. It is rarely the price the menu quoted, because negotiation can go either way.
 - **Stash** updates with the drug and quantity you actually walked away with. On a buy, that is what entered your inventory. On a sell, what left it.
 - **Reputation (REP)** ticks up when a deal goes well. It is your standing in the family and gates rank progression.
-- **Heat** ticks up by one. Every action — buy, sell, or PVP — adds exactly one heat, win or lose. Heat caps at 5.
+- **Heat** ticks up by one. Every action — buy, sell, or PVP — adds exactly one heat, win or lose. Heat caps at <C path="core.maxHeatLevel" />.
 
 Read every line. The first few sessions are about learning how big those swings can get. 
 
 ## Heat equals risk
 
-Heat is the second most important number on your sheet. Every action adds one. **Clear Heat** is the explicit action that pulls it back down, and it costs cash. Every time you act, the game rolls for arrest at `heat × 0.5%` — so heat 1 is a 0.5% jail chance per action, heat 5 is 2.5%. There is no automatic jail threshold; it is a roll on every action. See [/the-game/jail](/the-game/jail) for what jail looks like and how to get out.
+Heat is the second most important number on your sheet. Every action adds one. **Clear Heat** is the explicit action that pulls it back down, and it costs cash. Every time you act, the game rolls for arrest at heat × <C path="core.config.jailChancePerHeat" format="perMille" /> — so heat 1 is a <C path="core.config.jailChancePerHeat" format="perMille" /> jail chance per action, heat <C path="core.maxHeatLevel" /> is <HeatRiskMax />. There is no automatic jail threshold; it is a roll on every action. See [/the-game/jail](/the-game/jail) for what jail looks like and how to get out.
 
 Good dealers do not avoid heat — they price it in. Every action carries a small jail tax. Plan around it.
 

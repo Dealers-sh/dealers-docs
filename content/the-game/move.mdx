@@ -18,7 +18,7 @@ Most areas you encounter are normal streets, which means full access to the deal
 - **🛡️ Safe House** — a protected area. Other dealers cannot attack you while you are inside, and the deal tab is closed for business. Travel to a Safe House costs ETH (the fee is shown on the move-here button). Used to lay low while heat dissipates or to park between sessions.
 - **🛡️ Jail** — also a protected area. You enter when an arrest roll lands, and you cannot be attacked while inside. Movement and dealing are locked until you pay bail or break out. Full mechanics on [/the-game/jail](/the-game/jail). Exiting jail will move you back to your previous area.
 - **Premium areas** — areas where you will find drugs at cheaper prices, that allow you to buy cheap and sell high in other areas.
-- **Black Market** — a separate shop run by Carl, gated behind a minimum of **10 Infamy**. The deal tab in the Black Market does not sell drugs at all. Instead, it lets you offload the exotic items you pick up from PVP wins. Buying from Carl is not yet enabled. Exiting the black market returns you to your previous area.
+- **Black Market** — a separate shop run by Carl, gated behind a minimum of **<C path="actions.blackMarketMinInfamy" /> Infamy**. The deal tab in the Black Market does not sell drugs at all. Instead, it lets you offload the exotic items you pick up from PVP wins. Buying from Carl is not yet enabled. Exiting the black market returns you to your previous area.
 
 ## The move flow
 
@@ -28,7 +28,11 @@ Travel is straightforward. Open the ✈️ tab, swipe through the list of nearby
 
 Movement between **Manhattan** and **Amsterdam** is **free** — these are the two starter areas, sized so that a new dealer can run the full buy-cheap-sell-high loop and earn their first ranks without ever paying ETH. The "free play loop" lives in this pair.
 
-Standard areas (Colombia, Hong Kong, Seoul, Tokyo) charge **0.001 ETH** per move. The premium area (Dubai) charges **0.002 ETH**. The Black Market is free to enter and free to exit. Several other moves are free as well: the first time you ever travel out of the starting area, and any travel while an active Kingpin or Godfather boost is running (those tiers carry the free-movement perk).
+Every other area charges its own travel fee, and entry is gated by reputation:
+
+<AreaAccessTable />
+
+The Black Market is free to enter and free to exit. Several other moves are free as well: the first time you ever travel out of the starting area, and any travel while an active Kingpin or Godfather boost is running (those tiers carry the free-movement perk).
 
 ## When the move tab handles jail
 
