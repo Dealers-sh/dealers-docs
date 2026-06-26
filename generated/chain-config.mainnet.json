@@ -4,9 +4,9 @@
   "chainId": 2741,
   "explorerUrl": "https://explorer.abs.xyz",
   "fetchedAt": {
-    "blockNumber": "71416789",
-    "blockTimestamp": "1782161830",
-    "iso": "2026-06-22T20:57:10.000Z"
+    "blockNumber": "71950725",
+    "blockTimestamp": "1782479528",
+    "iso": "2026-06-26T13:12:08.000Z"
   },
   "contracts": {
     "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
@@ -468,7 +468,7 @@
       "id": 2,
       "name": "Amsterdam",
       "movementFee": "0",
-      "minReputation": "75",
+      "minReputation": "150",
       "isActive": true,
       "isBlackMarket": false,
       "drugs": [
