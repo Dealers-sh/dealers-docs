@@ -11,9 +11,7 @@ A Dealers.sh NFT is not a static image. The base traits are assigned at mint and
 
 The most obvious dynamic element is the game UI that renders inside the NFT. Stats like reputation, heat, cash, attempts, and stash are all read from on-chain state at render time, which means they reflect whatever just happened in your most recent transaction. The action log, the area you are in, and any pending notifications also live in this updating layer.
 
-A second category of dynamic content is achievement-driven visual state. Some achievements add a permanent visual element to the character once they are claimed: an accessory, a piece of clothing, a small overlay. These additions are stored alongside the base traits and become part of the rendered SVG from that point forward. They are the closest thing in the game to a visible level-up.
-
-A third category is environmental state. The area you are currently in, your jail status, the outcome of your most recent PVP exchange, and your active heat level all feed into how the scene around the character reads. These shifts are driven directly by on-chain state, so they update as soon as a transaction confirms.
+Everything that moves lives in that game UI overlay or in the token metadata. The underlying character art does not change as you play. Your area, jail status, most recent PVP outcome, and active heat level all update from on-chain state as soon as a transaction confirms, but they surface through the game UI and the live metadata traits below, not through any edit to the artwork itself.
 
 ## Dynamic traits in the NFT metadata
 
@@ -30,6 +28,6 @@ The trait names and order match `DealersNFT._getDynamicTraits`. Marketplaces tha
 
 ## What stays fixed
 
-The base traits rolled at mint are permanent. The character you minted is the character you keep. Achievements can layer on top of those traits, but they cannot replace them, and there is no mechanism in the game to reroll or swap out anything that was set at mint.
+The base traits rolled at mint are permanent. The character you minted is the character you keep. There is no mechanism in the game to reroll or swap out anything that was set at mint, and the rendered character art stays the same from mint onward.
 
-The summary line we use to capture this is that your dealer levels up while your JPEG stays put. Some things grow, and other things are fixed, and both are by design.
+The summary line we use to capture this is that your dealer levels up while your JPEG stays put. The game UI and the live metadata move, the artwork does not, and both are by design.
