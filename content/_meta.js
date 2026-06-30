@@ -19,5 +19,6 @@ export default {
     title: 'Legal'
   },
   tos: '/tos',
-  privacy: '/privacy'
+  privacy: '/privacy',
+  'brand-assets': '/brand-assets'
 }

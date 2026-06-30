@@ -1,0 +1,48 @@
+---
+title: Recruit
+description: How to recruit your first character and start playing. The dealer, gang, and family packs, the select screen, and where your character renders.
+---
+
+# /start/recruit
+
+Before you can play, you need a character to play as. The fastest way to get one is the recruiter at [dealers.sh/play](https://dealers.sh/play): choose how many characters you want, recruit them in one transaction, and you land on a select screen ready to play.
+
+Think of it as putting a crew together. You are not buying a profile picture. You are recruiting the dealer you are about to run.
+
+![The recruiter on dealers.sh/play: choose a dealer, gang, or family pack and meet your new crew.](/recruit.jpg)
+
+## Recruit your crew
+
+The recruiter offers three pack sizes. They differ only in how many characters you walk away with:
+
+| Pack | Characters |
+| --- | --- |
+| **Dealer** | 1 |
+| **Gang** | 5 |
+| **Family** | 10 |
+
+Every character costs <C path="nft.mintPrice" format="eth" /> to recruit, so a gang is five of those and a family is ten. Ten is also the most a single wallet can recruit: the family pack is the ceiling, <C path="nft.maxPerWallet" /> per wallet. The collection is finite at <C path="nft.maxSupply" format="number" /> characters in total.
+
+A bigger pack is not a bigger character. Every dealer plays by the same rules. What it buys you is more to choose from on the select screen, and more rolls on the trait table.
+
+## Pick who you play
+
+Recruiting drops you on the character select screen. Every character your wallet holds is laid out with its stats and traits, so you can compare them side by side and decide who to run first. Pick one, and the game opens with that character loaded.
+
+What each of those stats means is covered on [/start/your-dealer](/start/your-dealer). Fresh recruits all start from the same line; they only diverge once you start playing them.
+
+## Where your character renders
+
+Selecting a character opens it at `dealers.sh/play/<tokenId>`. That page renders the live game straight from the chain inside an iframe: your character, your current on-chain state, fully playable.
+
+For the purist view, add `/raw` to the URL (`dealers.sh/play/<tokenId>/raw`) and you get the character exactly as the chain serves it, with no site wrapper around it: the raw `animation_url` HTML the NFT itself returns. It is the same game either way; `/raw` just strips away everything that is not on chain. See [/the-art/rendering](/the-art/rendering) for how that pipeline works.
+
+## And yes, it is an NFT
+
+Here is the part most projects lead with, and we are burying on purpose: every character you recruit is an NFT on Abstract. That is exactly why it works as a save file (your cash, your stash, your reputation all live on the token), and it means the character is yours to keep, transfer, or sell. It shows up on OpenSea like any other Abstract NFT, the art is [CC0](/tos), and secondary sales carry a <C path="nft.royaltyBps" format="bpsPercent" /> royalty.
+
+But that is the wrapper, not the pitch. You recruited a character to play a game. The fact that it happens to be a tradeable, fully on-chain collectible is a bonus you get for free.
+
+## Next
+
+Once a character is loaded, [/start/your-dealer](/start/your-dealer) explains what you are looking at, and [/start/first-deal](/start/first-deal) walks you through your first move.

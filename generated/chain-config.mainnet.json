@@ -4,9 +4,9 @@
   "chainId": 2741,
   "explorerUrl": "https://explorer.abs.xyz",
   "fetchedAt": {
-    "blockNumber": "71950725",
-    "blockTimestamp": "1782479528",
-    "iso": "2026-06-26T13:12:08.000Z"
+    "blockNumber": "72448062",
+    "blockTimestamp": "1782784046",
+    "iso": "2026-06-30T01:47:26.000Z"
   },
   "contracts": {
     "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
@@ -109,7 +109,7 @@
         "winBonus": 22,
         "tieBonus": 11,
         "lossPenalty": -6,
-        "repCap": 44,
+        "repCap": 72,
         "tierName": "Consigliere"
       },
       {
@@ -118,7 +118,7 @@
         "winBonus": 18,
         "tieBonus": 9,
         "lossPenalty": -7,
-        "repCap": 48,
+        "repCap": 80,
         "tierName": "Underboss"
       },
       {
@@ -127,7 +127,7 @@
         "winBonus": 15,
         "tieBonus": 7,
         "lossPenalty": -6,
-        "repCap": 52,
+        "repCap": 90,
         "tierName": "Don"
       },
       {
@@ -136,7 +136,7 @@
         "winBonus": 12,
         "tieBonus": 6,
         "lossPenalty": -8,
-        "repCap": 56,
+        "repCap": 100,
         "tierName": "Godfather"
       },
       {
@@ -344,7 +344,7 @@
   },
   "nft": {
     "mintStatus": "Disabled",
-    "mintPrice": "10000000000000000",
+    "mintPrice": "6900000000000000",
     "maxPerWallet": "10",
     "currentSupply": "0",
     "maxSupply": "10000",
@@ -468,7 +468,7 @@
       "id": 2,
       "name": "Amsterdam",
       "movementFee": "0",
-      "minReputation": "150",
+      "minReputation": "250",
       "isActive": true,
       "isBlackMarket": false,
       "drugs": [
@@ -537,22 +537,22 @@
         {
           "drugId": "9",
           "name": "Opioids",
-          "buyPrice": "18",
-          "sellPrice": "15",
+          "buyPrice": "22",
+          "sellPrice": "18",
           "isAvailable": true
         },
         {
           "drugId": "10",
           "name": "Meth",
-          "buyPrice": "28",
-          "sellPrice": "22",
+          "buyPrice": "30",
+          "sellPrice": "25",
           "isAvailable": true
         },
         {
           "drugId": "8",
           "name": "Heroin",
-          "buyPrice": "140",
-          "sellPrice": "110",
+          "buyPrice": "175",
+          "sellPrice": "160",
           "isAvailable": true
         }
       ]
@@ -561,7 +561,7 @@
       "id": 5,
       "name": "Seoul",
       "movementFee": "1000000000000000",
-      "minReputation": "1200",
+      "minReputation": "1500",
       "isActive": true,
       "isBlackMarket": false,
       "drugs": [
@@ -592,7 +592,7 @@
       "id": 6,
       "name": "Tokyo",
       "movementFee": "1000000000000000",
-      "minReputation": "2500",
+      "minReputation": "3000",
       "isActive": true,
       "isBlackMarket": false,
       "drugs": [
@@ -623,7 +623,7 @@
       "id": 7,
       "name": "Dubai",
       "movementFee": "2000000000000000",
-      "minReputation": "10000",
+      "minReputation": "5500",
       "isActive": true,
       "isBlackMarket": false,
       "drugs": [
