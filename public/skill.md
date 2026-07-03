@@ -42,9 +42,9 @@ If the user does not specify alternatives, use these defaults:
 - Wallet source: existing agent wallet (or user-specified)
 - Tick policy: agent-driven; no heartbeat is required
 
-Abstract mainnet (chain `2741`) is the default and the live network. The verified, canonical address list is published at `https://docs.dealers.sh/contracts/addresses`. If anything below disagrees with that page, that page wins. The Abstract testnet profile stays available for development.
+Abstract mainnet (chain `2741`) is the live network. The verified, canonical address list is published at `https://docs.dealers.sh/contracts/addresses`. If anything below disagrees with that page, that page wins.
 
-### Abstract Mainnet contracts (default)
+### Abstract Mainnet contracts
 
 - DealersNFT: `0x610CcEe1AE4aFF961d043faB379491C2997383F7`
 - DealersCore: `0x0D8d2755a49d30BD57F6a9bA5Fa8a7c9FFF86E8e`
@@ -62,27 +62,6 @@ Abstract mainnet (chain `2741`) is the default and the live network. The verifie
 - DealersChatFactory: `0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe`
 - DealerRendererSVG: `0x8c99b0c302E774CF50ba6B4763dcB15d84ede31A`
 - DealerRendererHTML: `0x889F5a12DaB04b3f5bB60672FDD599be8A0949d5`
-
-### Abstract Testnet contracts (development)
-
-For testing, swap the profile to Abstract testnet (chain `11124`, RPC `https://api.testnet.abs.xyz`, explorer `sepolia.abscan.org`). Same ABIs, different addresses:
-
-- DealersNFT: `0xCa4BC92b565A110952933C90f581A7765415e6Ed`
-- DealersCore: `0x8dC006a61012F1a6f3EAd24eEfaf0e634d0635f4`
-- DealersActions: `0x407B2507B7371834D7616E3F0A69274124119598`
-- DealersPVE: `0x9D6dc92F71416943aB7ee2653c681dC403107149`
-- DealersPVP: `0x73551b83d47Fd830d7571b4EB81059Ce92820F68`
-- DealersHeists: `0x36B7941C93E7DaA916dbA0ea42841Fc54CbC2325`
-- DealersBoosts: `0x6bD8B5D350798ad850F255Cb093D1be46Cc0B163`
-- DEDrugRegistry: `0xe9260db65A5B62Ccc09da4100c47F66dC39b4a6B`
-- DEAreaRegistry: `0x543513cea0Dfe318224508c5dD0E05298e776f44`
-- DealersClaims: `0xaA6AfB0fCDB58135A12c06cD5b6D551A6507F14A`
-- DealersMulticall: `0xF616a24AfC1C51B2514c5a7f63bcc792ac700F5b`
-- DealersPaymentHandler: `0x759C484eAb3B56757E05597A5597bfC982BEAA76`
-- DealersRandomness: `0x92bAeD7386ec8738075eD271cb3747CbFFA175c1`
-- DealersChatFactory: `0x46309780bdFe7Fed9075dd0BC37E55c57D5C91a7`
-- DealerRendererSVG: `0x026fE01BC06Bc56e52cdB77BF0Aba6c119d32583`
-- DealerRendererHTML: `0x20cdad6AEC735B2FA65Edd35d18A55127cdD6C03`
 
 ---
 
@@ -184,8 +163,6 @@ chmod 600 "$DEALERS_STATE_DIR/network.mainnet.json"
 ln -sf "$DEALERS_STATE_DIR/network.mainnet.json" "$DEALERS_STATE_DIR/network.json"
 ```
 
-For testnet, write the same file shape as `network.testnet.json` using the chain id, RPC, and addresses from the testnet section above, then repoint the `network.json` symlink at it.
-
 ---
 
 ## Preflight Checks (required)
@@ -243,7 +220,7 @@ cast send 0x3b50de27506f0a8c1f4122a1e6f470009a76ce2a \
   --private-key "$PK" --rpc-url "$RPC"
 ```
 
-Mainnet only. App ID `237` is the mainnet listing. Submit it once per operating wallet during setup; skip it on testnet profiles.
+App ID `237` is the mainnet listing. Submit it once per operating wallet during setup.
 
 ---
 
@@ -398,7 +375,7 @@ The agent is ready when all are true:
 
 ### Chain mismatch
 - Symptom: preflight reports expected vs actual chain mismatch
-- Fix: switch `network.json` symlink/profile to the intended network (mainnet chain `2741`, testnet chain `11124`)
+- Fix: switch `network.json` symlink/profile to the intended network (mainnet chain `2741`)
 
 ### Missing bytecode at contract
 - Symptom: `cast code` is `0x`

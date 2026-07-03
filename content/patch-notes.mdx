@@ -7,6 +7,16 @@ description: Commit-style updates to the Dealers.sh game and to these docs.
 
 This page is the changelog for the project. New entries are added at the top, and each entry describes what changed, when it changed, and links to the relevant contract or page when there is something to link to. The format is intentionally short and factual, so that scanning the history of the project is quick.
 
+## v1.0.1 / quality-of-life
+
+Traveling to a safe house now asks for confirmation. A CANCEL / LAY LOW prompt spells out the tradeoff before you commit: while you are inside no dealer can touch you, but you cannot deal, run heists, or hit anyone. Safe houses also stay hidden from the travel list until PVP unlocks. See [/the-game/move](/the-game/move) and [/the-game/pvp](/the-game/pvp).
+
+Navigation is clearer across the board. Action bar and menu tabs now show a text label under each emoji (HEISTS, VAULT, PAGER, and so on), and PVP target rows carry tooltips that explain threat (🗡️), armor (🛡️), infamy (INF), and win/loss odds (✅).
+
+Several action costs read more plainly. Buy/sell, heist job select, and remove-posters buttons now show a flat cost of ⚡️1 instead of a running attempts count. When selling, drugs you do not hold show Not in stash and are disabled, and the rare-drug lock reads REP 150+. A maxed-out SPY target shows a MAXED label in place of the 🔋/🪫 battery icon.
+
+PVP retry is now driven by on-chain state. "Try Again" and "Attack Again" check the target's live attackable state (`canAttack`) instead of stale flow state, so the action is correctly disabled when a dealer cannot be hit, and the message reads "You can't make a move on this dealer right now."
+
 ## v1.0.0 / mainnet launch
 
 Dealers.sh is live on Abstract mainnet (chain `2741`). The docs now read from the mainnet contract snapshot: [/contracts/addresses](/contracts/addresses) lists the verified mainnet deployment, and every game constant on the site resolves against mainnet config.
