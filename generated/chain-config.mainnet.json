@@ -4,9 +4,9 @@
   "chainId": 2741,
   "explorerUrl": "https://explorer.abs.xyz",
   "fetchedAt": {
-    "blockNumber": "72448062",
-    "blockTimestamp": "1782784046",
-    "iso": "2026-06-30T01:47:26.000Z"
+    "blockNumber": "74187851",
+    "blockTimestamp": "1783886103",
+    "iso": "2026-07-12T19:55:03.000Z"
   },
   "contracts": {
     "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
@@ -109,7 +109,7 @@
         "winBonus": 22,
         "tieBonus": 11,
         "lossPenalty": -6,
-        "repCap": 72,
+        "repCap": 56,
         "tierName": "Consigliere"
       },
       {
@@ -118,7 +118,7 @@
         "winBonus": 18,
         "tieBonus": 9,
         "lossPenalty": -7,
-        "repCap": 80,
+        "repCap": 62,
         "tierName": "Underboss"
       },
       {
@@ -127,7 +127,7 @@
         "winBonus": 15,
         "tieBonus": 7,
         "lossPenalty": -6,
-        "repCap": 90,
+        "repCap": 70,
         "tierName": "Don"
       },
       {
@@ -136,7 +136,7 @@
         "winBonus": 12,
         "tieBonus": 6,
         "lossPenalty": -8,
-        "repCap": 100,
+        "repCap": 78,
         "tierName": "Godfather"
       },
       {
@@ -343,10 +343,10 @@
     ]
   },
   "nft": {
-    "mintStatus": "Disabled",
+    "mintStatus": "Family",
     "mintPrice": "6900000000000000",
     "maxPerWallet": "10",
-    "currentSupply": "0",
+    "currentSupply": "296",
     "maxSupply": "10000",
     "royaltyBps": "500"
   },
