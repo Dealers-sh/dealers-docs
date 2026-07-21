@@ -7,7 +7,7 @@ description: The 🏦 tab. Community bank heist seasons, where the whole crew gr
 
 The 🏦 tab, labelled `VAULT` in the action bar, is the fourth activity loop. Where dealing, PVP, and heists are things you do alone, a bank heist is a season length event the whole player base runs at once. Everybody puts in work, the vault gets cracked, and the take is split by how much each dealer contributed.
 
-The vault itself has been filling since launch. A share of every ETH fee in the game routes into it, and it does not reset between seasons. What a season does is decide how much of it pays out and to whom.
+The vault itself has been filling since launch. The ETH fees the game collects route into it, it does not reset between seasons, and it keeps growing while a season is running. What a season does is decide how much of it pays out and to whom.
 
 There is no separate treasury holding it. The vault is the ETH balance of the `DealersBankHeist` contract itself, so the number the 🏦 tab shows you is a live on-chain read rather than a figure we publish. You can check it yourself against the contract on the block explorer, and the address is listed on [/contracts/addresses](/contracts/addresses).
 
@@ -57,7 +57,9 @@ Each season sets a minimum for each of the three, and sometimes a minimum for th
 
 Settlement takes a slice of the vault, sets it aside as the pot, and divides it between qualifying entrants in proportion to their frozen scores. Your cut is the pot multiplied by your score, divided by the total score of everyone who qualified.
 
-This is a pari-mutuel split, and the pot is fixed at settle. A busier season does not mean a bigger pot, it means the same pot cut into smaller pieces. Your share depends on how much work you did relative to everyone else, not on how much you did in absolute terms.
+The pot is not a fixed number sitting there waiting for you. It is calculated at settlement from whatever the vault holds at that moment, and the vault is still filling the entire time the season runs, because the ETH fees the game collects flow into it. A busy season with a lot of dealers playing ends with a bigger vault, and therefore a bigger pot, than a quiet one.
+
+That is worth understanding because it changes how you should think about other players. Your cut is your score divided by everyone's score, so another dealer grinding hard does reduce your fraction of the pot. But their play is also feeding the vault that pot comes from. The two effects pull in opposite directions, which is why the mode is built as a crew job rather than a race: the season going well is good for everyone in it.
 
 Payment goes to whoever owns the dealer NFT at the moment of claiming, not to whoever played the season. Selling a dealer between settlement and claim sells the unclaimed cut along with it.
 

@@ -17,7 +17,7 @@ A season runs on a fixed lifecycle. The owner opens it with a configuration that
 
 The genesis season opens with `zeroBaseline` set, so lifetime play since launch counts toward your score rather than only what you do after joining. Later seasons snapshot your counters at entry and score the delta.
 
-Two properties are worth calling out because they shape strategy. The pot is fixed at settle, so the payout is pari-mutuel: more crew activity does not grow the pot, it dilutes each share. And qualification is all or nothing, because missing any single minimum threshold zeroes your entire score regardless of how much work you put in elsewhere.
+Two properties are worth calling out because they shape strategy. The vault keeps filling for as long as a season runs, because the ETH fees the game collects flow straight into it, and the pot is only calculated at settle as a share of whatever the vault holds by then. A busier season is a bigger pot, so the crew has a shared interest in the season going well. What the pro-rata split decides is how that pot gets divided: your cut is your score over the combined score of everyone who qualified. And qualification is all or nothing, because missing any single minimum threshold zeroes your entire score regardless of how much work you put in elsewhere.
 
 Full player-facing mechanics are on [/the-game/bank](/the-game/bank).
 
