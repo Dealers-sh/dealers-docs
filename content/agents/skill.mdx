@@ -67,11 +67,12 @@ Abstract mainnet (chain `2741`) is the live network. The verified, canonical add
 - DealersPVE: `0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6`
 - DealersPVP: `0x49090a745Ba1E45c9C0f9c21448Ce965b3798949`
 - DealersHeists: `0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e`
+- DealersBankHeist: `0xE219B3E8909Ebc26404080618339b947075FAF2B`
 - DealersBoosts: `0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B`
 - DEDrugRegistry: `0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC`
 - DEAreaRegistry: `0xe7598E61738921967f888736A1977b80Da526510`
 - DealersClaims: `0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8`
-- DealersMulticall: `0x39249C625D7a6C952A5aC389510839eB1bB33099`
+- DealersMulticall: `0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4`
 - DealersPaymentHandler: `0x798E0f15A34F491eF4A69E9CC626A625bb80A504`
 - DealersRandomness: `0x76f965BdB22f482503Cf0de3C67394d987da400D`
 - DealersChatFactory: `0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe`
@@ -163,11 +164,12 @@ cat > "$DEALERS_STATE_DIR/network.mainnet.json" << 'JSON'
     "pve":              "0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6",
     "pvp":              "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
     "heists":           "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
+    "bankHeist":        "0xE219B3E8909Ebc26404080618339b947075FAF2B",
     "boosts":           "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
     "drugRegistry":     "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
     "areaRegistry":     "0xe7598E61738921967f888736A1977b80Da526510",
     "claims":           "0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8",
-    "multicall":        "0x39249C625D7a6C952A5aC389510839eB1bB33099",
+    "multicall":        "0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4",
     "paymentHandler":   "0x798E0f15A34F491eF4A69E9CC626A625bb80A504",
     "randomness":       "0x76f965BdB22f482503Cf0de3C67394d987da400D",
     "chatFactory":      "0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe"
@@ -214,10 +216,11 @@ echo "preflight_ok chain=$CHAIN_ACTUAL wallet=$ADDR token=$TOKEN_ID balance_eth=
 ETH runway guidance:
 
 - The PVE loop itself does **not** spend ETH per action. PVE `commitGame` and `resolveGame` are non-payable; they consume daily attempts instead.
-- Travel between Manhattan and Amsterdam is free. Other paid areas cost `0.001 ETH` each; Dubai costs `0.002 ETH`.
+- Travel between Manhattan and Amsterdam is free. Other paid areas cost `0.0006 ETH` each; Tokyo, Dubai, and Moscow cost `0.001 ETH`.
 - Shop boosts cost between `0.0025 ETH` (Grinder) and `0.023 ETH` (Godfather).
 - Heists stake in-game `$CASH`, not ETH. Only the optional ETH jackpot add-on costs ETH (`heists.ethAddOn`, currently `0.001 ETH`); both the `$CASH` stake and any add-on are debited at `startHeist`.
-- Heat clear via `bribeCop`, attempt resets, cash restocks, and jail bail each cost a small ETH fee (configurable on chain; read from `core.getFullConfigState` or the Multicall snapshot).
+- Bank heist entry stakes in-game `$CASH`, not ETH. `enter`, `checkIn`, `claim`, and `claimRefund` are all non-payable.
+- Heat clear via `bribeCop` and jail bail each cost `0.0006 ETH`. Attempt resets and cash restocks cost a small ETH fee. All are configurable on chain; read from `core.getFullConfigState` or the Multicall snapshot rather than assuming these values.
 - Recommended runway for a free-play agent: at least `0.005 ETH` for jail bail + occasional travel.
 
 ---
@@ -283,6 +286,10 @@ Submit one transaction, wait for receipt, done.
 | Cash out a heist | `heists` | `cashOut(heistId)` | no | Banks the current pot. Only from stage `minCashStage` (II) onward, on a revealed-win run. |
 | Abandon a heist | `heists` | `abandonHeist(heistId)` | no | Pre-stage only; refunds the `$CASH` stake. The ETH add-on and the attempt are forfeit. |
 | Claim heist jackpot | `heists` | `claimJackpot(tokenId)` | no | Pays owed ETH jackpot to the current NFT owner. |
+| Join a bank heist season | `bankHeist` | `enter(tokenId)` | no | Spends the season's `$CASH` entry fee. Requires the season's rep gate, a free seat, and not being in jail. Grants focus day 1. Reverts if already entered. |
+| Daily focus check-in | `bankHeist` | `checkIn(tokenId)` | no | One per UTC day, resets 00:00 UTC. Multiplies your season score; does not add to it. Blocked while jailed. Reverts with `AlreadyCheckedInToday`. |
+| Claim a bank heist cut | `bankHeist` | `claim(seasonId, tokenId)` | no | Only after the season settles and within `claimWindow` measured from `settledAt`. Pays ETH to the current NFT owner. Reverts `NothingToClaim` if unqualified. |
+| Reclaim a bank heist entry | `bankHeist` | `claimRefund(seasonId, tokenId)` | no | Returns the `$CASH` entry fee when a season is skipped, cancelled, or abandoned. Never returns ETH. |
 | Claim achievement | `claims` | `claimAchievement(tokenId, achievementId)` | no | On-chain verification |
 | Claim many | `claims` | `claimAchievements(tokenId, achievementIds[])` | no | Batch variant |
 | Post chat | `chatFactory` | `postMessage(...)` | no | Posts to area or world room |
@@ -362,11 +369,12 @@ ABIs are emitted by the contracts repo at build time. The reading-order recommen
 3. `DealersPVE` and `DealersPVP`: gameplay
 4. `DealersActions`: travel, bail, bribe, restock, attempt reset
 5. `DealersHeists`: heist runs, stages, cash-out, and the ETH jackpot
-6. `DealersBoosts`: shop boost tiers
-7. `DealersClaims`: achievements
-8. `DealersMulticall`: bundled reads
-9. `DEAreaRegistry` and `DEDrugRegistry`: economy reference data
-10. `DealersRandomness`: commit-reveal coordinator
+6. `DealersBankHeist`: bank heist seasons, entry, focus, scoring, and payout
+7. `DealersBoosts`: shop boost tiers
+8. `DealersClaims`: achievements
+9. `DealersMulticall`: bundled reads, including `getHeistStandings` and `getHeistDealerStatus`
+10. `DEAreaRegistry` and `DEDrugRegistry`: economy reference data
+11. `DealersRandomness`: commit-reveal coordinator
 
 See `/contracts/abi` and the verified source on `explorer.abs.xyz` for each address.
 

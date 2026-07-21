@@ -13,7 +13,7 @@ This map mirrors the [game loop diagram](/the-game/overview) — each colored re
 
 ## The contract graph
 
-The system has sixteen deployed contracts at present. Each one has a focused responsibility, and most player actions touch three or four of them in sequence.
+The system has seventeen deployed contracts at present. Each one has a focused responsibility, and most player actions touch three or four of them in sequence.
 
 | Contract | Responsibility |
 | --- | --- |
@@ -23,6 +23,7 @@ The system has sixteen deployed contracts at present. Each one has a focused res
 | `DealersPVE` | Handles buy, sell, clear heat, and black market resolution. |
 | `DealersPVP` | Handles same-area player versus player attacks. |
 | `DealersHeists` | The heists module: five-stage push-your-luck runs and the optional ETH jackpot add-on, drawn through Pyth Entropy. |
+| `DealersBankHeist` | The bank vault and the community heist seasons that split it, including entry, daily focus, scoring, and payout. |
 | `DealersBoosts` | Implements the time-limited shop boosts (Grinder, Hustler, Kingpin). |
 | `DEDrugRegistry` | The drug catalogue: names, rarities, and base prices. |
 | `DEAreaRegistry` | The area catalogue: names, types, and price bands. |

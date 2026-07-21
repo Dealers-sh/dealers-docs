@@ -4,9 +4,9 @@
   "chainId": 2741,
   "explorerUrl": "https://explorer.abs.xyz",
   "fetchedAt": {
-    "blockNumber": "74187851",
-    "blockTimestamp": "1783886103",
-    "iso": "2026-07-12T19:55:03.000Z"
+    "blockNumber": "75464654",
+    "blockTimestamp": "1784658228",
+    "iso": "2026-07-21T18:23:48.000Z"
   },
   "contracts": {
     "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
@@ -15,11 +15,12 @@
     "DealersPVE": "0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6",
     "DealersPVP": "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
     "DealersHeists": "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
+    "DealersBankHeist": "0xE219B3E8909Ebc26404080618339b947075FAF2B",
     "DealersBoosts": "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
     "DEDrugRegistry": "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
     "DEAreaRegistry": "0xe7598E61738921967f888736A1977b80Da526510",
     "DealersClaims": "0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8",
-    "DealersMulticall": "0x39249C625D7a6C952A5aC389510839eB1bB33099",
+    "DealersMulticall": "0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4",
     "DealersPaymentHandler": "0x798E0f15A34F491eF4A69E9CC626A625bb80A504",
     "DealersRandomness": "0x76f965BdB22f482503Cf0de3C67394d987da400D",
     "DealersChatFactory": "0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe",
@@ -29,7 +30,7 @@
   "core": {
     "config": {
       "attemptResetFee": "1000000000000000",
-      "bribeCopFee": "1000000000000000",
+      "bribeCopFee": "600000000000000",
       "cashTopupPrice": "1000000000000000",
       "cashTopupAmount": "100",
       "cashPurchaseThreshold": "10",
@@ -163,7 +164,7 @@
     "rarityWeightRare": 5,
     "repRangePercent": 25,
     "defenderRepBonus": 2,
-    "repRangeThreshold": "22000"
+    "repRangeThreshold": "3000"
   },
   "pve": {
     "tieChance": 50,
@@ -346,7 +347,7 @@
     "mintStatus": "Family",
     "mintPrice": "6900000000000000",
     "maxPerWallet": "10",
-    "currentSupply": "296",
+    "currentSupply": "308",
     "maxSupply": "10000",
     "royaltyBps": "500"
   },
@@ -430,6 +431,27 @@
       "rarity": "Rare",
       "baseCashValue": "200",
       "isActive": true
+    },
+    {
+      "id": "12",
+      "name": "Slivo",
+      "rarity": "Common",
+      "baseCashValue": "8",
+      "isActive": true
+    },
+    {
+      "id": "13",
+      "name": "Krokodil",
+      "rarity": "Rare",
+      "baseCashValue": "500",
+      "isActive": true
+    },
+    {
+      "id": "14",
+      "name": "Speed",
+      "rarity": "Uncommon",
+      "baseCashValue": "30",
+      "isActive": true
     }
   ],
   "areas": [
@@ -449,17 +471,17 @@
           "isAvailable": true
         },
         {
-          "drugId": "5",
-          "name": "XTC",
-          "buyPrice": "12",
-          "sellPrice": "10",
-          "isAvailable": true
-        },
-        {
           "drugId": "6",
           "name": "Cocaine",
           "buyPrice": "120",
           "sellPrice": "100",
+          "isAvailable": true
+        },
+        {
+          "drugId": "10",
+          "name": "Meth",
+          "buyPrice": "12",
+          "sellPrice": "10",
           "isAvailable": true
         }
       ]
@@ -480,17 +502,17 @@
           "isAvailable": true
         },
         {
-          "drugId": "7",
-          "name": "Shrooms",
-          "buyPrice": "15",
-          "sellPrice": "12",
-          "isAvailable": true
-        },
-        {
           "drugId": "8",
           "name": "Heroin",
           "buyPrice": "180",
           "sellPrice": "150",
+          "isAvailable": true
+        },
+        {
+          "drugId": "5",
+          "name": "XTC",
+          "buyPrice": "15",
+          "sellPrice": "12",
           "isAvailable": true
         }
       ]
@@ -498,7 +520,7 @@
     {
       "id": 3,
       "name": "Colombia",
-      "movementFee": "1000000000000000",
+      "movementFee": "600000000000000",
       "minReputation": "500",
       "isActive": true,
       "isBlackMarket": false,
@@ -513,15 +535,15 @@
         {
           "drugId": "6",
           "name": "Cocaine",
-          "buyPrice": "60",
-          "sellPrice": "50",
+          "buyPrice": "90",
+          "sellPrice": "75",
           "isAvailable": true
         },
         {
-          "drugId": "8",
-          "name": "Heroin",
-          "buyPrice": "90",
-          "sellPrice": "75",
+          "drugId": "11",
+          "name": "Fentanyl",
+          "buyPrice": "60",
+          "sellPrice": "50",
           "isAvailable": true
         }
       ]
@@ -529,7 +551,7 @@
     {
       "id": 4,
       "name": "Hong Kong",
-      "movementFee": "1000000000000000",
+      "movementFee": "600000000000000",
       "minReputation": "800",
       "isActive": true,
       "isBlackMarket": false,
@@ -549,8 +571,8 @@
           "isAvailable": true
         },
         {
-          "drugId": "8",
-          "name": "Heroin",
+          "drugId": "11",
+          "name": "Fentanyl",
           "buyPrice": "175",
           "sellPrice": "160",
           "isAvailable": true
@@ -560,7 +582,7 @@
     {
       "id": 5,
       "name": "Seoul",
-      "movementFee": "1000000000000000",
+      "movementFee": "600000000000000",
       "minReputation": "1500",
       "isActive": true,
       "isBlackMarket": false,
@@ -573,15 +595,15 @@
           "isAvailable": true
         },
         {
-          "drugId": "10",
-          "name": "Meth",
+          "drugId": "7",
+          "name": "Shrooms",
           "buyPrice": "14",
           "sellPrice": "12",
           "isAvailable": true
         },
         {
-          "drugId": "11",
-          "name": "Fentanyl",
+          "drugId": "8",
+          "name": "Heroin",
           "buyPrice": "90",
           "sellPrice": "75",
           "isAvailable": true
@@ -611,8 +633,8 @@
           "isAvailable": true
         },
         {
-          "drugId": "11",
-          "name": "Fentanyl",
+          "drugId": "6",
+          "name": "Cocaine",
           "buyPrice": "200",
           "sellPrice": "160",
           "isAvailable": true
@@ -622,7 +644,7 @@
     {
       "id": 7,
       "name": "Dubai",
-      "movementFee": "2000000000000000",
+      "movementFee": "1000000000000000",
       "minReputation": "5500",
       "isActive": true,
       "isBlackMarket": false,
@@ -635,17 +657,79 @@
           "isAvailable": true
         },
         {
-          "drugId": "6",
-          "name": "Cocaine",
+          "drugId": "8",
+          "name": "Heroin",
           "buyPrice": "160",
           "sellPrice": "200",
           "isAvailable": true
         },
         {
-          "drugId": "8",
-          "name": "Heroin",
+          "drugId": "11",
+          "name": "Fentanyl",
           "buyPrice": "200",
           "sellPrice": "240",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Warsaw",
+      "movementFee": "600000000000000",
+      "minReputation": "2200",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "12",
+          "name": "Slivo",
+          "buyPrice": "120",
+          "sellPrice": "100",
+          "isAvailable": true
+        },
+        {
+          "drugId": "14",
+          "name": "Speed",
+          "buyPrice": "45",
+          "sellPrice": "38",
+          "isAvailable": true
+        },
+        {
+          "drugId": "8",
+          "name": "Heroin",
+          "buyPrice": "130",
+          "sellPrice": "115",
+          "isAvailable": true
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Moscow",
+      "movementFee": "1000000000000000",
+      "minReputation": "7000",
+      "isActive": true,
+      "isBlackMarket": false,
+      "drugs": [
+        {
+          "drugId": "12",
+          "name": "Slivo",
+          "buyPrice": "200",
+          "sellPrice": "250",
+          "isAvailable": true
+        },
+        {
+          "drugId": "14",
+          "name": "Speed",
+          "buyPrice": "90",
+          "sellPrice": "110",
+          "isAvailable": true
+        },
+        {
+          "drugId": "13",
+          "name": "Krokodil",
+          "buyPrice": "500",
+          "sellPrice": "50",
           "isAvailable": true
         }
       ]

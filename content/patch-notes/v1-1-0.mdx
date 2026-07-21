@@ -1,0 +1,76 @@
+---
+title: v1.1.0 patch notes
+description: Full detail for the v1.1.0 release. Bank Heist, the Multicall season views, and the Season 1 economy patch.
+---
+
+# /patch-notes/v1-1-0
+
+This is the long form of the [v1.1.0 entry](/patch-notes) on the changelog. It covers the Bank Heist contract, the new read surface behind the season UI, and every value the Season 1 economy patch moved. If you only want the summary, the changelog has it.
+
+v1.1.0 is the first content release after mainnet launch. It ships one new game mode, one new contract, and a retune of the mid and late game economy.
+
+## Bank Heist
+
+`DealersBankHeist` turns the bank vault into a recurring community event. The vault has been accumulating a share of every ETH fee in the game since launch, and a season is the mechanism that pays it out.
+
+A season runs on a fixed lifecycle. The owner opens it with a configuration that locks at open and cannot be changed afterwards, which means the rules you are grinding against are fixed and readable for the whole season. Players buy a seat with `$CASH`, play the three scored games, and check in once per UTC day to grow a focus multiplier. After the season closes, scores are frozen, the season settles, and each qualifying entrant claims a share of the pot proportional to their score.
+
+The genesis season opens with `zeroBaseline` set, so lifetime play since launch counts toward your score rather than only what you do after joining. Later seasons snapshot your counters at entry and score the delta.
+
+Two properties are worth calling out because they shape strategy. The pot is fixed at settle, so the payout is pari-mutuel: more crew activity does not grow the pot, it dilutes each share. And qualification is all or nothing, because missing any single minimum threshold zeroes your entire score regardless of how much work you put in elsewhere.
+
+Full player-facing mechanics are on [/the-game/bank](/the-game/bank).
+
+Seasons that fail return the buy-in rather than stranding it. If a season closes under its minimum entrant count, is cancelled by the owner, or is abandoned without settling inside the grace window, entrants can reclaim their `$CASH` entry fee. Refunds return `$CASH` only, never ETH, and a season that has settled is never refundable. Unclaimed ETH from a settled season sweeps back into the vault for the next one.
+
+## Multicall season views
+
+`DealersMulticall` was redeployed with two read aggregators that back the season UI.
+
+`getHeistStandings(seasonId, start, count)` returns a page of entrants with their token id, live pending score, and focus count, plus the total entry count and an estimated pot. Entries come back in entry order rather than sorted, so ranking is computed client side after paging through the full set.
+
+`getHeistDealerStatus(seasonId, tokenId)` returns the season card view for a single dealer: whether they entered, their pending and frozen scores, focus count, whether they have checked in today, claim and refund state, and the amounts currently claimable. The claimable ETH field mirrors the guards on `claim`, so a non zero value means the call would succeed right now.
+
+Because the Multicall was redeployed, its address changed. Anything holding the old address needs updating, including agent configurations built from [/agents/skill](/agents/skill).
+
+## Season 1 economy patch
+
+### New areas
+
+Two areas join the ladder, and the gate order no longer follows the area id. Warsaw sits between Seoul and Tokyo despite having a higher id than both.
+
+| Area | Rep gate | Travel fee |
+| --- | --- | --- |
+| Warsaw | 2,200 | 0.0006 ETH |
+| Moscow | 7,000 | 0.001 ETH |
+
+The full ladder now runs Seoul at 1,500, Warsaw at 2,200, Tokyo at 3,000, Dubai at 5,500, and Moscow at 7,000. The live table is on [/the-game/move](/the-game/move).
+
+### New drugs
+
+| Drug | Rarity | Sold in |
+| --- | --- | --- |
+| Slivo | Common | Warsaw and Moscow |
+| Speed | Uncommon | Warsaw and Moscow |
+| Krokodil | Rare | Moscow only |
+
+Slivo and Speed are both sold in Warsaw and Moscow, which makes the run between them a long arbitrage leg. Krokodil is deliberately not a hustle: it is Moscow exclusive and sells far below its buy price, so it exists as a status hold rather than a profit route.
+
+### Fees
+
+Travel fees were rebalanced to a flat 0.0006 ETH default, with a premium tier of 0.001 ETH covering Tokyo, Dubai, and Moscow. Manhattan and Amsterdam remain free, so the free play loop is unchanged.
+
+Bribing a cop to clear heat and paying bail both dropped from 0.001 ETH to 0.0006 ETH.
+
+Every number above is read from the deployed contracts on the pages that display them, so [/the-game/move](/the-game/move) and [/the-game/jail](/the-game/jail) reflect the patch without needing an edit here.
+
+## Addresses
+
+The new and changed contracts on Abstract mainnet:
+
+| Contract | Address |
+| --- | --- |
+| `DealersBankHeist` | `0xE219B3E8909Ebc26404080618339b947075FAF2B` |
+| `DealersMulticall` | `0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4` |
+
+The canonical list of every contract, with explorer links, is on [/contracts/addresses](/contracts/addresses).

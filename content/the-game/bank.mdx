@@ -1,12 +1,76 @@
 ---
 title: Bank
-description: The 🏦 tab. A read-only line about an on-chain vault.
+description: The 🏦 tab. Community bank heist seasons, where the whole crew grinds a shared vault and splits it by contribution.
 ---
 
 # /the-game/bank
 
-The 🏦 tab shows a single line:
+The 🏦 tab, labelled `VAULT` in the action bar, is the fourth activity loop. Where dealing, PVP, and heists are things you do alone, a bank heist is a season length event the whole player base runs at once. Everybody puts in work, the vault gets cracked, and the take is split by how much each dealer contributed.
 
-> You overheard a banker mentioning their vault containing ~`X` ETH.
+The vault itself has been filling since launch. A share of every ETH fee in the game routes into it, and it does not reset between seasons. What a season does is decide how much of it pays out and to whom.
 
-`X` is the live balance of the bank vault, read on chain at render time. There is nothing to click. The vault accumulates a share of the fees flowing through the game, and the tab is a hint at a future game mode built on top of it — a community bank heist event. The daily push-your-luck runs on the [🚚 Heists tab](/the-game/heists) are already live; the bank vault event is not playable yet.
+There is no separate treasury holding it. The vault is the ETH balance of the `DealersBankHeist` contract itself, so the number the 🏦 tab shows you is a live on-chain read rather than a figure we publish. You can check it yourself against the contract on the block explorer, and the address is listed on [/contracts/addresses](/contracts/addresses).
+
+One detail worth knowing if you do go and compare the two. Once a season settles, the ETH owed to that season's winners is reserved inside the contract until it is claimed, so during a claim window the raw balance is higher than the amount a new season could actually pay out. The figure that matters for the next season is the unreserved part.
+
+## How a season works
+
+A season is opened with a fixed configuration: a buy-in, a reputation gate, a seat cap, how long it runs, what fraction of the vault forms the pot, how the three scored games are weighted, and the minimum amount of work required to qualify. That configuration locks the moment the season opens and cannot be changed afterwards, so the rules you are grinding against are fixed and public for the entire run.
+
+Those numbers change from season to season by design, which is why they are not printed here. The in-game briefing screen spells out the weights and the minimums for the current season, and the season card shows your live standing against them.
+
+The shape of a season is always the same. It opens and dealers buy in. It runs for its duration while entrants play and check in. It closes, scores are frozen, and the season settles. Then a claim window opens and every qualifying dealer takes their share.
+
+## Joining
+
+Joining costs `$CASH`, not ETH, and it is a pure sink: the buy-in leaves the economy rather than funding the pot. The pot comes from the vault. You also need to clear the season's reputation gate, there has to be a seat left under the entrant cap, and you cannot join from [jail](/the-game/jail).
+
+Entry is per dealer, not per wallet. If you hold several dealers you can enter each one separately, and each pays its own buy-in and builds its own score.
+
+When you join, the game snapshots your current PVE, PVP, and heist counters as a baseline. Only work done after that point counts toward your score. The exception is a genesis season, which is flagged to skip the snapshot so that everything you have ever done counts retroactively. The briefing tells you when you are in one.
+
+Joining also grants your first day of focus automatically, so there is no need to check in again the day you join.
+
+## Focus
+
+Focus is a daily prep streak, and it is the one part of the mode that rewards showing up rather than grinding. You press `FOCUS` on the plan screen once per day and your focus count goes up by one.
+
+The important thing to understand is that focus is a **multiplier on your score, not points added to it**. Your score is multiplied by one plus your focus count times the season's bonus rate. That has a consequence worth stating plainly: focus on its own earns you nothing. A dealer who checks in every single day but never plays has a score of zero, and zero multiplied by anything is still zero. Focus amplifies work, it does not replace it.
+
+Check-ins run on UTC days and reset at 00:00 UTC. You get exactly one per day, and skipped days are gone rather than banked, so coming back after a three day gap earns you one point rather than three. You do not have to play to check in, but you do have to be out of jail, which is the second reason getting arrested is expensive during a season.
+
+## Qualifying
+
+Your score is built from three counters, which the briefing calls deals, fights, and jobs.
+
+| Scored game | What counts |
+| --- | --- |
+| Deals | Every PVE game played, including wins, losses, and ties |
+| Fights | PVP attacks you initiate, win or lose |
+| Jobs | Heist runs started |
+
+Two of those need care. Fights count the attacking side only, so being attacked does nothing for your score no matter how the fight goes. And jobs count when a run starts rather than when it finishes, so a run you abandon still counts.
+
+Each season sets a minimum for each of the three, and sometimes a minimum for the combined total as well. **You must clear every one of them.** Missing a single minimum drops your score to zero outright, which means no cut, regardless of how far past the other thresholds you went. The qualify tiles on the plan screen show exactly where you stand against each one, so there is no reason to be surprised at settlement.
+
+## Your cut
+
+Settlement takes a slice of the vault, sets it aside as the pot, and divides it between qualifying entrants in proportion to their frozen scores. Your cut is the pot multiplied by your score, divided by the total score of everyone who qualified.
+
+This is a pari-mutuel split, and the pot is fixed at settle. A busier season does not mean a bigger pot, it means the same pot cut into smaller pieces. Your share depends on how much work you did relative to everyone else, not on how much you did in absolute terms.
+
+Payment goes to whoever owns the dealer NFT at the moment of claiming, not to whoever played the season. Selling a dealer between settlement and claim sells the unclaimed cut along with it.
+
+## When a season ends
+
+After the season closes, scores are frozen and the season settles. The claim window then runs from the moment of settlement, not from when the season closed, so the countdown on the result screen is the one to watch. Anything left unclaimed when the window expires sweeps back into the vault and funds the next season.
+
+Not every season pays out. If a season closes with fewer entrants than its minimum, gets cancelled, or is abandoned without settling inside its grace window, it refunds instead. Refunds return your `$CASH` buy-in and nothing else, they are never ETH, and you claim them from the same tab. A season that has settled can never be refunded, and a season that has refunded can never be settled, so the two paths never overlap.
+
+## Edge cases worth knowing
+
+- **Jail costs you focus, not score.** Time inside does not erase work you already did, but you cannot check in while locked up, and those days are unrecoverable.
+- **An abandoned heist still counts as a job.** Runs are counted when they start. This is a real quirk rather than an oversight, so plan around it as you see fit.
+- **Unfinished business comes first.** If an earlier season still owes you a cut or a refund, the tab shows you that before it shows you a newly opened season. Money on the table is never buried under a new invite.
+- **The buy-in is not the pot.** The `$CASH` you pay to join is removed from the economy. The ETH you are competing over comes from the vault, which is funded by game fees.
+- **Fast play covers the whole mode.** Joining, focusing, claiming, and refunding all run through the session key, so `/fastplay` in the [pager](/the-game/pager) makes the daily check-in a single tap.
