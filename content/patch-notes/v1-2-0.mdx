@@ -1,0 +1,57 @@
+---
+title: v1.2.0 patch notes
+description: Full detail for the v1.2.0 release. The missions module, the reworked tab layout, and the DealersMissions contract.
+---
+
+# /patch-notes/v1-2-0
+
+This is the long form of the [v1.2.0 entry](/patch-notes) on the changelog. It covers the missions module, what changed in the navigation to make room for it, and the new contract. If you only want the summary, the changelog has it.
+
+v1.2.0 ships one new module and one layout change. It does not touch the economy: no fees, gates, odds, or payouts moved in this release.
+
+## Missions
+
+`DealersMissions` adds a daily and a weekly objective board to the game. The design brief was to reward the sessions players were already having rather than to add a fifth thing to grind, so every mission counts play from the existing loops. Nothing in the module is an action of its own.
+
+The module runs on two clocks, both derived from the block timestamp. The daily period is the UTC day and rolls at 00:00 UTC. The weekly period is a seven day window counted from the Unix epoch, which puts every weekly boundary on Thursday at 00:00 UTC. Neither carries progress across a reset.
+
+Missions are opt-in through a check-in. The check-in is free, it takes no ETH, no `$CASH`, and no attempt from the daily budget, and a single check-in covers both the daily and the weekly set. What it does under the hood is snapshot the dealer's counters, and mission progress is measured as the delta from that snapshot. The practical consequence is that play from before the check-in does not count toward the period, so checking in is the first thing to do when a period opens. Check-ins are per dealer, and each new period needs a fresh one.
+
+Rewards are claimed rather than credited. Finishing a mission marks it claimable, and each completed mission is claimed on its own from its detail card. Anything left unclaimed when the period resets goes with the period, which makes claiming as you go the only sensible habit.
+
+Reward types are reputation, infamy, exotic items, and `$CASH`. Reputation feeds rank and the PVE leaderboard as usual. Infamy feeds the PVP score, loot drop quality, and the Black Market gate. Exotic items pay out as Goods, Contraband, or Jewels, which are sold to Carl at the Black Market. No mission in the launch set pays `$CASH`, but the reward structure supports it.
+
+The launch set is one daily objective and four weekly ones, plus a bonus for the full weekly sweep:
+
+| Set | Mission | Target | Reward |
+| --- | --- | --- | --- |
+| Daily | Play PVE, PVP or Heist | 3 actions, any mix | +10 REP, +1 Goods |
+| Weekly | Make 25 deals | 25 PVE deals played | +30 REP, +3 Goods |
+| Weekly | Win 5 deals | 5 PVE wins | +40 REP, +1 Contraband |
+| Weekly | Clear 5 heist stages | 5 heist stages cleared | +20 REP, +2 Goods |
+| Weekly | Win 3 attacks | 3 PVP wins as attacker | +5 Infamy, +1 Contraband |
+| Weekly | Complete weekly missions | All 4 of the above | +1 Jewels |
+
+The sweep bonus counts missions claimed rather than missions finished, so the Jewels only land once the other four have actually been claimed. A full weekly clear is worth 90 REP, 5 infamy, 5 Goods, 2 Contraband, and 1 Jewels.
+
+That table is an example rather than a fixture. Missions live on chain as a pool of templates with a set number active per cadence, so objectives, targets, and rewards can all be rotated between periods without a redeploy. The tab is the authority on what is live.
+
+Full player-facing mechanics are on [/the-game/missions](/the-game/missions).
+
+## Navigation
+
+Adding a sixth destination to a five-slot action bar meant moving something, so the deal tab moved up rather than out.
+
+The area name in the top bar used to be a label telling you where you were standing. It is now the button that takes you to the streets, and it opens the same buy, sell, and clear heat actions the 🤝 tab always had. The rest of the top bar is unchanged: `STASH`, the 📟 pager, the 🛍️ shop, and the power button.
+
+The action bar along the bottom now reads `MISSIONS`, `MOVE`, `PVP`, `HEIST`, `VAULT`. Nothing was removed and no action was renamed. See [/the-game/deal](/the-game/deal) for the new entry point and [/the-game/overview](/the-game/overview) for the full tab map.
+
+## Addresses
+
+The new contract on Abstract mainnet:
+
+| Contract | Address |
+| --- | --- |
+| `DealersMissions` | `0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b` |
+
+No existing contract was redeployed in this release, so every other address is unchanged from v1.1.0. The canonical list, with explorer links, is on [/contracts/addresses](/contracts/addresses).

@@ -52,11 +52,13 @@ Abstract mainnet (chain `2741`) is the live network. The verified, canonical add
 - DealersPVE: `0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6`
 - DealersPVP: `0x49090a745Ba1E45c9C0f9c21448Ce965b3798949`
 - DealersHeists: `0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e`
+- DealersBankHeist: `0xE219B3E8909Ebc26404080618339b947075FAF2B`
+- DealersMissions: `0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b`
 - DealersBoosts: `0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B`
 - DEDrugRegistry: `0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC`
 - DEAreaRegistry: `0xe7598E61738921967f888736A1977b80Da526510`
 - DealersClaims: `0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8`
-- DealersMulticall: `0x39249C625D7a6C952A5aC389510839eB1bB33099`
+- DealersMulticall: `0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4`
 - DealersPaymentHandler: `0x798E0f15A34F491eF4A69E9CC626A625bb80A504`
 - DealersRandomness: `0x76f965BdB22f482503Cf0de3C67394d987da400D`
 - DealersChatFactory: `0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe`
@@ -148,11 +150,13 @@ cat > "$DEALERS_STATE_DIR/network.mainnet.json" << 'JSON'
     "pve":              "0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6",
     "pvp":              "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
     "heists":           "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
+    "bankHeist":        "0xE219B3E8909Ebc26404080618339b947075FAF2B",
+    "missions":         "0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b",
     "boosts":           "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
     "drugRegistry":     "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
     "areaRegistry":     "0xe7598E61738921967f888736A1977b80Da526510",
     "claims":           "0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8",
-    "multicall":        "0x39249C625D7a6C952A5aC389510839eB1bB33099",
+    "multicall":        "0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4",
     "paymentHandler":   "0x798E0f15A34F491eF4A69E9CC626A625bb80A504",
     "randomness":       "0x76f965BdB22f482503Cf0de3C67394d987da400D",
     "chatFactory":      "0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe"
@@ -199,10 +203,11 @@ echo "preflight_ok chain=$CHAIN_ACTUAL wallet=$ADDR token=$TOKEN_ID balance_eth=
 ETH runway guidance:
 
 - The PVE loop itself does **not** spend ETH per action. PVE `commitGame` and `resolveGame` are non-payable; they consume daily attempts instead.
-- Travel between Manhattan and Amsterdam is free. Other paid areas cost `0.001 ETH` each; Dubai costs `0.002 ETH`.
+- Travel between Manhattan and Amsterdam is free. Other paid areas cost `0.0006 ETH` each; Tokyo, Dubai, and Moscow cost `0.001 ETH`.
 - Shop boosts cost between `0.0025 ETH` (Grinder) and `0.023 ETH` (Godfather).
 - Heists stake in-game `$CASH`, not ETH. Only the optional ETH jackpot add-on costs ETH (`heists.ethAddOn`, currently `0.001 ETH`); both the `$CASH` stake and any add-on are debited at `startHeist`.
-- Heat clear via `bribeCop`, attempt resets, cash restocks, and jail bail each cost a small ETH fee (configurable on chain; read from `core.getFullConfigState` or the Multicall snapshot).
+- Bank heist entry stakes in-game `$CASH`, not ETH. `enter`, `checkIn`, `claim`, and `claimRefund` are all non-payable.
+- Heat clear via `bribeCop` and jail bail each cost `0.0006 ETH`. Attempt resets and cash restocks cost a small ETH fee. All are configurable on chain; read from `core.getFullConfigState` or the Multicall snapshot rather than assuming these values.
 - Recommended runway for a free-play agent: at least `0.005 ETH` for jail bail + occasional travel.
 
 ---
@@ -243,6 +248,8 @@ cast call "$MULTICALL" "getAllAreas()" --rpc-url "$RPC"
 
 For an active heist run, read it directly on the heists module: `heists.activeHeist(tokenId)` returns the run id (0 if none) and `heists.getHeist(heistId)` returns the full `DailyHeist` record (family, difficulty, currentStage, status, currentPot, commitSeq, ethJackpot, ...).
 
+For missions, `missions.getMissionStatus(tokenId)` returns the whole board in one call as an array of `(templateId, mission, epoch, epochEndsAt, progress, checkedIn, claimable, claimed)`. That is the only read an agent needs each tick: `checkedIn` tells you whether to check in, `claimable` tells you what to claim, and `epochEndsAt` tells you how long is left. `missions.currentMetrics(tokenId)` and `missions.getBaseline(cadence, tokenId)` expose the raw counters behind `progress` if you want to compute it yourself.
+
 Granular reads live on each module (`core.getGameState`, `pvp.getPotentialTargets`, `areaRegistry.getAreaDrugIds`, etc.). See `https://docs.dealers.sh/contracts/abi` for the full surface.
 
 ---
@@ -257,17 +264,23 @@ Submit one transaction, wait for receipt, done.
 
 | Action | Contract | Function | Payable | Notes |
 | --- | --- | --- | --- | --- |
-| Travel to an area | `actions` | `travel(tokenId, areaId)` | yes (per-area fee) | Free between Manhattan and Amsterdam |
-| Pay bail | `actions` | `payBail(tokenId)` | yes | Returns you to your previous area |
-| Bribe cop (clear heat) | `actions` | `bribeCop(tokenId)` | yes | Uses one attempt |
-| Restock $CASH | `actions` | `purchaseCash(tokenId)` | yes | Only when cash below threshold |
-| Reset attempts | `actions` | `purchaseAttemptReset(tokenId)` | yes | Only when attempts == 0 |
+| Travel to an area | `actions` | `travel(tokenId, areaId)` | ✓ ETH (see fee per area) | Free between Manhattan↔Amsterdam |
+| Pay bail | `actions` | `payBail(tokenId)` | ✓ ETH | Returns you to your previous area |
+| Bribe cop (clear heat) | `actions` | `bribeCop(tokenId)` | ✓ ETH | Uses one attempt |
+| Restock $CASH | `actions` | `purchaseCash(tokenId)` | ✓ ETH | Only when cash < threshold |
+| Reset attempts | `actions` | `purchaseAttemptReset(tokenId)` | ✓ ETH | Only when attempts == 0 |
 | Sell exotic loot at Black Market | `actions` | `sellDrop(tokenId, drugId, amount)` | no | Requires being in Black Market (10+ infamy) |
-| Buy a boost | `boosts` | `purchaseBoost(dealerId, tierId)` | yes (tier price) | Active boost only upgradable to a more expensive tier |
-| Start a heist | `heists` | `startHeist(tokenId, family, difficulty, ethJackpot)` | yes (ETH add-on only) | Stakes `$CASH` + one attempt. `family`: 0 = SUPPLY, 1 = CASH. Send `heists.ethAddOn` as value when `ethJackpot` is true, else 0. Returns `heistId`. |
+| Buy a boost | `boosts` | `purchaseBoost(dealerId, tierId)` | ✓ ETH (tier price) | Active boost only upgradable to a more expensive tier |
+| Start a heist | `heists` | `startHeist(tokenId, family, difficulty, ethJackpot)` | ✓ ETH (add-on only) | Stakes `$CASH` + one attempt. `family`: 0 = SUPPLY, 1 = CASH. Send `heists.ethAddOn` as value when `ethJackpot` is true, else 0. Returns `heistId`. |
 | Cash out a heist | `heists` | `cashOut(heistId)` | no | Banks the current pot. Only from stage `minCashStage` (II) onward, on a revealed-win run. |
 | Abandon a heist | `heists` | `abandonHeist(heistId)` | no | Pre-stage only; refunds the `$CASH` stake. The ETH add-on and the attempt are forfeit. |
 | Claim heist jackpot | `heists` | `claimJackpot(tokenId)` | no | Pays owed ETH jackpot to the current NFT owner. |
+| Join a bank heist season | `bankHeist` | `enter(tokenId)` | no | Spends the season's `$CASH` entry fee. Requires the season's rep gate, a free seat, and not being in jail. Grants focus day 1. Reverts if already entered. |
+| Daily focus check-in | `bankHeist` | `checkIn(tokenId)` | no | One per UTC day, resets 00:00 UTC. Multiplies your season score; does not add to it. Blocked while jailed. Reverts with `AlreadyCheckedInToday`. |
+| Claim a bank heist cut | `bankHeist` | `claim(seasonId, tokenId)` | no | Only after the season settles and within `claimWindow` measured from `settledAt`. Pays ETH to the current NFT owner. Reverts `NothingToClaim` if unqualified. |
+| Reclaim a bank heist entry | `bankHeist` | `claimRefund(seasonId, tokenId)` | no | Returns the `$CASH` entry fee when a season is skipped, cancelled, or abandoned. Never returns ETH. |
+| Mission check-in | `missions` | `checkIn(tokenId)` | no | Opts into the current daily and weekly periods in one tx and snapshots the dealer's counters. Progress is measured from that snapshot, so check in before playing. Re-run once per UTC day. Distinct from `bankHeist.checkIn`. |
+| Claim a mission | `missions` | `claim(tokenId, templateId)` | no | One tx per completed mission; there is no batch variant. Reverts `TargetNotMet`, `AlreadyClaimed`, or `NotCheckedIn`. Note the argument order is `(tokenId, templateId)`, the reverse of `bankHeist.claim(seasonId, tokenId)`. |
 | Claim achievement | `claims` | `claimAchievement(tokenId, achievementId)` | no | On-chain verification |
 | Claim many | `claims` | `claimAchievements(tokenId, achievementIds[])` | no | Batch variant |
 | Post chat | `chatFactory` | `postMessage(...)` | no | Posts to area or world room |
@@ -318,6 +331,18 @@ Heists are the third activity loop (the 🚚 tab), next to dealing and PVP. A ru
 
 `HeistStatus` enum: `NONE, PRE_STAGE, COMMITTED, REVEALED_WIN, BUSTED, CASHED_OUT, ABANDONED, SETBACK`. A revealed-win run left idle past `IDLE_TIMEOUT` (24h) can be force-finalized by anyone via `forceFinalize(heistId)`, which pays the current pot. See `https://docs.dealers.sh/the-game/heists` for the odds, jobs, and payout tables.
 
+### Missions (daily + weekly)
+
+Missions pay bonus rewards for play the agent is doing anyway, so they are close to free value for any agent that ticks daily. Both actions are plain single-tx calls with no commit-reveal and no fee.
+
+1. `missions.checkIn(tokenId)` opts the dealer into the current daily and weekly periods in one call and snapshots its counters. **Progress is the delta from that snapshot**, so a tick that plays before checking in wastes the play. Check in at the top of every tick where `checkedIn` is false.
+2. Play normally. Missions read counters off `DealersPVE`, `DealersPVP`, and `DealersHeists`, so no mission-specific action exists.
+3. `missions.claim(tokenId, templateId)` claims one completed mission. There is no batch call; loop over every entry with `claimable == true`.
+
+`cadence` enum: 0 = DAILY, 1 = WEEKLY. The daily period is the UTC day and the weekly period is a seven day window counted from the Unix epoch, which puts weekly rollovers on Thursday 00:00 UTC. `epochEndsAt` on each `getMissionStatus` row gives the exact deadline. Unclaimed rewards do not survive a rollover.
+
+The active set is not fixed. Templates live on chain (`getActiveTemplateIds(cadence)`, `getTemplate(templateId)`), and the operators can rotate objectives, targets, and rewards between periods. Do not hardcode template ids or targets; read the board each tick. One weekly template is a meta-mission that pays out for claiming the other weekly missions, so it only becomes claimable after those claims land. See `https://docs.dealers.sh/the-game/missions` for the current set.
+
 ---
 
 ## Game loop pattern
@@ -325,16 +350,17 @@ Heists are the third activity loop (the 🚚 tab), next to dealing and PVP. A ru
 A working agent loop looks roughly like:
 
 1. Read full state via Multicall. If a heist is active (`heists.activeHeist(tokenId) != 0`), service it first (resolve any committed stage, then cash out or push on per strategy) before starting anything new.
-2. If `isJailed`, decide: pay bail (one tx) or commit a breakout (commit-reveal). Resolve if a commit is already outstanding.
-3. If `attemptsRemaining == 0`, either wait for the daily reset or buy a reset from the shop. Do not act further this tick.
-4. If `heat == 5` and you cannot afford to gamble, run `bribeCop` (or `commitWantedPoster` + resolve) before the next action.
-5. Plan a PVE, PVP, or heist action. For PVE arbitrage, compare buy/sell prices via `multicall.getAllAreas()` and pick the spread you can move on with current cash.
-6. Commit the action.
-7. Wait at least 2 blocks.
-8. Resolve the action.
-9. Re-read state, log the deltas, sleep until next tick.
+2. Read `missions.getMissionStatus(tokenId)`. If `checkedIn` is false, send `missions.checkIn(tokenId)` **before** taking any game action this period, since progress is measured from the check-in snapshot. Claim anything with `claimable == true` in the same tick, one tx per mission, and claim all four weekly missions before expecting the sweep bonus to unlock.
+3. If `isJailed`, decide: pay bail (one tx) or commit a breakout (commit-reveal). Resolve if a commit is already outstanding.
+4. If `attemptsRemaining == 0`, either wait for the daily reset or buy a reset from the shop. Do not act further this tick.
+5. If `heat == 5` and you cannot afford to gamble, run `bribeCop` (or `commitWantedPoster` + resolve) before the next action.
+6. Plan a PVE, PVP, or heist action. For PVE arbitrage, compare buy/sell prices via `multicall.getAllAreas()` and pick the spread you can move on with current cash.
+7. Commit the action.
+8. Wait at least 2 blocks.
+9. Resolve the action.
+10. Re-read state, log the deltas, sleep until next tick.
 
-No heartbeat is required. The game state lives on chain and there is no membership to maintain. The only time-bound effect is the daily attempt refill, which is read from the contract; the agent can run on whatever cadence makes sense for the strategy.
+No heartbeat is required. The game state lives on chain and there is no membership to maintain. Two effects are time-bound and worth a tick budget: the daily attempt refill, which is read from the contract, and the mission periods, which roll at 00:00 UTC daily and 00:00 UTC on Thursday for the weekly set. An agent that ticks at least once per UTC day never loses a mission period; one that ticks less often will drop unclaimed rewards at the rollover.
 
 ---
 
@@ -347,11 +373,13 @@ ABIs are emitted by the contracts repo at build time. The reading-order recommen
 3. `DealersPVE` and `DealersPVP`: gameplay
 4. `DealersActions`: travel, bail, bribe, restock, attempt reset
 5. `DealersHeists`: heist runs, stages, cash-out, and the ETH jackpot
-6. `DealersBoosts`: shop boost tiers
-7. `DealersClaims`: achievements
-8. `DealersMulticall`: bundled reads
-9. `DEAreaRegistry` and `DEDrugRegistry`: economy reference data
-10. `DealersRandomness`: commit-reveal coordinator
+6. `DealersBankHeist`: bank heist seasons, entry, focus, scoring, and payout
+7. `DealersMissions`: daily and weekly missions, check-in, progress, and per-mission claims
+8. `DealersBoosts`: shop boost tiers
+9. `DealersClaims`: achievements
+10. `DealersMulticall`: bundled reads, including `getHeistStandings` and `getHeistDealerStatus`
+11. `DEAreaRegistry` and `DEDrugRegistry`: economy reference data
+12. `DealersRandomness`: commit-reveal coordinator
 
 See `https://docs.dealers.sh/contracts/abi` and the verified source on `explorer.abs.xyz` for each address.
 
@@ -412,6 +440,16 @@ The agent is ready when all are true:
 ### PVP commit reverts with rep gate
 - Symptom: `InsufficientReputation`
 - Fix: PVP is gated by `pvpMinReputation` (read from core config). Earn rep via PVE first.
+
+### `missions.claim` reverts
+- Symptom: `NotCheckedIn`
+- Fix: the dealer never checked into this period. Send `missions.checkIn(tokenId)`. Note the period is already partly spent, and progress only counts from the check-in, so this period may be unrecoverable.
+- Symptom: `TargetNotMet`
+- Fix: read `getMissionStatus(tokenId)` and only claim rows where `claimable == true`. Do not infer completion from your own counters.
+- Symptom: `AlreadyClaimed`
+- Fix: the mission was claimed in this epoch already. Claims are keyed per epoch, so this clears at the next rollover.
+- Symptom: `ContractPaused`
+- Fix: the missions module is paused. The rest of the game is unaffected; keep playing and retry check-in and claims later.
 
 ---
 

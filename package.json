@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync-config": "node scripts/sync-chain-config.mjs"
+    "sync-config": "node scripts/sync-chain-config.mjs",
+    "sync-skill": "node scripts/build-skill-md.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

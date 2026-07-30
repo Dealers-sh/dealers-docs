@@ -4,9 +4,9 @@
   "chainId": 2741,
   "explorerUrl": "https://explorer.abs.xyz",
   "fetchedAt": {
-    "blockNumber": "75464654",
-    "blockTimestamp": "1784658228",
-    "iso": "2026-07-21T18:23:48.000Z"
+    "blockNumber": "76766305",
+    "blockTimestamp": "1785423647",
+    "iso": "2026-07-30T15:00:47.000Z"
   },
   "contracts": {
     "DealersNFT": "0x610CcEe1AE4aFF961d043faB379491C2997383F7",
@@ -16,6 +16,7 @@
     "DealersPVP": "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
     "DealersHeists": "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
     "DealersBankHeist": "0xE219B3E8909Ebc26404080618339b947075FAF2B",
+    "DealersMissions": "0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b",
     "DealersBoosts": "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
     "DEDrugRegistry": "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
     "DEAreaRegistry": "0xe7598E61738921967f888736A1977b80Da526510",
@@ -347,7 +348,7 @@
     "mintStatus": "Family",
     "mintPrice": "6900000000000000",
     "maxPerWallet": "10",
-    "currentSupply": "308",
+    "currentSupply": "406",
     "maxSupply": "10000",
     "royaltyBps": "500"
   },

@@ -1,0 +1,97 @@
+---
+title: Missions
+description: The 📋 tab. Daily and weekly objectives you check into, claim one at a time, and cash out for reputation, infamy, and exotic items.
+---
+
+# /the-game/missions
+
+The 📋 tab, labelled `MISSIONS` in the action bar, is not a new place to play. It is a layer on top of the loops you already have. Missions pay you for dealing, fighting, and running heists against a clock, which turns a session you were going to play anyway into a session that also pays a bonus.
+
+The tab opens on a single line of copy that describes the mode better than a paragraph would:
+
+> `/ The list is yours. Clock's running.`
+
+## Two clocks
+
+Two mission sets run at any moment, each with its own countdown on the card.
+
+| Set | Resets | Shape |
+| --- | --- | --- |
+| **Daily** | 00:00 UTC, every day | One objective |
+| **Weekly** | 00:00 UTC on Thursday | Four objectives, plus a bonus for clearing all four |
+
+Both periods are plain UTC windows read off the block timestamp. The daily period is the UTC day. The weekly period is a seven day window, and because those windows are counted from the Unix epoch, which was itself a Thursday, every weekly boundary lands on Thursday at 00:00 UTC.
+
+Progress does not survive a reset. A weekly mission sitting at 24/25 when Thursday 00:00 UTC arrives is a weekly mission sitting at 0/25 a second later. The same goes for a mission you finished but never claimed, which is the one mistake in this mode that actually costs you something.
+
+## Checking in
+
+Missions are opt-in. You check in from the tab, and the check-in costs nothing: no ETH, no `$CASH`, and no attempt from your daily budget. One check-in covers both sets at once, so there is no separate daily and weekly opt-in to remember.
+
+What the check-in actually does is take a snapshot of your counters. Your progress on any mission is the difference between that snapshot and where you stand now, which has one consequence worth stating plainly: **play from before you checked in does not count.** A dealer who runs twenty deals and then checks in starts the mission at 0/25, not 20/25. Check in first, then play.
+
+Check-ins are per dealer, not per wallet. If you hold several dealers, each one checks in and builds its own progress. Each new period needs a fresh check-in, and you cannot claim anything in a period you never checked into.
+
+## The daily list
+
+The daily set is one broad objective built so that any kind of session clears it.
+
+| Mission | Target | Reward |
+| --- | --- | --- |
+| Play PVE, PVP or Heist | 3 actions, any mix | +10 REP, +1 Goods |
+
+Any combination counts. Three deals, or a deal and two attacks, or one heist and two deals all close it out the same way. Daily targets are capped low by design, so the daily is realistically clearable in a single sitting.
+
+## The weekly list
+
+The weekly set is four narrower objectives that between them push you through every loop in the game rather than letting you park in one.
+
+| Mission | Target | Reward |
+| --- | --- | --- |
+| Make 25 deals | 25 PVE deals played, any outcome | +30 REP, +3 Goods |
+| Win 5 deals | 5 PVE wins | +40 REP, +1 Contraband |
+| Clear 5 heist stages | 5 [heist](/the-game/heists) stages cleared | +20 REP, +2 Goods |
+| Win 3 attacks | 3 [Steal](/the-game/pvp) wins as the attacker | +5 Infamy, +1 Contraband |
+| **Complete weekly missions** | **All 4 of the above** | **+1 Jewels** |
+
+Note the difference between the first two. Deals played counts wins, ties, and losses, so it moves on every trade. Deals won only counts wins. The same distinction shows up in [bank heist](/the-game/bank) scoring, and it is worth internalising because it decides whether a bad run still made progress.
+
+The fifth row is the bar the tab shows as `COMPLETE WEEKLY MISSIONS 0/4`. It counts missions you have claimed, not missions you have finished, so the Jewels only unlock once the other four are actually claimed. Clearing the full weekly set is worth **90 REP, 5 infamy, 5 Goods, 2 Contraband, and 1 Jewels**.
+
+Two things about attacks. Only wins as the attacker count, so surviving as a defender does nothing for that mission, and your daily attack budget of <C path="pvp.maxAttacksPerDay" /> caps how fast you can close it. Three wins is not a one-session objective if the matchups go badly.
+
+**The lists above are the current set, not a permanent one.** Missions are stored on chain as a pool of templates with a fixed number active per cadence, so the objectives, targets, and rewards can all be rotated between periods without a redeploy. Treat the tables as an example of the shape. The tab is always the authority on what is live.
+
+## What missions pay
+
+A single mission can pay more than one reward type.
+
+- **Reputation.** Straight REP into your total, which feeds rank and the PVE [leaderboard](/progression/leaderboard).
+- **Infamy.** The [Steal](/the-game/pvp) score. Infamy improves your loot drop quality and unlocks the Black Market at <C path="actions.blackMarketMinInfamy" />+ infamy, which makes it useful even to a dealer who never attacks anyone.
+- **Exotic items.** Goods, Contraband, and Jewels, in ascending order of value. You do not use these in the deal loop. You sell them to Carl at the Black Market for cash well above a normal sell, which is covered on [/the-game/deal](/the-game/deal).
+
+Missions can also pay `$CASH` directly. None of the current set does, but the reward structure supports it, so a future rotation may.
+
+Before v1.2.0, exotic items came only out of Black Market runs and [PVP](/the-game/pvp) win drops. Missions are now a third source, and the only one that pays them on a schedule you can plan around.
+
+## Claiming
+
+Finishing a mission does not pay it. Completed missions sit in the tab as claimable, and **each one is claimed on its own** rather than swept up in a single transaction. Tap into the mission from the list, read the reward lines on the detail card, and claim it there.
+
+Two rules follow from that, and both cost you if you ignore them. Claim as you go, because the period reset takes unclaimed rewards along with unfinished progress. And claim the four weekly missions rather than merely finishing them, because the Jewels bonus counts claims.
+
+## How missions changed the tab layout
+
+v1.2.0 rearranged the navigation to make room for the new tab.
+
+The area name in the top bar, which used to be a label, is now the entry point to the streets. Tapping `MANHATTAN`, or wherever you happen to be standing, opens the deal tab and its buy, sell, and clear heat actions. The rest of the top bar is unchanged: `STASH`, the 📟 pager, and the 🛍️ shop.
+
+The action bar along the bottom now runs `MISSIONS`, `MOVE`, `PVP`, `HEIST`, `VAULT`. Nothing was removed. The deal tab moved up rather than away, and missions took the slot it left.
+
+## Notes worth knowing
+
+- **Missions do not create new actions.** Every deal, attack, and heist that ticks a counter still costs its usual attempt, still adds heat, and still rolls for arrest. Missions change what a session is worth, not what it costs.
+- **Jail is expensive during a weekly.** Time inside is time you cannot play, and the mission clock does not stop for a sentence. See [/the-game/jail](/the-game/jail).
+- **Progress is per dealer.** Check-ins, counters, and claims all live on the dealer, so running two dealers means running two sets of missions.
+- **The weekly bonus is all or nothing.** Three claimed missions pay their own rewards and nothing more.
+- **The module can be paused.** Missions are a separate contract from the rest of the game, and pausing it stops check-ins and claims without touching Deal, Steal, or Heist.

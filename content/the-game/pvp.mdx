@@ -1,17 +1,17 @@
 ---
-title: PVP
+title: Steal (PVP)
 description: The ⚔️ tab. Steal cash and stash from other real dealers in your area.
 ---
 
 # /the-game/pvp
 
-The ⚔️ tab is where Dealers.sh becomes a player versus player game. While the deal tab pits you against NPC traders, the PVP tab lets you attack real dealers who are currently in the same area as you. Successful attacks pay out in cash and stolen drugs, and the outcome moves both your reputation and your infamy.
+The ⚔️ tab is **Steal**, the second of the three game modes: Deal, Steal, Heist. It is where Dealers.sh becomes a player versus player game. Where a Deal pits you against NPC traders, a Steal lets you attack real dealers who are currently in the same area as you. Successful attacks pay out in cash and stolen drugs, and the outcome moves both your reputation and your infamy.
 
 ![The Dealers.sh pvp game interface.](/pvp.jpg)
 
 ## Unlocking the tab
 
-PVP is gated by reputation. Until your dealer hits the minimum threshold (currently <C path="pvp.minReputation" format="number" /> rep), the tab is read-only: you can browse and scout, but you cannot commit an attack. See [/progression/reputation](/progression/reputation) for how reputation is earned. The tab is also disabled while you are in jail or while you are sitting in a Safe House, since neither of those locations is appropriate for picking a fight.
+Steal is gated by reputation. Until your dealer hits the minimum threshold (currently <C path="pvp.minReputation" format="number" /> rep), the tab is read-only: you can browse and scout, but you cannot commit an attack. See [/progression/reputation](/progression/reputation) for how reputation is earned. The tab is also disabled while you are in jail or while you are sitting in a Safe House, since neither of those locations is appropriate for picking a fight.
 
 ## How an attack plays out
 
@@ -23,9 +23,9 @@ A loss is exactly what it sounds like. You walk away with nothing from the targe
 
 ## Why infamy matters
 
-Reputation and infamy play different roles. Reputation is the long, steady score that drives ranks and gates progress. Infamy is the PVP-specific score that controls your loot quality and your jail risk while attacking.
+Reputation and infamy play different roles. Reputation is the long, steady score that drives ranks and gates progress. Infamy is the Steal-specific score that controls your loot quality and your jail risk while attacking.
 
-**Better drops.** On a PVP win, the attacker rolls a separate drop table for exotic items — **Goods, Contraband, and Jewels** — which can later be sold to Carl at the Black Market for outsized cash. The drop table is gated by infamy: the higher your infamy, the lower the no-drop chance and the higher the odds of pulling a rare item.
+**Better drops.** On a Steal win, the attacker rolls a separate drop table for exotic items — **Goods, Contraband, and Jewels** — which can later be sold to Carl at the Black Market for outsized cash. The drop table is gated by infamy: the higher your infamy, the lower the no-drop chance and the higher the odds of pulling a rare item.
 
 | Infamy band | Drop odds (none / common / uncommon / rare) |
 | --- | --- |
@@ -36,18 +36,18 @@ Reputation and infamy play different roles. Reputation is the long, steady score
 | 40–49 | 20% / 35% / 30% / 15% |
 | 50+   | 15% / 30% / 35% / 20% |
 
-**More PVP jail risk.** On every PVP attack, the arrest roll picks up an extra `floor(infamy / 10) × 0.5%` on top of the usual heat × <C path="core.config.jailChancePerHeat" format="perMille" />. The infamy bonus caps at +2.0% once you cross **40 infamy**, so each step on the loot ladder also raises the jail tax. The infamy bonus only applies to PVP attacks — PVE rolls use heat alone.
+**More jail risk.** On every Steal attack, the arrest roll picks up an extra `floor(infamy / 10) × 0.5%` on top of the usual heat × <C path="core.config.jailChancePerHeat" format="perMille" />. The infamy bonus caps at +2.0% once you cross **40 infamy**, so each step on the loot ladder also raises the jail tax. It only applies to Steal attacks. Deal rolls use heat alone.
 
 **A larger target.** A dealer with high infamy is a tempting target. Players actively scout high-infamy holders, because beating one is worth more reputation than beating an unknown. Infamy is therefore a tradeoff: it unlocks better drops, but it also paints a larger target on your back.
 
-## PVE vs PVP: where the value sits
+## Deal vs Steal: where the value sits
 
 The two loops are deliberately weighted against each other.
 
-- **PVE is the faster reputation lane.** Every attempt resolves, you can grind up to your daily attempt budget, and a clean session walks your REP up the rank ladder steadily.
-- **PVP is the slower reputation lane but the only loot lane.** Attacks are rate-limited by your daily attack budget (<C path="pvp.maxAttacksPerDay" /> per day) and by the dealers actually in your area, so raw REP per session lags behind PVE. The compensation is the drop table above — Goods, Contraband, and Jewels only come from PVP wins, and the higher your infamy the better they land.
+- **Deal is the faster reputation lane.** Every attempt resolves, you can grind up to your daily attempt budget, and a clean session walks your REP up the rank ladder steadily.
+- **Steal is the slower reputation lane but the loot lane.** Attacks are rate-limited by your daily attack budget (<C path="pvp.maxAttacksPerDay" /> per day) and by the dealers actually in your area, so raw REP per session lags behind dealing. The compensation is the drop table above: Steal wins are the only repeatable source of Goods, Contraband, and Jewels, and the higher your infamy the better they land. [Missions](/the-game/missions) also pay exotic items, but on a daily and weekly clock rather than on demand.
 
-Pure PVE players climb the rank ladder fast and quietly. Pure PVP players climb more slowly but stack the exotic items that pay out at the Black Market. Most players end up doing a mix, and where you sit on that spectrum is part of how you play the game.
+Pure dealers climb the rank ladder fast and quietly. Pure stealers climb more slowly but stack the exotic items that pay out at the Black Market. Most players end up doing a mix, and where you sit on that spectrum is part of how you play the game.
 
 ## Etiquette and revenge
 
