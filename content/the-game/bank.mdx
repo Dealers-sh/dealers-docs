@@ -1,78 +1,103 @@
 ---
 title: Bank
-description: The 🏦 tab. Community bank heist seasons, where the whole crew grinds a shared vault and splits it by contribution.
+description: The 🏦 tab. Community Bank Heist seasons with ETH performance bonds, qualification targets, and cumulative ranked rewards.
 ---
 
 # /the-game/bank
 
-The 🏦 tab, labelled `VAULT` in the action bar, is the fourth activity loop. Where Deal, Steal, and Heist are things you do alone, a bank heist is a season length event the whole player base runs at once. Everybody puts in work, the vault gets cracked, and the take is split by how much each dealer contributed.
+The 🏦 tab, labelled `VAULT` in the action bar, is the fourth activity loop. A Bank Heist is a season-length event: dealers post an ETH performance bond, put in work across Deal, PVP, and Heist, and compete for a ranked share of the vault.
 
-The vault itself has been filling since launch. The ETH fees the game collects route into it, it does not reset between seasons, and it keeps growing while a season is running. What a season does is decide how much of it pays out and to whom.
+Bank Heist Vault V2 is deployed on Abstract mainnet. Season 3 opens on **Friday, 21 August 2026 at 00:00 UTC** and closes on **Friday, 4 September 2026 at 00:00 UTC**. The opening transaction is restricted to the first 15 minutes of that launch window, and its duration is shortened by any mined delay so the closing timestamp remains fixed. The tab is the authority on whether entry is currently open.
 
-There is no separate treasury holding it. The vault is the ETH balance of the `DealersBankHeist` contract itself, so the number the 🏦 tab shows you is a live on-chain read rather than a figure we publish. You can check it yourself against the contract on the block explorer, and the address is listed on [/contracts/addresses](/contracts/addresses).
+The vault is the ETH balance of the `DealersBankHeist` contract. The app exposes two numbers that should not be confused:
 
-One detail worth knowing if you do go and compare the two. Once a season settles, the ETH owed to that season's winners is reserved inside the contract until it is claimed, so during a claim window the raw balance is higher than the amount a new season could actually pay out. The figure that matters for the next season is the unreserved part.
+- **Gross vault** is every wei held by the contract.
+- **Available vault** excludes ETH already reserved for live entry bonds, refunds, and settled claims.
+
+The available balance is what a new season can safely draw from. This accounting prevents one season from spending ETH already owed to another. You can inspect the verified contract yourself; its current address is on [/contracts/addresses](/contracts/addresses).
 
 ## How a season works
 
-A season is opened with a fixed configuration: a buy-in, a reputation gate, a seat cap, how long it runs, what fraction of the vault forms the pot, how the three scored games are weighted, and the minimum amount of work required to qualify. That configuration locks the moment the season opens and cannot be changed afterwards, so the rules you are grinding against are fixed and public for the entire run.
+A season opens with a fixed configuration: its entry fee, reputation gate, seat cap, duration, vault share, scoring weights, qualification thresholds, focus bonus, claim and refund windows, and reward allocation. Those rules lock when the season opens. The briefing in the 🏦 tab is the source of truth for the current season.
 
-Those numbers change from season to season by design, which is why they are not printed here. The in-game briefing screen spells out the weights and the minimums for the current season, and the season card shows your live standing against them.
+The lifecycle is:
 
-The shape of a season is always the same. It opens and dealers buy in. It runs for its duration while entrants play and check in. It closes, scores are frozen, and the season settles. Then a claim window opens and every qualifying dealer takes their share.
+1. The season opens and dealers enter.
+2. Entrants play and check in during the season.
+3. After close, anyone can freeze scores in bounded pages.
+4. Qualified dealers are ranked in bounded pages.
+5. The season settles and reserves its claims.
+6. Dealer owners claim, then expired claims or refund dust can be swept back into the available vault.
+
+Both finalization passes are permissionless and resume from on-chain cursors, so a season can scale to 10,000 entrants without requiring one oversized transaction.
 
 ## Joining
 
-Joining costs `$CASH`, not ETH, and it is a pure sink: the buy-in leaves the economy rather than funding the pot. The pot comes from the vault. You also need to clear the season's reputation gate, there has to be a seat left under the entrant cap, and you cannot join from [jail](/the-game/jail).
+Joining costs the season's exact configured amount of ETH. Season 3 uses `0.001 ETH` per dealer. The call reverts if it receives more or less than the configured fee.
 
-Entry is per dealer, not per wallet. If you hold several dealers you can enter each one separately, and each pays its own buy-in and builds its own score.
+The fee is a performance bond, not a payment into the competitive pot. Every dealer who qualifies can claim at least the full entry fee back. An entrant who fails to qualify forfeits it when the season settles successfully. If the season is cancelled, closes below its minimum entrant count, has no qualifiers, or is abandoned without settlement, the entry is refundable in ETH.
 
-When you join, the game snapshots your current PVE, PVP, and heist counters as a baseline. Only work done after that point counts toward your score. The exception is a genesis season, which is flagged to skip the snapshot so that everything you have ever done counts retroactively. The briefing tells you when you are in one.
+Entry is per dealer, not per wallet. Each dealer must clear the season's reputation gate, have a seat available, be out of [jail](/the-game/jail), and post its own bond.
 
-Joining also grants your first day of focus automatically, so there is no need to check in again the day you join.
+Entry snapshots the dealer's PVE, PVP, and heist counters. Only activity after that point counts, which means two dealers joining on different days begin from their own zero. Joining also grants the first day of focus automatically.
 
 ## Focus
 
-Focus is a daily prep streak, and it is the one part of the mode that rewards showing up rather than grinding. You press `FOCUS` on the plan screen once per day and your focus count goes up by one.
+Focus is a daily prep streak. Press `FOCUS` on the plan screen once per UTC day and the count increases by one.
 
-The important thing to understand is that focus is a **multiplier on your score, not points added to it**. Your score is multiplied by one plus your focus count times the season's bonus rate. That has a consequence worth stating plainly: focus on its own earns you nothing. A dealer who checks in every single day but never plays has a score of zero, and zero multiplied by anything is still zero. Focus amplifies work, it does not replace it.
+Focus is a **multiplier on score, not points added to it**. A dealer who checks in but does not play still scores zero. UTC days reset at 00:00, skipped days cannot be recovered, and jailed dealers cannot check in.
 
-Check-ins run on UTC days and reset at 00:00 UTC. You get exactly one per day, and skipped days are gone rather than banked, so coming back after a three day gap earns you one point rather than three. You do not have to play to check in, but you do have to be out of jail, which is the second reason getting arrested is expensive during a season.
+## Qualifying and scoring
 
-## Qualifying
+Score is built from four configurable metrics. The current season may weight or disable any of them.
 
-Your score is built from three counters, which the briefing calls deals, fights, and jobs.
-
-| Scored game | What counts |
+| Metric | What counts |
 | --- | --- |
-| Deals | Every PVE game played, including wins, losses, and ties |
-| Fights | PVP attacks you initiate, win or lose |
+| Deals | PVE games played, including wins, losses, and ties |
+| Fights | PVP attacks initiated, win or lose |
 | Jobs | Heist runs started |
+| Total | The combined activity count |
 
-Two of those need care. Fights count the attacking side only, so being attacked does nothing for your score no matter how the fight goes. And jobs count when a run starts rather than when it finishes, so a run you abandon still counts.
+Only activity after entry counts. Fights count the attacker only, and jobs count when a run starts rather than when it finishes.
 
-Each season sets a minimum for each of the three, and sometimes a minimum for the combined total as well. **You must clear every one of them.** Missing a single minimum drops your score to zero outright, which means no cut, regardless of how far past the other thresholds you went. The qualify tiles on the plan screen show exactly where you stand against each one, so there is no reason to be surprised at settlement.
+Each active metric can have its own minimum. **A dealer must clear every configured threshold to qualify.** Missing one sets the final score to zero and forfeits the performance bond on a successful settlement.
+
+For Season 3, qualification requires 5 post-entry PVE games, 5 post-entry PVP games, and 5 post-entry heist runs. Each of those metrics has weight 1; the combined-total metric has weight 0.
+
+Final rank is deterministic. Higher frozen score wins. A tied score goes to the dealer with higher reputation at finalization; if reputation is also tied, the lower dealer token ID ranks first.
 
 ## Your cut
 
-Settlement takes a slice of the vault, sets it aside as the pot, and divides it between qualifying entrants in proportion to their frozen scores. Your cut is the pot multiplied by your score, divided by the total score of everyone who qualified.
+Every qualified dealer receives at least the entry fee. Competitive rewards stack on top of that minimum rather than replacing it.
 
-The pot is not a fixed number sitting there waiting for you. It is calculated at settlement from whatever the vault holds at that moment, and the vault is still filling the entire time the season runs, because the ETH fees the game collects flow into it. A busy season with a lot of dealers playing ends with a bigger vault, and therefore a bigger pot, than a quiet one.
+The V2 launch allocation divides the competitive pot like this:
 
-That is worth understanding because it changes how you should think about other players. Your cut is your score divided by everyone's score, so another dealer grinding hard does reduce your fraction of the pot. But their play is also feeding the vault that pot comes from. The two effects pull in opposite directions, which is why the mode is built as a crew job rather than a race: the season going well is good for everyone in it.
+| Layer | Eligible dealers | Allocation |
+| --- | --- | --- |
+| Base | Every qualified dealer, weighted by score | 40% |
+| Contender | Top 20%, weighted by score | 25% |
+| Elite | Top 5%, weighted by score | 20% |
+| First place | Rank 1 | 8% |
+| Second place | Rank 2 | 4.5% |
+| Third place | Rank 3 | 2.5% |
 
-Payment goes to whoever owns the dealer NFT at the moment of claiming, not to whoever played the season. Selling a dealer between settlement and claim sells the unclaimed cut along with it.
+These layers are cumulative. A first-place dealer receives the entry-fee minimum, a base share, a contender share, an elite share, and the first-place allocation.
+
+A percentile pool needs at least four recipients to activate. If the qualified field is too small, that pool rolls into the score-weighted base allocation. The season briefing shows the live configuration; future seasons can use different values.
+
+Payment goes to whoever owns the dealer NFT at claim time, not necessarily the wallet that played the season. Selling a dealer after settlement transfers its unclaimed reward with it.
 
 ## When a season ends
 
-After the season closes, scores are frozen and the season settles. The claim window then runs from the moment of settlement, not from when the season closed, so the countdown on the result screen is the one to watch. Anything left unclaimed when the window expires sweeps back into the vault and funds the next season.
+After close, scores and reputation are frozen, ranks are assigned, and settlement reserves the qualified entry minimums plus the competitive pot. The claim window begins at settlement. Anything left after it expires returns to the available vault when the season is swept.
 
-Not every season pays out. If a season closes with fewer entrants than its minimum, gets cancelled, or is abandoned without settling inside its grace window, it refunds instead. Refunds return your `$CASH` buy-in and nothing else, they are never ETH, and you claim them from the same tab. A season that has settled can never be refunded, and a season that has refunded can never be settled, so the two paths never overlap.
+If the season is cancelled, below its minimum entrant count, has no qualifiers, or passes the settlement deadline unresolved, the refund path opens instead. Each entrant can reclaim the exact ETH entry fee during the refund window. Settlement and refunds are mutually exclusive.
 
 ## Edge cases worth knowing
 
-- **Jail costs you focus, not score.** Time inside does not erase work you already did, but you cannot check in while locked up, and those days are unrecoverable.
-- **An abandoned heist still counts as a job.** Runs are counted when they start. This is a real quirk rather than an oversight, so plan around it as you see fit.
-- **Unfinished business comes first.** If an earlier season still owes you a cut or a refund, the tab shows you that before it shows you a newly opened season. Money on the table is never buried under a new invite.
-- **The buy-in is not the pot.** The `$CASH` you pay to join is removed from the economy. The ETH you are competing over comes from the vault, which is funded by game fees.
-- **Fast play covers the whole mode.** Joining, focusing, claiming, and refunding all run through the session key, so `/fastplay` in the [pager](/the-game/pager) makes the daily check-in a single tap.
+- **Deployment does not mean entry is open.** Follow the scheduled Season 3 window and the live state shown in the tab.
+- **Gross is not available.** Reserved entries, refunds, and claims remain in the contract balance but cannot fund another season.
+- **Jail costs focus, not existing score.** Work already recorded remains, but missed focus days cannot be recovered.
+- **An abandoned heist still counts as a job.** The metric increments when the run starts.
+- **Qualification protects the bond.** A qualified dealer gets at least the entry fee back; an unqualified dealer forfeits it if the season settles.
+- **Fast play covers player actions.** Entering, focusing, claiming, and refunding can use the session key when its policy includes the V2 contract and payable entry value.

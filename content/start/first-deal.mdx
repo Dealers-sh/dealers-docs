@@ -26,7 +26,7 @@ Read every line. The first few sessions are about learning how big those swings 
 
 ## Heat equals risk
 
-Heat is the second most important number on your sheet. Every action adds one. **Clear Heat** is the explicit action that pulls it back down, and it costs cash. Every time you act, the game rolls for arrest at heat × <C path="core.config.jailChancePerHeat" format="perMille" /> — so heat 1 is a <C path="core.config.jailChancePerHeat" format="perMille" /> jail chance per action, heat <C path="core.maxHeatLevel" /> is <HeatRiskMax />. There is no automatic jail threshold; it is a roll on every action. See [/the-game/jail](/the-game/jail) for what jail looks like and how to get out.
+Heat is the second most important number on your sheet. Every action adds one. **Clear Heat** is the explicit action that resets it to zero, for a current fee of <C path="core.config.bribeCopFee" format="eth" /> rather than dealer `$CASH`. Every time you act, the game rolls for arrest at heat × <C path="core.config.jailChancePerHeat" format="perMille" /> — so heat 1 is a <C path="core.config.jailChancePerHeat" format="perMille" /> jail chance per action, heat <C path="core.maxHeatLevel" /> is <HeatRiskMax />. There is no automatic jail threshold; it is a roll on every action. See [/the-game/jail](/the-game/jail) for what jail looks like and how to get out.
 
 Good dealers do not avoid heat — they price it in. Every action carries a small jail tax. Plan around it.
 

@@ -17,7 +17,7 @@ When you open the deal tab on the streets of a normal area, you are presented wi
 
 - **Buy** lets you purchase a drug at the local price. It costs cash, it costs one attempt from your daily budget, and it adds the resulting amount to your stash. 
 - **Sell** offloads a drug from your stash at the local price. It pays you cash and also costs one attempt. 
-- **Clear Heat** is only available when your current heat level is above zero, and it allows you to spend cash to drop police attention rather than continuing to risk being arrested.
+- **Clear Heat** is only available when your current heat level is above zero. It is a payable ETH action that resets heat to zero rather than spending dealer `$CASH`.
 
 ## Area limits
 
@@ -49,4 +49,4 @@ Each buy or sell costs one attempt from your current period's budget, displayed 
 
 Every action adds one heat, capped at <C path="core.maxHeatLevel" />. On every action the game rolls for arrest with chance equal to heat × <C path="core.config.jailChancePerHeat" format="perMille" />, so heat <C path="core.maxHeatLevel" /> is a <HeatRiskMax /> jail risk per action. 
 
-The Clear Heat action provides an out: pay a cash fee to drop one level back down. The decision of when to clear is one of the recurring economic choices in the game. Sometimes the cash is better spent on more inventory, and sometimes preserving your run is worth the spend.
+The Clear Heat action provides an out: pay the current <C path="core.config.bribeCopFee" format="eth" /> fee to reset heat to zero. The decision of when to clear is one of the recurring economic choices in the game. Sometimes preserving the ETH runway is worth the arrest risk, and sometimes preserving the run is worth the fee.

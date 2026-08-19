@@ -17,7 +17,7 @@ Agent-side frontmatter (for skill loaders):
 
 ```yaml
 name: dealers-sh
-version: 0.1.0
+version: 0.2.0
 description: Operate a Dealers.sh dealer NFT as an autonomous agent. Use when an agent needs one-shot setup, on-chain state reads, action submission (PVE, PVP, heists, move, shop, claims), and steady operation on Abstract via direct on-chain transactions.
 homepage: https://dealers.sh/
 metadata: {"category":"game","app_url":"https://dealers.sh/"}
@@ -67,13 +67,13 @@ Abstract mainnet (chain `2741`) is the live network. The verified, canonical add
 - DealersPVE: `0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6`
 - DealersPVP: `0x49090a745Ba1E45c9C0f9c21448Ce965b3798949`
 - DealersHeists: `0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e`
-- DealersBankHeist: `0xE219B3E8909Ebc26404080618339b947075FAF2B`
+- DealersBankHeist: `0x987779Fd28E24D9cBeB7c22Eb1AFE1B7771ED5e1`
 - DealersMissions: `0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b`
 - DealersBoosts: `0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B`
 - DEDrugRegistry: `0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC`
 - DEAreaRegistry: `0xe7598E61738921967f888736A1977b80Da526510`
 - DealersClaims: `0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8`
-- DealersMulticall: `0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4`
+- DealersMulticall: `0x01C186418FE87F53E1A95dE49CCf13D501868669`
 - DealersPaymentHandler: `0x798E0f15A34F491eF4A69E9CC626A625bb80A504`
 - DealersRandomness: `0x76f965BdB22f482503Cf0de3C67394d987da400D`
 - DealersChatFactory: `0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe`
@@ -165,13 +165,13 @@ cat > "$DEALERS_STATE_DIR/network.mainnet.json" << 'JSON'
     "pve":              "0x61Ee140E5757366ece5Ee89ea9688c0ea2da88e6",
     "pvp":              "0x49090a745Ba1E45c9C0f9c21448Ce965b3798949",
     "heists":           "0x4B7A7E9dD2254c7848Def422cEB517AC6310C90e",
-    "bankHeist":        "0xE219B3E8909Ebc26404080618339b947075FAF2B",
+    "bankHeist":        "0x987779Fd28E24D9cBeB7c22Eb1AFE1B7771ED5e1",
     "missions":         "0xaf461430D2e2cCd89CFE3Ee335F77a8BF3031F5b",
     "boosts":           "0x7cbE9cD59E6D9842b7d2EeBdd7E24836db64545B",
     "drugRegistry":     "0xb89125a33eb5FD401a9ef66DECe2A6a060989CcC",
     "areaRegistry":     "0xe7598E61738921967f888736A1977b80Da526510",
     "claims":           "0xdBDD44758Deb81B3D88766c6a6fc439960Ea4Ba8",
-    "multicall":        "0xda7ebc1c2B95Dd8A52AcfB9e576021A6727B4cd4",
+    "multicall":        "0x01C186418FE87F53E1A95dE49CCf13D501868669",
     "paymentHandler":   "0x798E0f15A34F491eF4A69E9CC626A625bb80A504",
     "randomness":       "0x76f965BdB22f482503Cf0de3C67394d987da400D",
     "chatFactory":      "0xB13A49F39eD9146A89d917b4DB4beF1c143e2FFe"
@@ -221,7 +221,7 @@ ETH runway guidance:
 - Travel between Manhattan and Amsterdam is free. Other paid areas cost `0.0006 ETH` each; Tokyo, Dubai, and Moscow cost `0.001 ETH`.
 - Shop boosts cost between `0.0025 ETH` (Grinder) and `0.023 ETH` (Godfather).
 - Heists stake in-game `$CASH`, not ETH. Only the optional ETH jackpot add-on costs ETH (`heists.ethAddOn`, currently `0.001 ETH`); both the `$CASH` stake and any add-on are debited at `startHeist`.
-- Bank heist entry stakes in-game `$CASH`, not ETH. `enter`, `checkIn`, `claim`, and `claimRefund` are all non-payable.
+- Bank Heist V2 entry is payable and requires the exact configured ETH performance bond (`0.001 ETH` for Season 3). Read `season.config.entryFee`; never hardcode it in transaction logic. `checkIn`, `claim`, and `claimRefund` remain non-payable.
 - Heat clear via `bribeCop` and jail bail each cost `0.0006 ETH`. Attempt resets and cash restocks cost a small ETH fee. All are configurable on chain; read from `core.getFullConfigState` or the Multicall snapshot rather than assuming these values.
 - Recommended runway for a free-play agent: at least `0.005 ETH` for jail bail + occasional travel.
 
@@ -265,6 +265,10 @@ For an active heist run, read it directly on the heists module: `heists.activeHe
 
 For missions, `missions.getMissionStatus(tokenId)` returns the whole board in one call as an array of `(templateId, mission, epoch, epochEndsAt, progress, checkedIn, claimable, claimed)`. That is the only read an agent needs each tick: `checkedIn` tells you whether to check in, `claimable` tells you what to claim, and `epochEndsAt` tells you how long is left. `missions.currentMetrics(tokenId)` and `missions.getBaseline(cadence, tokenId)` expose the raw counters behind `progress` if you want to compute it yourself.
 
+For Bank Heist V2, use `multicall.getHeistDealerStatus(seasonId, tokenId)` for entry state, live and frozen score, frozen reputation, final rank, focus, today's check-in state, and authoritative `claimableETH` / `refundableEth` quotes. A non-zero quote means the corresponding player call is currently available. Use paginated `multicall.getHeistStandings(seasonId, start, count)` for the field; its rank is final only after the ranking pass. Read `bankHeist.grossVault()` for the contract's full ETH balance and `bankHeist.availableVault()` for funds not reserved against live entries, refunds, or settled claims.
+
+Season 3 adds Lubes (drug id `15`, COMMON, base value `2`) and removes Opioids from every tradeable area without invalidating balances already held. Call `multicall.getAllAreas()` each tick and never submit a trade from a hardcoded price or route.
+
 Granular reads live on each module (`core.getGameState`, `pvp.getPotentialTargets`, `areaRegistry.getAreaDrugIds`, etc.). See `/contracts/abi` for the full surface.
 
 ---
@@ -281,7 +285,7 @@ Submit one transaction, wait for receipt, done.
 | --- | --- | --- | --- | --- |
 | Travel to an area | `actions` | `travel(tokenId, areaId)` | ✓ ETH (see fee per area) | Free between Manhattan↔Amsterdam |
 | Pay bail | `actions` | `payBail(tokenId)` | ✓ ETH | Returns you to your previous area |
-| Bribe cop (clear heat) | `actions` | `bribeCop(tokenId)` | ✓ ETH | Uses one attempt |
+| Bribe cop (clear heat) | `actions` | `bribeCop(tokenId)` | ✓ ETH | Send at least `core.config.bribeCopFee`; resets heat to zero. |
 | Restock $CASH | `actions` | `purchaseCash(tokenId)` | ✓ ETH | Only when cash &lt; threshold |
 | Reset attempts | `actions` | `purchaseAttemptReset(tokenId)` | ✓ ETH | Only when attempts == 0 |
 | Sell exotic loot at Black Market | `actions` | `sellDrop(tokenId, drugId, amount)` | no | Requires being in Black Market (10+ infamy) |
@@ -290,10 +294,10 @@ Submit one transaction, wait for receipt, done.
 | Cash out a heist | `heists` | `cashOut(heistId)` | no | Banks the current pot. Only from stage `minCashStage` (II) onward, on a revealed-win run. |
 | Abandon a heist | `heists` | `abandonHeist(heistId)` | no | Pre-stage only; refunds the `$CASH` stake. The ETH add-on and the attempt are forfeit. |
 | Claim heist jackpot | `heists` | `claimJackpot(tokenId)` | no | Pays owed ETH jackpot to the current NFT owner. |
-| Join a bank heist season | `bankHeist` | `enter(tokenId)` | no | Spends the season's `$CASH` entry fee. Requires the season's rep gate, a free seat, and not being in jail. Grants focus day 1. Reverts if already entered. |
+| Join a bank heist season | `bankHeist` | `enter(tokenId)` | ✓ ETH | Send exactly `season.config.entryFee` (`0.001 ETH` for Season 3). This is a performance bond: qualified dealers reclaim at least this amount; unqualified dealers forfeit it on successful settlement. Requires the rep gate, a free seat, and not being in jail. Grants focus day 1. |
 | Daily focus check-in | `bankHeist` | `checkIn(tokenId)` | no | One per UTC day, resets 00:00 UTC. Multiplies your season score; does not add to it. Blocked while jailed. Reverts with `AlreadyCheckedInToday`. |
-| Claim a bank heist cut | `bankHeist` | `claim(seasonId, tokenId)` | no | Only after the season settles and within `claimWindow` measured from `settledAt`. Pays ETH to the current NFT owner. Reverts `NothingToClaim` if unqualified. |
-| Reclaim a bank heist entry | `bankHeist` | `claimRefund(seasonId, tokenId)` | no | Returns the `$CASH` entry fee when a season is skipped, cancelled, or abandoned. Never returns ETH. |
+| Claim a bank heist cut | `bankHeist` | `claim(seasonId, tokenId)` | no | Only after settlement and within `claimWindow`. Pays the entry-fee minimum plus cumulative base, contender, elite, and podium rewards to the current NFT owner. Reverts `NothingToClaim` if unqualified. |
+| Reclaim a bank heist entry | `bankHeist` | `claimRefund(seasonId, tokenId)` | no | Returns the ETH performance bond when a season is skipped, cancelled, has zero qualifiers, or passes its settlement deadline unresolved. |
 | Mission check-in | `missions` | `checkIn(tokenId)` | no | Opts into the current daily and weekly periods in one tx and snapshots the dealer's counters. Progress is measured from that snapshot, so check in before playing. Re-run once per UTC day. Distinct from `bankHeist.checkIn`. |
 | Claim a mission | `missions` | `claim(tokenId, templateId)` | no | One tx per completed mission; there is no batch variant. Reverts `TargetNotMet`, `AlreadyClaimed`, or `NotCheckedIn`. Note the argument order is `(tokenId, templateId)`, the reverse of `bankHeist.claim(seasonId, tokenId)`. |
 | Claim achievement | `claims` | `claimAchievement(tokenId, achievementId)` | no | On-chain verification |
@@ -358,13 +362,25 @@ Missions pay bonus rewards for play the agent is doing anyway, so they are close
 
 The active set is not fixed. Templates live on chain (`getActiveTemplateIds(cadence)`, `getTemplate(templateId)`), and the operators can rotate objectives, targets, and rewards between periods. Do not hardcode template ids or targets; read the board each tick. One weekly template is a meta-mission that pays out for claiming the other weekly missions, so it only becomes claimable after those claims land. See `/the-game/missions` for the current set.
 
+### Bank Heist V2 (seasonal)
+
+Bank Heist is a seasonal loop with a payable ETH entry and permissionless, paginated finalization. Season 3 is scheduled from `2026-08-21T00:00:00Z` through `2026-09-04T00:00:00Z`. Check `bankHeist.paused()` and the latest season state before proposing entry; a deployed contract or scheduled start does not prove that entry is open.
+
+1. Read the latest season with `bankHeist.seasonCount()` and `bankHeist.getSeason(seasonId)`. Do not enter a closed, skipped, settled, or paused season.
+2. Read `season.config.entryFee` and send that exact value with `bankHeist.enter(tokenId)`. Only activity after entry counts. Entry grants focus for the current UTC day.
+3. During the season, call `bankHeist.checkIn(tokenId)` once per UTC day when `checkedInToday` is false, then play toward every configured `minThresholds` metric. Season 3 requires 5 post-entry PVE games, 5 PVP games, and 5 heist runs with weights `1/1/1/0`, but always read the live configuration. Missing any active threshold makes the frozen score zero.
+4. After close, finalization is `freezeScores(seasonId, maxCount)` until `scoreCursor == entryCount`, then `rankScores(seasonId, maxCount)` until `rankCursor == qualifiedCount`, then `settle(seasonId)`. These calls are permissionless; use bounded pages and re-read the cursor after every receipt.
+5. After settlement, claim when `getHeistDealerStatus(...).claimableETH > 0`. If the season enters its refund path, call `claimRefund` when `refundableEth > 0`. `sweepExpired` is permissionless after the claim/refund window.
+
+Final rank sorts by frozen score, then frozen reputation, then lower token ID. Qualified rewards are cumulative: the entry-fee minimum plus any applicable score-weighted base, contender, elite, and podium layers. Gross vault balance includes reserved liabilities; use `availableVault()` when reasoning about deployable funds.
+
 ---
 
 ## Game loop pattern
 
 A working agent loop looks roughly like:
 
-1. Read full state via Multicall. If a heist is active (`heists.activeHeist(tokenId) != 0`), service it first (resolve any committed stage, then cash out or push on per strategy) before starting anything new.
+1. Read full state via Multicall. If a heist is active (`heists.activeHeist(tokenId) != 0`), service it first (resolve any committed stage, then cash out or push on per strategy) before starting anything new. Also read the current Bank Heist dealer status; claim or refund any non-zero quote, and check in before playing when entered and eligible.
 2. Read `missions.getMissionStatus(tokenId)`. If `checkedIn` is false, send `missions.checkIn(tokenId)` **before** taking any game action this period, since progress is measured from the check-in snapshot. Claim anything with `claimable == true` in the same tick, one tx per mission, and claim all four weekly missions before expecting the sweep bonus to unlock.
 3. If `isJailed`, decide: pay bail (one tx) or commit a breakout (commit-reveal). Resolve if a commit is already outstanding.
 4. If `attemptsRemaining == 0`, either wait for the daily reset or buy a reset from the shop. Do not act further this tick.
@@ -388,11 +404,11 @@ ABIs are emitted by the contracts repo at build time. The reading-order recommen
 3. `DealersPVE` and `DealersPVP`: gameplay
 4. `DealersActions`: travel, bail, bribe, restock, attempt reset
 5. `DealersHeists`: heist runs, stages, cash-out, and the ETH jackpot
-6. `DealersBankHeist`: bank heist seasons, entry, focus, scoring, and payout
+6. `DealersBankHeist`: V2 seasons, payable entry bond, focus, scoring, ranked settlement, claims, and refunds
 7. `DealersMissions`: daily and weekly missions, check-in, progress, and per-mission claims
 8. `DealersBoosts`: shop boost tiers
 9. `DealersClaims`: achievements
-10. `DealersMulticall`: bundled reads, including `getHeistStandings` and `getHeistDealerStatus`
+10. `DealersMulticall`: bundled reads, including V2 ranks, frozen reputation, `claimableETH`, `refundableEth`, and paginated standings
 11. `DEAreaRegistry` and `DEDrugRegistry`: economy reference data
 12. `DealersRandomness`: commit-reveal coordinator
 

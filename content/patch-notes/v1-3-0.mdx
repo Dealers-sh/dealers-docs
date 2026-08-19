@@ -1,0 +1,80 @@
+---
+title: v1.3.0 patch notes
+description: Full detail for Season 3. Bank Heist Vault V2, ranked rewards, the new area economy, Lubes, and Multicall v1.3.
+---
+
+# /patch-notes/v1-3-0
+
+This is the long form of the [v1.3.0 entry](/patch-notes) on the changelog. It covers the Season 3 schedule, Bank Heist Vault V2 economics and settlement flow, the area economy migration, the new Multicall read surface, and the two replacement contracts. If you only want the summary, the changelog has it.
+
+v1.3.0 rebuilds Bank Heist around an ETH performance bond and a competitive leaderboard that can settle as many as 10,000 entrants. It also makes the vault's liabilities explicit so the app and indexer can distinguish ETH that is present from ETH that is actually available, and ships the Season 3 market.
+
+## Season window
+
+Season 3 opens on **Friday, 21 August 2026 at 00:00 UTC** and closes on **Friday, 4 September 2026 at 00:00 UTC**.
+
+Bank Heist V2 timestamps the transaction that opens the season. The production script accepts that transaction only during the first 15 minutes after the scheduled opening and subtracts the mined delay from `duration`, keeping the closing timestamp fixed at 4 September 00:00 UTC.
+
+The economy migration does not redeploy a game contract. It is run and verified on testnet first, then repeated on mainnet. The Bank Heist season transaction is not broadcast before the launch window.
+
+## ETH performance bond
+
+Joining a season now requires the exact configured ETH entry fee instead of an in-game `$CASH` buy-in. Season 3 sets that fee to `0.001 ETH` per dealer. Entry is still per dealer, and only activity completed after that dealer enters contributes to qualification or score.
+
+The entry acts as a performance bond. Every dealer who qualifies can claim at least the full entry fee, plus any competitive rewards earned. A dealer who enters but does not qualify forfeits the bond when a season settles successfully. If the season is cancelled, closes below its minimum entrant count, produces no qualifiers, or is abandoned without settlement, every entrant can reclaim the ETH entry instead.
+
+Season 3 qualification is **5 PVE games, 5 PVP games, and 5 heist runs**, all completed after entry. PVE, PVP, and heists each have scoring weight 1; the combined-total metric remains at weight 0.
+
+## Ranked, cumulative rewards
+
+Qualified dealers share several reward layers. The layers are cumulative: a podium dealer also participates in every percentile and base pool for which they qualify.
+
+| Layer | Eligible dealers | Share of the competitive pot |
+| --- | --- | --- |
+| Base | Every qualified dealer, weighted by score | 40% |
+| Contender | Top 20%, weighted by score | 25% |
+| Elite | Top 5%, weighted by score | 20% |
+| First place | Rank 1 | 8% |
+| Second place | Rank 2 | 4.5% |
+| Third place | Rank 3 | 2.5% |
+
+A percentile pool activates only when it has at least four recipients. If the elite or contender band would be smaller, that allocation rolls into the score-weighted base pool instead of concentrating in too few wallets.
+
+Final order is deterministic. Higher frozen score ranks first; tied scores are ordered by reputation snapshotted during finalization, then by lower dealer token ID.
+
+## Vault accounting
+
+The contract now exposes a gross vault balance and an available vault balance. Gross is the ETH held by the contract. Available excludes reserved liabilities: live entry bonds, open refunds, and settled rewards that have not yet been claimed.
+
+That distinction prevents one season from spending ETH already owed by another. A successful settlement reserves every qualifier's entry-fee minimum before calculating the competitive pot. Expired claims and refund dust return to the available vault only after the relevant window is swept.
+
+## Season 3 area economy
+
+Season 3 adds **Lubes** as drug id `15`, with `COMMON` rarity and a registry base cash value of `2`. **Opioids remains registered and any balances already held remain valid, but it is not tradeable in any Season 3 area.**
+
+Every street market gets a new drug selection and price pass. Manhattan keeps its favorable free-to-play Weed loop, while premium areas continue to combine low-buy farming with stronger sell exits elsewhere. Prices are dealer `$CASH` per unit and shown as `buy/sell`.
+
+Amsterdam shows what the new setup looks like:
+
+| Area | Weed | Lubes | Meth |
+| --- | --- | --- | --- |
+| Amsterdam | `3/2` | `2/2` | `25/22` |
+
+The live market in the game is the authority for every other area and route.
+
+## Multicall v1.3
+
+`DealersMulticall` now returns the V2 season, entry, score, rank, qualification, reward, reserve, and vault fields needed by the app and indexer. Its dealer-status view exposes frozen reputation and final rank alongside live and frozen score, focus, claim state, `claimableETH`, and `refundableEth`. The standings view remains paginated and returns finalized ranks once they exist.
+
+## Deployment status
+
+Both replacement contracts are deployed on Abstract mainnet. Bank Heist V2 remains paused until the scheduled Season 3 launch transaction, after the legacy season is settled, its claim reserves are preserved, only genuinely available ETH is migrated, and the app/API bundle is switched.
+
+`PaymentHandler.bankVault` is unchanged by design.
+
+| Contract | Address |
+| --- | --- |
+| `DealersBankHeist` V2 | `0x987779Fd28E24D9cBeB7c22Eb1AFE1B7771ED5e1` |
+| `DealersMulticall` v1.3 | `0x01C186418FE87F53E1A95dE49CCf13D501868669` |
+
+The canonical address list, with explorer links, is on [/contracts/addresses](/contracts/addresses). The published source and validation record are in the [v1.3.0 GitHub release](https://github.com/Dealers-sh/dealers-contracts/releases/tag/v1.3.0).

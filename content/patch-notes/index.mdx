@@ -7,6 +7,14 @@ description: Commit-style updates to the Dealers.sh game and to these docs.
 
 This page is the changelog for the project. New entries are added at the top, and each entry describes what changed, when it changed, and links to the relevant contract or page when there is something to link to. The format is intentionally short and factual, so that scanning the history of the project is quick. Where a release is large enough to warrant it, the entry links to a dedicated patch notes page with the full detail.
 
+## v1.3.0 / Season 3 — Bank Heist V2 and Area Economy
+
+Season 3 runs from **Friday, 21 August 2026 at 00:00 UTC** through **Friday, 4 September 2026 at 00:00 UTC**. 🏦 Bank Heist has been rebuilt around an ETH performance bond and a ranked reward stack. Entry costs exactly `0.001 ETH`, and every dealer who completes 5 post-entry PVE games, 5 PVP games, and 5 heist runs can claim at least that fee back. Qualified dealers also share a score-weighted base pool while the top 20%, top 5%, and podium finishers stack additional rewards.
+
+Settlement now freezes scores and builds the final ranking in permissionless pages, supporting seasons with as many as 10,000 entrants. Rankings break ties by frozen reputation and then lower dealer token ID. The vault also exposes gross and available balances separately so entries, refunds, and unsettled claims cannot be counted as free funds.
+
+The area economy moves with the season. Lubes joins the registry and the street markets get a new price and availability pass. Opioids leaves the tradeable rotation without invalidating balances already held. The full timing, mechanics, economy summary, and contract addresses are on [/patch-notes/v1-3-0](/patch-notes/v1-3-0).
+
 ## v1.2.0 / missions
 
 📋 Missions is a new module. Every day and every week the game posts a short list of objectives, you check in for free to opt into them, and play from the loops you were already running ticks the counters. Completed missions are claimed one at a time and pay reputation, infamy, or exotic items. Clearing the full weekly set pays the big one, in Jewels. Daily missions reset at 00:00 UTC and weekly missions reset at 00:00 UTC on Thursday, and nothing survives a reset, including rewards you finished but did not claim. One catch worth knowing before your first period: the check-in snapshots your counters, so only play after it counts. Full mechanics on [/the-game/missions](/the-game/missions).

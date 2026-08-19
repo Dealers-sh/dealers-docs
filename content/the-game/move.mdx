@@ -9,7 +9,7 @@ The ✈️ tab is what makes the rest of the game work. Every area in Dealers.sh
 
 ## Why you would move
 
-There are several distinct reasons to relocate, and most experienced players cycle through all of them in a session. The most common reason is price arbitrage: you have bought stock in one area and want to sell it where the local price is higher. The second reason is heat management: a Safe House lets you sit out for a stretch and cool down without spending cash on the Clear Heat action. The third reason is PVP: a different area means a different list of potential targets, which is useful if your current area's pool of dealers has gone stale or hostile.
+There are several distinct reasons to relocate, and most experienced players cycle through all of them in a session. The most common reason is price arbitrage: you have bought stock in one area and want to sell it where the local price is higher. The second reason is heat management: a Safe House lets you sit out for a stretch and cool down without paying the ETH fee for Clear Heat. The third reason is PVP: a different area means a different list of potential targets, which is useful if your current area's pool of dealers has gone stale or hostile.
 
 ## Types of areas
 
@@ -34,8 +34,20 @@ Every other area charges its own travel fee, and entry is gated by reputation:
 
 The Black Market is free to enter and free to exit. Several other moves are free as well: the first time you ever travel out of the starting area, and any travel while an active Kingpin or Godfather boost is running (those tiers carry the free-movement perk).
 
+## Season 3 market
+
+The Season 3 economy takes effect when the season opens on **21 August 2026 at 00:00 UTC**. Every street market gets a new drug selection and price pass, and Manhattan retains its favorable free-to-play Weed loop.
+
+Lubes is the new addition: drug id `15`, `COMMON`, with a base cash value of `2`. Amsterdam is one example of the Season 3 layout; prices are dealer `$CASH` per unit, shown as `buy/sell`:
+
+| Area | Weed | Lubes | Meth |
+| --- | --- | --- | --- |
+| Amsterdam | `3/2` | `2/2` | `25/22` |
+
+Opioids remains registered and held balances remain valid, but it is not available to buy or sell in any Season 3 area. Read the live area cards for the rest of the market; prices and availability are on-chain and the game is the authority.
+
 ## When the move tab handles jail
 
-When an arrest roll lands during an action, the game moves you to jail immediately, and the move tab takes on a different role. Instead of choosing a destination, you choose how to leave. Paying bail costs cash but is guaranteed to release you. Attempting a breakout costs no cash but is not guaranteed: it can fail and leave you locked in for another period.
+When an arrest roll lands during an action, the game moves you to jail immediately, and the move tab takes on a different role. Instead of choosing a destination, you choose how to leave. Paying bail costs ETH but is guaranteed to release you. Attempting a breakout is free but not guaranteed: it can fail and leave you locked in for another period.
 
 For the full mechanics of both options, see [/the-game/jail](/the-game/jail).
